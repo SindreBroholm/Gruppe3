@@ -15,6 +15,7 @@ drop table events;
 drop table notification;
 
 
+
 create table board(
     Id int unique auto_increment,
     name varchar(100) not null unique,
