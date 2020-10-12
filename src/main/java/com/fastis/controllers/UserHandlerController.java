@@ -1,19 +1,18 @@
 package com.fastis.controllers;
 
-import com.fastis.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class UserHandlerController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private UserRepository repository;
 
-
-
+    public UserHandlerController(UserRepository repository) {
+        this.repository = repository;
+    }
     /*
     *
     *
@@ -22,8 +21,9 @@ public class UserHandlerController {
     * */
 
     @GetMapping("/signin")
-    public String viewSignIn(){
-
+    public String viewSignIn(Model model){
+        User user = repository.findByEmail("Sindreset@gmail.com");
+        model.addAttribute("user", user.getFirstname());
         return "signin";
     }
 

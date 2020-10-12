@@ -1,6 +1,5 @@
-package com.fastis.repository;
+package com.fastis.controllers;
 
-import com.fastis.accountManagement.User;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository<User, Integer> {
