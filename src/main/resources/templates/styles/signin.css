@@ -3,6 +3,7 @@
     margin: 0px;
     padding: 0px;
 }
-#main {
-    color: aquamarine;
+body {
+    width: 375px;
+    height: 812px;
 }
