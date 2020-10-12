@@ -22,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/home", "/init", "/h2", "/h2/**").permitAll()
+                .antMatchers("/", "/home", "/init").permitAll()
                 // hasRole adds ROLE_ as prefix so actual role checked is ROLE_ADMIN
                 // Use hasAuthority to check role without ROLE_ prefix
                 .antMatchers("/admin").hasRole("ADMIN")

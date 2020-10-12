@@ -10,24 +10,25 @@ public class User {
     private int id;
 
     @Column(nullable = false, unique = true)
-    private String username;
+    private String email;
+
+    private String firstname;
+
+    private String lastname;
 
     private String password;
 
-    public int getId() {
-        return id;
+
+    public User() {
+
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getEmail() {
+        return email;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
