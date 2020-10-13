@@ -1,6 +1,7 @@
-package com.fastis.controllers;
+package com.fastis.security;
 
 
+import com.fastis.data.User;
 import com.fastis.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

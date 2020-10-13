@@ -1,5 +1,6 @@
-package com.fastis.controllers;
+package com.fastis.security;
 
+import com.fastis.data.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

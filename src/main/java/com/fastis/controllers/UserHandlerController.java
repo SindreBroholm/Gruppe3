@@ -1,5 +1,6 @@
 package com.fastis.controllers;
 
+import com.fastis.data.User;
 import com.fastis.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -22,18 +23,18 @@ public class UserHandlerController {
     /*
     *
     *
-    *       SIGN IN
+    *       LOG IN
     *
     * */
 
-    @GetMapping("/signin")
+    @GetMapping("/login")
     public String viewSignIn(Model model){
         User user = repository.findByEmail("Sindreset@gmail.com");
         model.addAttribute("user", user.getFirstname());
-        return "signin";
+        return "login";
     }
 
-    @PostMapping("/signin")
+    @PostMapping("/login")
     public String signIn(){
 
         return "/home";

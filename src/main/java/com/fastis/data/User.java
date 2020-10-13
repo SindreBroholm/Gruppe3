@@ -1,4 +1,4 @@
-package com.fastis.controllers;
+package com.fastis.data;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
