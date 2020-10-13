@@ -35,7 +35,7 @@ create table user_role(
 
 create table events(
     Id int unique auto_increment,
-    Board_Id int not null unique,
+    Board_Id int not null,
     Message varchar(5000) not null,
     Datetime_From datetime not null,
     Datetime_To datetime not null,
