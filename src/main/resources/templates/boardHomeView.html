@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>homeBoard</title>
@@ -13,7 +13,7 @@
     <section class="imagehodler">
         <img id="mainimage" src="https://lh3.googleusercontent.com/proxy/2Z-YIh_DztKx89QCCkdWmdwMtP2O5pGDjBV_GKX68IJahemBP5znmMs62nQp4EUDrhAQQBRLZOsLtNGCzaDJw7sQfIjA9sXLToRFvZ7rc7TFx0kwgKIp2E7Bd2oDL0040w7URMfaNuoo">
         <img id="overgroupimage" src="">
-        <h1>Title of Board</h1>
+        <h1 th:text="${currentBoard.name}">Title of Board</h1>
     </section>
 
     <section class="mainfunctionshodler">
