@@ -68,4 +68,16 @@ public class UserHandlerController {
         return "profile";
     }
 
+
+
+    /*
+
+
+    BOARDHOME
+     */
+@GetMapping("/boardHome")
+    public String boardHome(){
+    return "boardHomeView";
+}
+
 }

@@ -9,12 +9,6 @@ create table user(
     primary key (Id)
 );
 
-drop table board;
-drop table user_role;
-drop table events;
-drop table notification;
-
-
 
 create table board(
     Id int unique auto_increment,
