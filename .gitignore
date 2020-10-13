@@ -37,4 +37,4 @@ node_modules
 jspm_packages
 *.prettierrc*
 *.eslintrc*
-application.properties
+*.application.properties
