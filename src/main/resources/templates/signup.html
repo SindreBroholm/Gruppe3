@@ -8,6 +8,35 @@
     <title>Sign Up</title>
 </head>
 <body>
-    <div id="main"> test </div>
+<main>
+    <section>
+        <div class="newUser">
+            <h3>Sign up</h3>
+            <form th:action="signup" th:method="post" id="user" th:object="${user}">
+                <label class="firstname">Firstname </label>
+                <input class="firstname1" th:errorclass="filderror" th:field="*{firstname}">
+
+                <label class="lastname">Lastname </label>
+                <input class="lastname1" th:errorclass="filderror" th:field="*{lastname}">
+
+
+                <label class="email">E-mail</label>
+                <input class="email1" th:errorclass="filderror" th:field="*{email}">
+
+
+                <label class="password">Password </label>
+                <input class="password1" th:errorclass="filderror" type="password" th:field="*{password}">
+
+                <div class="loginbuttom form-actions">
+                    <button type="submit" class="login btb hoverDiscover">LOGIN</button>
+                </div>
+                <ul class="errorlist">
+                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+                </ul>
+            </form>
+        </div>
+    </section>
+
+</main>
 </body>
 </html>
