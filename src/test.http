@@ -1,0 +1,26 @@
+
+POST http://localhost:8080/addevent
+Referer: http://localhost:8080/addevent
+Cookie: Idea-a496fa04=966c57f6-7f11-44b7-ae91-1560cad6f355; JSESSIONID=7F27F520F3ED5D1B7C1E57B1EC87C9D8
+Content-Type: application/x-www-form-urlencoded
+
+_csrf=7518b817-9c09-42b9-9b9a-0af9d7575d52&name=sdf&message=&datetime_from=2020-10-08T17%3A59&datetime_to=2020-10-03T17%3A59&location=dfs&event_type=Follower
+
+###
+
+GET localhost:8080/init
+
+###
+POST localhost:8080/login
+
+username=test%40test.no&password=123&_csrf=ad6e30e4-a2a7-4e4e-aa43-9ab4c47c1fcc
+
+###
+GET localhost:8080/addevent
+
+###
+POST localhost:8080/addevent
+
+_csrf=a8375a1d-48cf-4090-911f-c03f74568e5&name=test&message=&datetime_from=2020-10-13T17%3A33&datetime_to=2020-10-22T18%3A34&location=het&event_type=Follower
+
+

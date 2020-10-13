@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/styles/eventform.css}" rel="stylesheet" />
+    <title>Add Event</title>
+</head>
+<body>
+    <div id="main">
+        <form th:action="addevent" th:method="post" th:object="${event}">
+            <label>Name:
+                <input type="text"  th:field="*{name}" th:errorclass="filderror">
+            </label>
+
+            <label>Description:
+                <textarea  rows="10" cols="30" th:field="*{message}">Add a deacription of the event.</textarea>
+            </label>
+
+            <label>Starting:
+                <input  type="datetime-local" th:field="*{datetime_from}" th:errorclass="filderror">
+            </label>
+
+            <label>Ending:
+                <input type="datetime-local" th:field="*{datetime_to}" th:errorclass="filderror" >
+            </label>
+            <label>Location:
+                <input type="text" th:field="*{location}">
+            </label>
+
+            <select id="membership" name="access" th:field="*{event_type}">
+                <option value="Follower">Follower</option>
+                <option value="Member">Member</option>
+                <option value="Leader">Leader</option>
+                <option value="Admin">Admin</option>
+            </select>
+
+            <button type="submit">Create</button>
+
+            <ul class="errorlist">
+                <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+            </ul>
+        </form>
+    </div>
+</body>
+</html>
