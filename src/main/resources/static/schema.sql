@@ -30,13 +30,11 @@ create table user_role(
 create table events(
     Id int unique auto_increment,
     Board_Id int not null unique,
-    Message varchar(5000) not null,
+    Message varchar(1000) not null,
     Datetime_From datetime not null,
     Datetime_To datetime not null,
     Datetime_Created datetime not null,
     Event_Type varchar(56) not null,
-    Location varchar(150),
-    Name varchar(150) not null,
     foreign key (Event_Type) references membership_Type(name),
     foreign key (Board_Id) references board(Id) ON DELETE CASCADE
 );
