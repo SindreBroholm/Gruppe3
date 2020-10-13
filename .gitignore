@@ -35,5 +35,5 @@ build/
 ### Node ###
 node_modules
 jspm_packages
-*.eslintrc.js
-*.prettierrc.json
+*.prettierrc*
+*.eslintrc*
