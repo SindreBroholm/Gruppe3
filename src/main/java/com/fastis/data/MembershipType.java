@@ -9,9 +9,9 @@ import javax.persistence.Id;
 public class MembershipType {
     @Id
     @NotNull
-    String name;
+    private String name;
 
-    public String getName() {
+    private String getName() {
         return name;
     }
 

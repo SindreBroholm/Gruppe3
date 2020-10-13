@@ -1,4 +1,3 @@
-create schema fastis;
 
 create table user(
     Id int auto_increment unique,
@@ -14,6 +13,11 @@ create table board(
     Id int unique auto_increment,
     name varchar(100) not null unique,
     primary key (Id)
+);
+
+create table  membership_Type(
+                                 name varchar(56) not null,
+                                 primary key (name)
 );
 
 create table user_role(
@@ -51,7 +55,4 @@ create table notification
     foreign key (notification_Type) references membership_Type(name)
 );
 
-create table  membership_Type(
-    name varchar(56) not null,
-    primary key (name)
-);
+
