@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create New Board</title>
+</head>
+<body>
+<div id="maincontainer">
+
+    <a href="boardHomeView.html">Cancel</a>
+
+    <h2>+CREATE NEW BOARD</h2>
+
+    <form th:action="createboard" th:method="post" th:object="${board}">
+        <label>Name of Board:
+            <input type="text"  th:field="*{name}" th:errorclass="filderror">
+        </label>
+
+        <!–– denne må fikses , for å laste opp img til board -->
+        <label>Add image:
+        <input type="text" th:field="*{name}" th:errorclass="filderror">
+        </label>
+
+        <h3>Contact Information:</h3>
+        <label>Name:
+            <input type="text"  th:field="*{contactName}" th:errorclass="filderror">
+        </label>
+
+        <label>Telephone:
+            <input type="text"  th:field="*{contactNumber}" th:errorclass="filderror">
+        </label>
+
+        <label>Email:
+            <input type="text"  th:field="*{contactEmail}" th:errorclass="filderror">
+        </label>
+
+        <label>Homepage:
+            <input type="text"  th:field="*{homepage}" th:errorclass="filderror">
+        </label>
+
+        <button type="submit">Create</button>
+
+        <ul class="errorlist">
+            <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+        </ul>
+
+    </form>
+</div>
+
+</body>
+</html>

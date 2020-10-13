@@ -1,6 +1,8 @@
 package com.fastis.controllers;
 
+import com.fastis.data.Board;
 import com.fastis.data.Event;
+import com.fastis.repositories.BoardRepository;
 import com.fastis.repositories.EventRepository;
 import com.fastis.validator.EventValidator;
 import org.springframework.stereotype.Controller;
@@ -17,9 +19,11 @@ import java.time.LocalDateTime;
 public class BoardController {
 
     private EventRepository eventRepository;
+    private BoardRepository boardRepository;
 
-    public BoardController(EventRepository eventRepository) {
+    public BoardController(EventRepository eventRepository,BoardRepository boardRepository) {
         this.eventRepository = eventRepository;
+        this.boardRepository = boardRepository;
     }
 
     @GetMapping("/event")
@@ -46,6 +50,27 @@ public class BoardController {
         } else {
             eventRepository.save(event);
             return "redirect: /event";
+        }
+    }
+
+    @GetMapping("/createboard")
+    public String showCreateBoard(Model model){
+        Board board = new Board();
+        model.addAttribute("board", board);
+        return "createnewboard";
+    }
+
+    @PostMapping("/createboard")
+    public String createBoard(@ModelAttribute Board board, BindingResult br){
+        EventValidator validator = new EventValidator();
+        if(validator.supports(board.getClass())){
+            validator.validate(board, br);
+        }
+        if(br.hasErrors()){
+            return "createnewboard";
+        } else {
+            boardRepository.save(board);
+            return "redirect: /board";
         }
     }
 }

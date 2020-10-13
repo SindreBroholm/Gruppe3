@@ -13,7 +13,12 @@ create table user(
 create table board(
     Id int unique auto_increment,
     name varchar(100) not null unique,
-    primary key (Id)
+    primary key (Id),
+    contact_Name varchar(100) not null,
+    contact_Number int(20) not null,
+    contact_Email int(100) not null,
+    homepage varchar(100) not null
+
 );
 
 create table  membership_Type(
