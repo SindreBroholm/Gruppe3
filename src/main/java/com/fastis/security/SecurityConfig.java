@@ -23,7 +23,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/*.css").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().defaultSuccessUrl("/secret", true);
+                .formLogin().defaultSuccessUrl("/secret", true)
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .permitAll();
     }
     @Autowired
     private SecurityUserDetailsService userDetailsService;
