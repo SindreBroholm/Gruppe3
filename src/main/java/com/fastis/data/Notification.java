@@ -10,12 +10,12 @@ import java.time.LocalDateTime;
 public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    private Integer id;
 
-    Integer boardId;
-    String message;
-    LocalDateTime dateTimeCreated;
-    String notificationType;
+    private Integer boardId;
+    private String message;
+    private LocalDateTime dateTimeCreated;
+    private String notificationType;
 
     public Integer getId() {
         return id;
@@ -57,3 +57,4 @@ public class Notification {
         this.notificationType = notificationType;
     }
 }
+
