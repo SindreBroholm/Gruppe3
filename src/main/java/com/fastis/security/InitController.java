@@ -23,19 +23,34 @@ public class InitController {
 
     @GetMapping("/init")
     public String init(){
-        User user = userRepository.findByEmail("test@test.no");
-        if(user == null){
-            user = new User("test@test.no", "Ola", "Nordmann", passwordEncoder.encode("123"));
-            userRepository.save(user);
+        User user0 = userRepository.findByEmail("test0@test.no");
+        User user1 = userRepository.findByEmail("test1@test.no");
+        User user2 = userRepository.findByEmail("test2@test.no");
+        if(user0 == null ){
+            user0 = new User("test0@test.no", "Ola0", "Nordmann0", passwordEncoder.encode("123"));
+            userRepository.save(user0);
+        }
+        if(user1 == null ){
+            user1 = new User("test1@test.no", "Ola1", "Nordmann1", passwordEncoder.encode("123"));
+            userRepository.save(user1);
+        }
+        if(user2 == null ){
+            user2 = new User("test2@test.no", "Ola2", "Nordmann2", passwordEncoder.encode("123"));
+            userRepository.save(user2);
         }
 
-        Board board = boardRepository.findByName("TillerIL");
-        if(board == null){
-            board = new Board();
-            board.setName("TillerIL");
-            boardRepository.save(board);
+        Board board1 = boardRepository.findByName("TillerIL");
+        Board board2 = boardRepository.findByName("MidtbyenIL");
+        if(board1 == null){
+            board1 = new Board();
+            board1.setName("TillerIL");
+            boardRepository.save(board1);
         }
-
+        if(board2 == null){
+            board2 = new Board();
+            board2.setName("TillerIL");
+            boardRepository.save(board2);
+        }
         return "ok";
     }
 }
