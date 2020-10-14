@@ -11,6 +11,12 @@ public class MembershipType {
     @NotNull
     private String name;
 
+    public MembershipType() {
+    }
+    public MembershipType(String name) {
+        this.name = name;
+    }
+
     private String getName() {
         return name;
     }
