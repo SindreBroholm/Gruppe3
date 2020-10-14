@@ -1,21 +1,30 @@
 package com.fastis.data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
 public class Notification {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Integer boardId;
+    @ManyToOne
+    private Board board;
+
     private String message;
+
+    @NotNull
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime dateTimeCreated;
-    private String notificationType;
+
+    //this sets level access for notifications relative to users
+    @ManyToOne
+    private MembershipType membershipType;
 
     public Integer getId() {
         return id;
@@ -25,12 +34,12 @@ public class Notification {
         this.id = id;
     }
 
-    public Integer getBoardId() {
-        return boardId;
+    public Board getBoard() {
+        return board;
     }
 
-    public void setBoardId(Integer boardId) {
-        this.boardId = boardId;
+    public void setBoard(Board board) {
+        this.board = board;
     }
 
     public String getMessage() {
@@ -49,12 +58,12 @@ public class Notification {
         this.dateTimeCreated = dateTimeCreated;
     }
 
-    public String getNotificationType() {
-        return notificationType;
+    public MembershipType getMembershipType() {
+        return membershipType;
     }
 
-    public void setNotificationType(String notificationType) {
-        this.notificationType = notificationType;
+    public void setMembershipType(MembershipType membershipType) {
+        this.membershipType = membershipType;
     }
 }
 
