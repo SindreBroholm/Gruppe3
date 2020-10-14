@@ -13,4 +13,9 @@ public class MainController {
         return "/home";
     }
 
+    @GetMapping("/userHomeView")
+    public String userHomeView(){
+        return "userHomeView";
+    }
+
 }
