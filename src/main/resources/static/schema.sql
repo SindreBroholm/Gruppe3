@@ -9,17 +9,16 @@ create table user(
     primary key (Id)
 );
 
-drop table board;
-drop table user_role;
-drop table events;
-drop table notification;
-
-
 
 create table board(
     Id int unique auto_increment,
     name varchar(100) not null unique,
     primary key (Id)
+);
+
+create table  membership_Type(
+    name varchar(56) not null,
+    primary key (name)
 );
 
 create table user_role(
@@ -35,7 +34,7 @@ create table user_role(
 
 create table events(
     Id int unique auto_increment,
-    Board_Id int not null unique,
+    Board_Id int not null,
     Message varchar(5000) not null,
     Datetime_From datetime not null,
     Datetime_To datetime not null,
@@ -59,7 +58,4 @@ create table notification
     foreign key (notification_Type) references membership_Type(name)
 );
 
-create table  membership_Type(
-    name varchar(56) not null,
-    primary key (name)
-);
+

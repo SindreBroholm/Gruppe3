@@ -1,0 +1,13 @@
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+body {
+    width: 375px;
+    height: 812px;
+}
+#main {
+    background-color: aquamarine;
+    color: red;
+}
