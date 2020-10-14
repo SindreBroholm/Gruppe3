@@ -23,7 +23,8 @@ public class Notification {
     private LocalDateTime dateTimeCreated;
 
     //this sets level access for notifications relative to users
-    @ManyToOne
+    //can use the enum directly
+    @Enumerated(EnumType.STRING)
     private MembershipType membershipType;
 
     public Integer getId() {

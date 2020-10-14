@@ -5,7 +5,6 @@ import com.fastis.data.MembershipType;
 import com.fastis.data.User;
 import com.fastis.data.UserRole;
 import com.fastis.repositories.BoardRepository;
-import com.fastis.repositories.MembershipTypeRepository;
 import com.fastis.repositories.UserRepository;
 import com.fastis.repositories.UserRoleRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,18 +22,16 @@ public class InitController {
     private PasswordEncoder passwordEncoder;
     private BoardRepository boardRepository;
     private UserRoleRepository userRoleRepository;
-    private MembershipTypeRepository membershipTypeRepository;
 
     public InitController(UserRepository userRepository,
                           PasswordEncoder passwordEncoder,
                           BoardRepository boardRepository,
-                          UserRoleRepository userRoleRepository,
-                          MembershipTypeRepository membershipTypeRepository) {
+                          UserRoleRepository userRoleRepository
+                          ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.boardRepository = boardRepository;
         this.userRoleRepository = userRoleRepository;
-        this.membershipTypeRepository = membershipTypeRepository;
     }
 
     @GetMapping("/init")
@@ -47,9 +44,10 @@ public class InitController {
         List<Board> boards = settingUpBoards();
 
         //connecting user to boards
-        List<MembershipType> membershipTypes = checkMembershipTypes();
+        connectingUsersToBoards(users, boards);
 
-        connectingUsersToBoards(users, boards, membershipTypes);
+        //setting up events
+        settingUpEvents();
 
         return "ok";
     }
@@ -83,62 +81,65 @@ public class InitController {
         }
         if (board2 == null) {
             board2 = new Board();
-            board2.setName("TillerIL");
+            board2.setName("MidtbyenIL");
             boardRepository.save(board2);
         }
         return Arrays.asList(board1, board2);
     }
 
-    public List<MembershipType> checkMembershipTypes() {
-        List<MembershipType> membershipTypes = (List<MembershipType>) membershipTypeRepository.findAll();
-        if (membershipTypes == null || membershipTypes.size() == 0){
-            membershipTypes.addAll(Arrays.asList(
-                    new MembershipType("follower"),
-                    new MembershipType("member"),
-                    new MembershipType("leader"),
-                    new MembershipType("admin")
-            ));
-        }
+    public List<UserRole> connectingUsersToBoards(List<User> users, List<Board> boards){
 
-        return membershipTypes;
-    }
-
-    public void connectingUsersToBoards(List<User> users, List<Board> boards, List<MembershipType> membershipTypes){
         List<UserRole> userRoles = (List<UserRole>) userRoleRepository.findAll();
+
         if (userRoles == null || userRoles.size() == 0){
             //user0 admin board0
             UserRole userRole1 = new UserRole(users.get(0).getId(),
                     boards.get(0).getId(),
-                    membershipTypes.get(3),
+                    MembershipType.ADMIN,
                     0
             );
             //user0 follower board1
             UserRole userRole2 = new UserRole(users.get(0).getId(),
                     boards.get(1).getId(),
-                    membershipTypes.get(0),
+                    MembershipType.FOLLOWER,
                     0
             );
             //user1 admin board1
             UserRole userRole3 = new UserRole(users.get(1).getId(),
                     boards.get(1).getId(),
-                    membershipTypes.get(3),
+                    MembershipType.ADMIN,
                     0
             );
             //user1 member board0
             UserRole userRole4 = new UserRole(users.get(1).getId(),
                     boards.get(0).getId(),
-                    membershipTypes.get(1),
+                    MembershipType.MEMBER,
                     0
             );
             //user2 follower board0
             UserRole userRole5 = new UserRole(users.get(2).getId(),
                     boards.get(0).getId(),
-                    membershipTypes.get(0),
+                    MembershipType.FOLLOWER,
                     0
             );
 
+            userRoles.addAll(Arrays.asList(
+                    userRole1,
+                    userRole2,
+                    userRole3,
+                    userRole4,
+                    userRole5
+                    ));
+            for (UserRole role : userRoles){
+                userRoleRepository.save(role);
+            }
         }
+        return userRoles;
+    }
 
+    public void settingUpEvents(){
+        //TODO
+        List<Board> boards = (List<Board>) boardRepository.findAll();
     }
 
 

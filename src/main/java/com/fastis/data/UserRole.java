@@ -14,19 +14,19 @@ public class UserRole {
     @Column(insertable = false, updatable = false)
     private Integer boardId;
 
-    @ManyToOne
+    @Enumerated(EnumType.STRING)
     private MembershipType membershipType;
 
-    private int numberOfMembers;
+    private int numbOfMembers;
 
     public UserRole() {
     }
 
-    public UserRole(Integer userId, Integer boardId, MembershipType membershipType, int numberOfMembers) {
+    public UserRole(Integer userId, Integer boardId, MembershipType membershipType, int numbOfMembers) {
         this.userId = userId;
         this.boardId = boardId;
         this.membershipType = membershipType;
-        this.numberOfMembers = numberOfMembers;
+        this.numbOfMembers = numbOfMembers;
     }
 
     public Integer getUserId() {
@@ -53,11 +53,11 @@ public class UserRole {
         this.membershipType = membershipType;
     }
 
-    public int getNumberOfMembers() {
-        return numberOfMembers;
+    public int getNumbOfMembers() {
+        return numbOfMembers;
     }
 
-    public void setNumberOfMembers(int numberOfMembers) {
-        this.numberOfMembers = numberOfMembers;
+    public void setNumbOfMembers(int numberOfMembers) {
+        this.numbOfMembers = numberOfMembers;
     }
 }
