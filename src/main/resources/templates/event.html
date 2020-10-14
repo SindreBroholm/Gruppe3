@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Events</title>
 </head>
 <body>
-    <div id="main"></div>
+    <div id="header">
+        <div class="nav"></div>
+        <div class="myprofile"></div>
+        <div class="notification"></div>
+        <div class="search"></div>
+    </div>
+    <div id="main">
+        <div id="event">
+            <h2 th:text="${name}"></h2>
+            <div>
+                <h3 th:text="${dayOfWeekStart}"></h3>
+                <p th:text="${dayAndMonthStart}"></p>
+            </div>
+            <div th:if="${dayOfWeekStart != dayOfWeekEnd}">
+                <h3 th:text="${dayOfWeekEnd}"></h3>
+                <p th:text="${dayAndMonthEnd}"></p>
+            </div>
+            <div>
+                <h4 th:text="${hourAndMinStart}"></h4>
+                <h4 th:text="${hourAndMinEnd}"></h4>
+            </div>
+            <h3 th:text="${location}"></h3>
+            <p th:text="${description}"></p>
+            <button type="button">Back</button>
+            <button type="button" th:if="${role == 'admin'|| 'leader'}">Edit</button>
+        </div>
+    </div>
 </body>
 </html>

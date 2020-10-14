@@ -25,4 +25,4 @@ insert into user_role(user_id, board_id, membership_type, numb_of_members) value
 (4, 2, 'follower', 1);
 
 insert into events(Board_Id, Message, Datetime_From, Datetime_To, Datetime_Created, Event_Type, Location, Name) values
-(1, 'Hælg', '2020-10-16 16:00:00', '2020-10-18 23:59:59', '2020-10-12 12:00:00', 'follower', 'Bratørkaia 17A', 'Skål');
+(1, 'Hælg', '2020-10-16 16:00:00', '2020-10-16 17:00:00', '2020-10-12 12:00:00', 'follower', 'Bratørkaia 17A', 'Skål');
