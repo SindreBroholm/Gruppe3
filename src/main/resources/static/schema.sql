@@ -6,6 +6,7 @@ create table fastis.user(
     Firstname varchar(100) not null,
     Lastname varchar(100) not null,
     Password varchar(300) not null,
+    Number int (20),
     primary key (Id)
 );
 
@@ -13,7 +14,12 @@ create table fastis.user(
 create table fastis.board(
     Id int unique auto_increment,
     name varchar(100) not null unique,
-    primary key (Id)
+    primary key (Id),
+    contact_Name varchar(100) not null,
+    contact_Number int(20) not null,
+    contact_Email int(100),
+    homepage varchar(100)
+
 );
 
 create table  fastis.membership_Type(

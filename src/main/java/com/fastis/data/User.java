@@ -16,6 +16,7 @@ public class User {
     private String firstname;
     private String lastname;
     private String password;
+    private Integer number;
 
     public User() {
     }
@@ -25,6 +26,7 @@ public class User {
         this.firstname = firstname;
         this.lastname = lastname;
         this.password = password;
+        this.number = number;
     }
 
     public Integer getId() {
@@ -61,5 +63,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 }

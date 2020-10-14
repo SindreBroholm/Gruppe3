@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <title>userprofile</title>
+</head>
+<body>
+
+<section id="maincontainer">
+
+    <div id="name">
+        <i class="material-icons">person</i>
+        <h2 th:text="${username}">name</h2> //hjelp her
+    </div>
+
+    <div id="email">
+        <i class="material-icons">email</i>
+        <h2 th:text="${user.email}">email</h2>
+    </div>
+
+    <div id="tlf">
+        <i class="material-icons">phone</i>
+        <h2 th:text="${user.number}">number</h2>
+    </div>
+
+    <!--<div id="password">
+        <i class="material-icons">lock</i>
+        <h2 th:text="${user.password}">password</h2>
+    </div>-->
+
+    <div id="editprofile">
+        <i class="material-icons">settings</i>
+        <a href="Manage Settings">+UPDATE PROFILE</a>
+    </div>
+
+
+</section>
+
+
+
+</body>
+</html>
