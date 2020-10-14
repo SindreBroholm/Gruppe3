@@ -1,6 +1,6 @@
 create schema fastis;
 
-create table user(
+create table fastis.user(
     Id int auto_increment unique,
     Email varchar(320) not null unique,
     Firstname varchar(100) not null,
@@ -10,18 +10,18 @@ create table user(
 );
 
 
-create table board(
+create table fastis.board(
     Id int unique auto_increment,
     name varchar(100) not null unique,
     primary key (Id)
 );
 
-create table  membership_Type(
+create table  fastis.membership_Type(
     name varchar(56) not null,
     primary key (name)
 );
 
-create table user_role(
+create table fastis.user_role(
     User_Id int not null,
     Board_Id int not null,
     membership_Type varchar(56) not null,
@@ -32,7 +32,10 @@ create table user_role(
     foreign key (membership_Type) references membership_Type(name)
 );
 
-create table events(
+INSERT INTO fastis.membership_Type (name)
+VALUES ('FOLLOWER'), ('MEMBER'), ('LEADER'), ('ADMIN');
+
+create table fastis.events(
     Id int unique auto_increment,
     Board_Id int not null,
     Message varchar(5000) not null,
@@ -46,7 +49,7 @@ create table events(
     foreign key (Board_Id) references board(Id) ON DELETE CASCADE
 );
 
-create table notification
+create table fastis.notification
 (
     Id int auto_increment unique not null,
     Board_Id int unique not null,
