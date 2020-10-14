@@ -16,9 +16,10 @@
             <input type="text"  th:field="*{name}" th:errorclass="filderror">
         </label>
 
-        <!–– denne må fikses , for å laste opp img til board -->
-        <label>Add image:
-        <input type="text" th:field="*{name}" th:errorclass="filderror">
+        <-- må lagre bilde i board, men skal fungere -->
+        <label for="img">Add image:
+        <input type="file" id="img" name="image" accept="image/*">
+            <input type="submit">
         </label>
 
         <h3>Contact Information:</h3>

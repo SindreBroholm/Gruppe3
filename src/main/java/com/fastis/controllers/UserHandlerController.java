@@ -70,17 +70,7 @@ public class UserHandlerController {
     }
 
 
-    /*
-     *
-     *
-     *           PROFILE
-     *
-     * */
-    @GetMapping("/profile")
-    public String viewProfile() {
 
-        return "profile";
-    }
 
 
 

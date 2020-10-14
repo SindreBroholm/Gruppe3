@@ -6,6 +6,7 @@ create table user(
     Firstname varchar(100) not null,
     Lastname varchar(100) not null,
     Password varchar(300) not null,
+    Number int (20),
     primary key (Id)
 );
 
@@ -16,8 +17,8 @@ create table board(
     primary key (Id),
     contact_Name varchar(100) not null,
     contact_Number int(20) not null,
-    contact_Email int(100) not null,
-    homepage varchar(100) not null
+    contact_Email int(100),
+    homepage varchar(100)
 
 );
 

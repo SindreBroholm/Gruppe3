@@ -2,6 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
     <meta name="description" content="fastis profile page">
     <meta name="author" content="fastis">
     <link rel="stylesheet" th:href="@{/styles/signup.css}">
@@ -22,6 +24,9 @@
 
                 <label class="email">E-mail</label>
                 <input class="email1" th:errorclass="filderror" th:field="*{email}">
+
+                <label class="number">Number</label>
+                <input class="number" th:errorclass="filderror" th:field="*{number}">
 
 
                 <label class="password">Password </label>
