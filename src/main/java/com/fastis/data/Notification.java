@@ -20,12 +20,25 @@ public class Notification {
 
     @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime dateTimeCreated;
+    private LocalDateTime datetimeCreated;
 
     //this sets level access for notifications relative to users
     //can use the enum directly
     @Enumerated(EnumType.STRING)
-    private MembershipType membershipType;
+    private MembershipType notificationType;
+
+    public Notification(Board board, String message,
+                        @NotNull LocalDateTime datetimeCreated,
+                        MembershipType notificationType
+    ) {
+        this.board = board;
+        this.message = message;
+        this.datetimeCreated = datetimeCreated;
+        this.notificationType = notificationType;
+    }
+
+    public Notification() {
+    }
 
     public Integer getId() {
         return id;
@@ -51,20 +64,20 @@ public class Notification {
         this.message = message;
     }
 
-    public LocalDateTime getDateTimeCreated() {
-        return dateTimeCreated;
+    public LocalDateTime getDatetimeCreated() {
+        return datetimeCreated;
     }
 
-    public void setDateTimeCreated(LocalDateTime dateTimeCreated) {
-        this.dateTimeCreated = dateTimeCreated;
+    public void setDateTimeCreated(LocalDateTime datetimeCreated) {
+        this.datetimeCreated = datetimeCreated;
     }
 
-    public MembershipType getMembershipType() {
-        return membershipType;
+    public MembershipType getNotificationType() {
+        return notificationType;
     }
 
-    public void setMembershipType(MembershipType membershipType) {
-        this.membershipType = membershipType;
+    public void setNotificationType(MembershipType notificationType) {
+        this.notificationType = notificationType;
     }
 }
 

@@ -57,7 +57,7 @@ create table fastis.events(
 create table fastis.notification
 (
     Id int auto_increment unique not null,
-    Board_Id int unique not null,
+    Board_Id int not null,
     Message varchar(5000) not null,
     Datetime_Created datetime not null,
     notification_Type varchar(56) not null,
