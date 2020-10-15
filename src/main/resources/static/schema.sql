@@ -6,7 +6,7 @@ create table fastis.user(
     Firstname varchar(100) not null,
     Lastname varchar(100) not null,
     Password varchar(300) not null,
-    Number int (20),
+    Phone_Number varchar(15),
     primary key (Id)
 );
 
@@ -16,10 +16,9 @@ create table fastis.board(
     name varchar(100) not null unique,
     primary key (Id),
     contact_Name varchar(100) not null,
-    contact_Number int(20) not null,
-    contact_Email int(100),
+    contact_Number varchar(15),
+    contact_Email varchar(320) not null ,
     homepage varchar(100)
-
 );
 
 create table  fastis.membership_Type(
@@ -66,5 +65,3 @@ create table fastis.notification
     foreign key (Board_Id) references board(Id) ON DELETE CASCADE,
     foreign key (notification_Type) references membership_Type(name)
 );
-
-

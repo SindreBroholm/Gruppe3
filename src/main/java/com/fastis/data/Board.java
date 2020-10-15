@@ -13,7 +13,7 @@ public class Board {
     private Integer id;
     private String name;
     private String contactName;
-    private Integer contactNumber;
+    private String contactNumber;
     private String contactEmail;
     private String homepage;
 
@@ -43,11 +43,11 @@ public class Board {
         this.contactName = contactName;
     }
 
-    public Integer getContactNumber() {
+    public String getContactNumber() {
         return contactNumber;
     }
 
-    public void setContactNumber(Integer contactNumber) {
+    public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
     }
 

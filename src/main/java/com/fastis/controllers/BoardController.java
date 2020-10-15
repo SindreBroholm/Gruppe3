@@ -29,6 +29,9 @@ public class BoardController {
         this.userRepository = userRepository;
     }
 
+    // Denne skal inn når AccessVerifier er på plass.
+    // <button type="button" th:if="${role == 'admin'|| 'leader'}">Edit</button>
+
     @GetMapping("/event")
     public String showEvent(Model model){
          Event event = eventRepository.findById(5);
