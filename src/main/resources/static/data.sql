@@ -4,9 +4,9 @@ insert into user(Email, Firstname, Lastname, Password) values
 ('fredrsan@gmail.com', 'Fredrik', 'Sandbakk', 'Fredrik123'),
 ('helgerannem@gmail.com', 'Helge', 'Rannem', 'Helge123');
 
-insert into board(name) values
-('Fastis test Board'),
-('Fastis Subtest Board');
+insert into board(name, contact_Email, contact_Name, contact_Number) values
+('Fastis test Board', 'helge@mail.com', 'frank', '99434990'),
+('Fastis Subtest Board','helge@mail.com', 'frank', '99434990');
 
 insert into membership_type(name) values
 ('admin'),
