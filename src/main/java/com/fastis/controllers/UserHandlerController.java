@@ -69,6 +69,15 @@ public class UserHandlerController {
         }
     }
 
+    //
+    // Myprofile
+    //
+
+    @GetMapping("/myprofile")
+    public String myProfile(){
+        return null;
+    }
+
 
 
 

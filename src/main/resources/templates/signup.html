@@ -25,15 +25,15 @@
                 <label class="email">E-mail</label>
                 <input class="email1" th:errorclass="filderror" th:field="*{email}">
 
-                <label class="number">Number</label>
-                <input class="number" th:errorclass="filderror" th:field="*{number}">
-
-
                 <label class="password">Password </label>
                 <input class="password1" th:errorclass="filderror" type="password" th:field="*{password}">
 
+                <label class="phoneNumber">Phone number optinial </label>
+                <input class="phoneNumber1" th:errorclass="filderror" th:field="*{phone_number}">
+
+
                 <div class="loginbuttom form-actions">
-                    <button type="submit" class="login btb hoverDiscover">LOGIN</button>
+                    <button type="submit" class="login btb hoverDiscover">Sign up</button>
                 </div>
                 <ul class="errorlist">
                     <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
