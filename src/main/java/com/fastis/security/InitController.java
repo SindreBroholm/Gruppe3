@@ -21,17 +21,20 @@ public class InitController {
     private EventRepository eventRepository;
     private NotificationRepository notificationRepository;
 
+    private AccessVerifier accessVerifier;
+
     public InitController(UserRepository userRepository,
                           PasswordEncoder passwordEncoder,
                           BoardRepository boardRepository,
                           UserRoleRepository userRoleRepository,
-                          EventRepository eventRepository, NotificationRepository notificationRepository) {
+                          EventRepository eventRepository, NotificationRepository notificationRepository, AccessVerifier accessVerifier) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.boardRepository = boardRepository;
         this.userRoleRepository = userRoleRepository;
         this.eventRepository = eventRepository;
         this.notificationRepository = notificationRepository;
+        this.accessVerifier = accessVerifier;
     }
 
     @GetMapping("/init")
@@ -53,6 +56,11 @@ public class InitController {
         settingUpNotifications(boards);
 
         return "ok";
+    }
+
+    @GetMapping("/testRoles")
+    public String testRoles(){
+        return "OK";
     }
 
     public List<User> settingUpUsers() {

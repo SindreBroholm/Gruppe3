@@ -7,4 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface UserRoleRepository extends CrudRepository<UserRole, UserRoleId> {
     MembershipType findByUserId(int id);
+
+    UserRole findByUserIdAndByBoardId();
 }
