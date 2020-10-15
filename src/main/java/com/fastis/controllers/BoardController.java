@@ -1,12 +1,11 @@
 package com.fastis.controllers;
 
-import com.fastis.data.Board;
-import com.fastis.data.Event;
-import com.fastis.data.User;
+import com.fastis.data.*;
 import com.fastis.repositories.BoardRepository;
 import com.fastis.datahandlers.LocalDateTimeHandler;
 import com.fastis.repositories.EventRepository;
 import com.fastis.repositories.UserRepository;
+
 import com.fastis.validator.EventValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +13,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 
 @Controller
@@ -23,20 +25,19 @@ public class BoardController {
     private BoardRepository boardRepository;
     private UserRepository userRepository;
 
+
     public BoardController(EventRepository eventRepository,BoardRepository boardRepository, UserRepository userRepository) {
         this.eventRepository = eventRepository;
         this.boardRepository = boardRepository;
         this.userRepository = userRepository;
     }
 
-    // Denne skal inn når AccessVerifier er på plass.
-    // <button type="button" th:if="${role == 'admin'|| 'leader'}">Edit</button>
 
     @GetMapping("/event")
-    public String showEvent(Model model){
+    public String showEvent(Model model, UserRole userRole){
          Event event = eventRepository.findById(5);
-
          LocalDateTimeHandler localDateTimeHandler = new LocalDateTimeHandler();
+
          model.addAttribute("name", event.getName());
          model.addAttribute("dayOfWeekStart", localDateTimeHandler.getDayOfWeek(event.getDatetime_from()));
          model.addAttribute("dayAndMonthStart", localDateTimeHandler.getDayOfMonth(event.getDatetime_from()));
@@ -46,7 +47,7 @@ public class BoardController {
          model.addAttribute("hourAndMinEnd", localDateTimeHandler.getHourAndMin(event.getDatetime_to()));
          model.addAttribute("location", event.getLocation());
          model.addAttribute("description", event.getMessage());
-         //model.addAttribute("role", userRole.getMembershipType())
+         model.addAttribute("role", userRole.getMembershipType());
          return "event";
     }
 
@@ -61,17 +62,20 @@ public class BoardController {
 
     //Legg til funksjon for å redigere en eksisterende event!
     @PostMapping("/addevent")
-    public String addOrEditEvent(@ModelAttribute Event event, BindingResult br){
+    public String addOrEditEvent(@ModelAttribute Event event, BindingResult br, @RequestParam(required = false) int id){
         EventValidator validator = new EventValidator();
         if(validator.supports(event.getClass())){
             validator.validate(event, br);
         }
         if(br.hasErrors()){
             return "eventform";
-        } else {
+        }
+        if(eventRepository.findById(id) != null){
             eventRepository.save(event);
             return "redirect: /event";
         }
+        eventRepository.save(event);
+        return "redirect: /event";
     }
 
     @GetMapping("/createboard")
@@ -114,4 +118,23 @@ public class BoardController {
     }
 
 
+    @GetMapping("/search")
+    public String openSearch(){
+
+        return "search";
+    }
+
+    @PostMapping("/search")
+    public String search(Model model, @RequestParam() String keyword) {
+        List<Board> searchResults;
+        if (keyword != null) {
+            searchResults = boardRepository.search(keyword);
+        } else {
+            searchResults = (List<Board>) boardRepository.findAll();
+        }
+        model.addAttribute("listProducts", searchResults);
+        model.addAttribute("keyword", keyword);
+        System.out.println(searchResults.toString());
+        return "search";
+    }
 }
