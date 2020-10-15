@@ -125,9 +125,4 @@ public class Event {
         this.name = name;
     }
 
-    public static void main(String[] args) {
-        DateTimeFormatter f = DateTimeFormatter.ISO_LOCAL_DATE_TIME;// ofPattern("yyyy-MM-ddTHH:mm");
-        System.out.println(f.parse("2020-10-23T18:37"));
-
-    }
 }
