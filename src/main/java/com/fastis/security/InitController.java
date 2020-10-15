@@ -58,8 +58,8 @@ public class InitController {
         return "ok";
     }
 
-    @GetMapping("/testRoles")
-    public String testRoles(){
+    @GetMapping("/testStuff")
+    public String testStuff(){
         return "OK";
     }
 

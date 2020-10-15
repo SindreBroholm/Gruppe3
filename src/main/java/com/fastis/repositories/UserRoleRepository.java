@@ -5,8 +5,11 @@ import com.fastis.data.UserRole;
 import com.fastis.data.UserRoleId;
 import org.springframework.data.repository.CrudRepository;
 
-public interface UserRoleRepository extends CrudRepository<UserRole, UserRoleId> {
-    MembershipType findByUserId(int id);
+import java.util.List;
 
-    UserRole findByUserIdAndByBoardId();
+public interface UserRoleRepository extends CrudRepository<UserRole, UserRoleId> {
+
+    UserRole findAllByUserIdAndBoardId(Integer userId, Integer boardId);
+
+    List<UserRole> findAllByUserId(Integer userId);
 }

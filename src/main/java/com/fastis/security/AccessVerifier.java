@@ -2,43 +2,40 @@ package com.fastis.security;
 
 import com.fastis.data.*;
 
-import com.fastis.repositories.UserRepository;
 import com.fastis.repositories.UserRoleRepository;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class AccessVerifier {
 
     private UserRoleRepository userRoleRepository;
 
-
-    public void setUserRoleToAdminForNewBoard(User user, Board board){
-        UserRole userRole = userRoleRepository.findByUserIdAndByBoardId();
-        System.out.println(userRole.getMembershipType());
-        /*userRole = new UserRole(user.getId(), board.getId(), MembershipType.ADMIN, 0);
-        userRoleRepository.save(userRole);*/
+    public AccessVerifier(UserRoleRepository userRoleRepository) {
+        this.userRoleRepository = userRoleRepository;
     }
 
-    public MembershipType checkAccessLevel(UserRole userRole){
-        MembershipType membershipType = userRole.getMembershipType();
-        return membershipType;
+
+    public UserRole setUserRole(User user, Board board, MembershipType accessType){
+        UserRole userRole = userRoleRepository.findAllByUserIdAndBoardId(user.getId(), board.getId());
+        if (userRole == null){
+            userRole = new UserRole(
+                    user.getId(), board.getId(),
+                    MembershipType.FOLLOWER, 0
+                    );
+        }
+        userRole.setMembershipType(accessType);
+        return userRoleRepository.save(userRole);
     }
 
-    public User setAccessForMember(UserRepository userRepository, User user){
-        if(userRoleRepository.findByUserId(user.getId()) == MembershipType.ADMIN){
-            userRepository.findById(user.getId());
+    //will return null if not at least a follower
+    public UserRole getUserRole(User user, Board board){
+        return userRoleRepository.findAllByUserIdAndBoardId(user.getId(), board.getId());
+    }
 
-            return user;
-        }
-        if(userRoleRepository.findByUserId(user.getId()) == MembershipType.LEADER){
-
-        }
-        return null;
+    //will return an empty list if not at least a follower at a single board
+    public List<UserRole> getAllUserRoles(User user){
+        return userRoleRepository.findAllByUserId(user.getId());
     }
 }
