@@ -27,5 +27,7 @@ insert into user_role(user_id, board_id, membership_type, numb_of_members) value
 insert into events(Board_Id, Message, Datetime_From, Datetime_To, Datetime_Created, Event_Type, Location, Name) values
 (2, 'Hælg', '2020-10-16 16:00:00', '2020-10-16 17:00:00', '2020-10-12 12:00:00', 'follower', 'Bratørkaia 17A', 'Skål');
 
-select b.name from fastis.user_role ur join Board b on b.id = ur.Board_Id where
-ur.User_Id = 1 order by b.name;
+select e.* from fastis.user_role ur
+    join Board b on b.id = ur.Board_Id
+join events e on b.Id = e.Board_Id
+where ur.User_Id = 1 order by b.name;
