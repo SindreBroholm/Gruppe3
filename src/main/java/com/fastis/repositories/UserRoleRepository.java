@@ -1,5 +1,6 @@
 package com.fastis.repositories;
 
+import com.fastis.data.Board;
 import com.fastis.data.MembershipType;
 import com.fastis.data.UserRole;
 import com.fastis.data.UserRoleId;

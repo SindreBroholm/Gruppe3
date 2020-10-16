@@ -1,6 +1,8 @@
 package com.fastis.repositories;
 
 import com.fastis.data.Board;
+import com.fastis.data.Event;
+import com.fastis.data.UserRole;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -12,5 +14,4 @@ public interface BoardRepository extends CrudRepository<Board,Integer> {
 
     @Query("SELECT b FROM Board b WHERE b.name like %?1%")
     List<Board> search(String search);
-
 }
