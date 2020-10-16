@@ -1,6 +1,8 @@
 package com.fastis.repositories;
 
 import com.fastis.data.Event;
+import com.fastis.data.MembershipType;
+import com.sun.tools.javac.code.Attribute;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -11,6 +13,6 @@ public interface EventRepository extends CrudRepository<Event, Integer> {
 
     List<Event> findAllById(int id);
 
-    @Query("select e from UserRole ur join Board b on b.id = ur.boardId join Event e on b.id = e.board.id where ur.userId = ?1 order by e.datetime_from")
-    List<Event> getAllEventsByUserId(int id);
+    @Query("select e from UserRole ur join Board b on b.id = ur.boardId join Event e on b.id = e.board.id where ur.userId = ?1 and ur.membershipType = ?2 order by e.datetime_from")
+    List<Event> getAllEventsByUserId(int id, Enum<MembershipType> mt);
 }

@@ -65,3 +65,4 @@ create table fastis.notification
     foreign key (Board_Id) references board(Id) ON DELETE CASCADE,
     foreign key (notification_Type) references membership_Type(name)
 );
+

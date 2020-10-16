@@ -31,3 +31,9 @@ select e.* from fastis.user_role ur
     join Board b on b.id = ur.Board_Id
 join events e on b.Id = e.Board_Id
 where ur.User_Id = 1 order by b.name;
+
+select e.* from user_role ur
+    join Board b on b.id = ur.Board_Id
+    join events e on b.id = e.Board_Id
+where ur.User_Id = 1  and ur.membership_Type = 'admin'
+      order by e.datetime_from;
