@@ -1,14 +1,11 @@
 package com.fastis.security;
 
 import com.fastis.data.*;
-
 import com.fastis.repositories.BoardRepository;
 import com.fastis.repositories.EventRepository;
 import com.fastis.repositories.UserRepository;
 import com.fastis.repositories.UserRoleRepository;
 import org.springframework.stereotype.Component;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,27 +30,25 @@ public class AccessVerifier {
     }
 
 
-
-
-    public UserRole setUserRole(User user, Board board, MembershipType accessType){
+    public UserRole setUserRole(User user, Board board, MembershipType accessType) {
         UserRole userRole = userRoleRepository.findAllByUserIdAndBoardId(user.getId(), board.getId());
-        if (userRole == null){
+        if (userRole == null) {
             userRole = new UserRole(
                     user.getId(), board.getId(),
                     MembershipType.FOLLOWER, 0
-                    );
+            );
         }
         userRole.setMembershipType(accessType);
         return userRoleRepository.save(userRole);
     }
 
     //will return null if not at least a follower
-    public UserRole getUserRole(User user, Board board){
+    public UserRole getUserRole(User user, Board board) {
         return userRoleRepository.findAllByUserIdAndBoardId(user.getId(), board.getId());
     }
 
     //will return an empty list if not at least a follower at a single board
-    public List<UserRole> getAllUserRoles(User user){
+    public List<UserRole> getAllUserRoles(User user) {
         return userRoleRepository.findAllByUserId(user.getId());
     }
 
@@ -71,7 +66,6 @@ public class AccessVerifier {
     @RequestMapping
     @ResponseBody
     public List<Board> accessedBoard(Principal principal) {
-        if (principal != null) {
             User user = currentUser(principal);
             List<UserRole> userRoleList = getAllUserRoles(user);
             List<Board> boardsList = new ArrayList<>();
@@ -81,24 +75,20 @@ public class AccessVerifier {
                 boardsList.add(board);
             }
             return boardsList;
-
-        }
-        return null;
     }
 
-    /*@RequestMapping
+    @RequestMapping
     @ResponseBody
     public List<Event> accessedEvents(Principal principal) {
-        List<Board> boardsList = accessedBoard(principal);
-        List<Integer> boardsID = new ArrayList<>();
+        User user = currentUser(principal);
 
-        for (Board b :
-                boardsList) {
-            boardsID.add(b.getId());
-        }
-        List<Event> eventList =  eventRepository.findAllEventsByBoardID(1);
+        //List<UserRole> userRoleList = getAllUserRoles(user);
+
+        List<Event> eventList =  eventRepository.getAllUserEvents(user.getId());
+
+
         System.out.println(eventList);
         return null; //temp
-    }*/
+    }
 
 }

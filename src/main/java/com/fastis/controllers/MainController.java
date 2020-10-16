@@ -40,9 +40,12 @@ public class MainController {
 
     @GetMapping("/")
     public String showAccessedBoards(Principal principal, Model model) {
-        List<Board> boardsList = accessVerifier.accessedBoard(principal);
-        //List<Event> eventList = accessVerifier.accessedEvents(principal);
-        model.addAttribute("boardsList", boardsList);
+        if (principal != null) {
+            List<Board> boardsList = accessVerifier.accessedBoard(principal);
+            List<Event> eventList = accessVerifier.accessedEvents(principal);
+            model.addAttribute("eventList", eventList);
+            model.addAttribute("boardsList", boardsList);
+        }
         return "/home";
     }
 
