@@ -99,11 +99,11 @@ public class BoardController {
         }
     }
 
-    @GetMapping("/profile")
+/*    @GetMapping("/profile")
     public String showUserProfile(Model model){
-        /*User user = userRepository.findById(1); //trenger hjelp her
+        *//*User user = userRepository.findById(1); //trenger hjelp her
         String username = user.getFirstname() + user.getLastname();
-        model.addAttribute("user", user);*/
+        model.addAttribute("user", user);*//*
         return "userprofile";
     }
 
@@ -115,7 +115,7 @@ public class BoardController {
     @PostMapping("/updateprofile")
     public String updateProfile(@ModelAttribute User user, BindingResult br){
         return "settingsprofile";
-    }
+    }*/
 
 
     @GetMapping("/search")
