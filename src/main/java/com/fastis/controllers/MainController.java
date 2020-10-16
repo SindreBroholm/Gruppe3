@@ -43,6 +43,7 @@ public class MainController {
         if (principal != null) {
             List<Board> boardsList = accessVerifier.accessedBoard(principal);
             List<Event> eventList = accessVerifier.accessedEvents(principal);
+            //List<Event> eventList = eventRepository.findAllById(accessVerifier.currentUser(principal).getId());
             model.addAttribute("eventList", eventList);
             model.addAttribute("boardsList", boardsList);
         }

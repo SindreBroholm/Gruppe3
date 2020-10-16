@@ -81,14 +81,8 @@ public class AccessVerifier {
     @ResponseBody
     public List<Event> accessedEvents(Principal principal) {
         User user = currentUser(principal);
-
-        //List<UserRole> userRoleList = getAllUserRoles(user);
-
         List<Event> eventList =  eventRepository.getAllUserEvents(user.getId());
-
-
-        System.out.println(eventList);
-        return null; //temp
+        return eventList;
     }
 
 }
