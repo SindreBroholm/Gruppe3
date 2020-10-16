@@ -2,7 +2,6 @@ package com.fastis.repositories;
 
 import com.fastis.data.Event;
 import com.fastis.data.MembershipType;
-import com.sun.tools.javac.code.Attribute;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
