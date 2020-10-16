@@ -6,6 +6,7 @@ import com.fastis.datahandlers.LocalDateTimeHandler;
 import com.fastis.repositories.EventRepository;
 import com.fastis.repositories.UserRepository;
 
+import com.fastis.security.AccessVerifier;
 import com.fastis.validator.EventValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.List;
 
 
@@ -24,20 +26,24 @@ public class BoardController {
     private EventRepository eventRepository;
     private BoardRepository boardRepository;
     private UserRepository userRepository;
+    private AccessVerifier accessVerifier;
 
 
-    public BoardController(EventRepository eventRepository,BoardRepository boardRepository, UserRepository userRepository) {
+    public BoardController(EventRepository eventRepository,BoardRepository boardRepository, UserRepository userRepository, AccessVerifier accessVerifier) {
         this.eventRepository = eventRepository;
         this.boardRepository = boardRepository;
         this.userRepository = userRepository;
+        this.accessVerifier = accessVerifier;
     }
 
 
     @GetMapping("/event")
-    public String showEvent(Model model, UserRole userRole){
-         Event event = eventRepository.findById(5);
-         LocalDateTimeHandler localDateTimeHandler = new LocalDateTimeHandler();
+    public String showEvent(Model model, Principal principal){
 
+
+         Event event = eventRepository.findById(1);
+
+         LocalDateTimeHandler localDateTimeHandler = new LocalDateTimeHandler();
          model.addAttribute("name", event.getName());
          model.addAttribute("dayOfWeekStart", localDateTimeHandler.getDayOfWeek(event.getDatetime_from()));
          model.addAttribute("dayAndMonthStart", localDateTimeHandler.getDayOfMonth(event.getDatetime_from()));
@@ -47,7 +53,7 @@ public class BoardController {
          model.addAttribute("hourAndMinEnd", localDateTimeHandler.getHourAndMin(event.getDatetime_to()));
          model.addAttribute("location", event.getLocation());
          model.addAttribute("description", event.getMessage());
-         model.addAttribute("role", userRole.getMembershipType());
+         //model.addAttribute("role", userRole.getMembershipType());
          return "event";
     }
 
@@ -60,7 +66,6 @@ public class BoardController {
     }
 
 
-    //Legg til funksjon for å redigere en eksisterende event!
     @PostMapping("/addevent")
     public String addOrEditEvent(@ModelAttribute Event event, BindingResult br, @RequestParam(required = false) int id){
         EventValidator validator = new EventValidator();

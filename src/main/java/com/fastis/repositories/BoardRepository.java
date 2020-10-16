@@ -12,4 +12,5 @@ public interface BoardRepository extends CrudRepository<Board,Integer> {
 
     @Query("SELECT b FROM Board b WHERE b.name like %?1%")
     List<Board> search(String search);
+
 }

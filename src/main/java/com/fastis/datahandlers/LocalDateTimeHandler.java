@@ -1,7 +1,11 @@
 package com.fastis.datahandlers;
 
-import java.time.LocalDateTime;
+import com.fastis.data.Event;
+import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.List;
+@Service
 public class LocalDateTimeHandler {
 
     public String getDateString(LocalDateTime localDateTime){
@@ -76,5 +80,21 @@ public class LocalDateTimeHandler {
             return hour + ":0"+min;
         }
         return hour + ":"+min;
+    }
+
+
+    private boolean isOverlapping(LocalDateTime start1, LocalDateTime end1, LocalDateTime start2, LocalDateTime end2) {
+        return start1.isBefore(end2) && start2.isBefore(end1);
+    }
+
+    //Kan være null.
+    public List<Event> cheackForDobbelBooking(List<Event> userEvents, Event newEvent){
+        List<Event> overlappingEvents = null;
+        for (Event e : userEvents) {
+            if (isOverlapping(e.getDatetime_from(),e.getDatetime_to(),newEvent.getDatetime_from(),newEvent.getDatetime_to())){
+                    overlappingEvents.add(e);
+            }
+        }
+        return overlappingEvents;
     }
 }
