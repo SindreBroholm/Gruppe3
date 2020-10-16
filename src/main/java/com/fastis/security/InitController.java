@@ -1,6 +1,7 @@
 package com.fastis.security;
 
 import com.fastis.data.*;
+import com.fastis.handlers.InviteByEmail;
 import com.fastis.repositories.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,20 +21,22 @@ public class InitController {
     private UserRoleRepository userRoleRepository;
     private EventRepository eventRepository;
     private NotificationRepository notificationRepository;
+    private InviteByEmail inviteByEmail;
 
     private AccessVerifier accessVerifier;
 
-    public InitController(UserRepository userRepository,
-                          PasswordEncoder passwordEncoder,
-                          BoardRepository boardRepository,
-                          UserRoleRepository userRoleRepository,
-                          EventRepository eventRepository, NotificationRepository notificationRepository, AccessVerifier accessVerifier) {
+    public InitController(UserRepository userRepository, PasswordEncoder passwordEncoder,
+                          BoardRepository boardRepository, UserRoleRepository userRoleRepository,
+                          EventRepository eventRepository, NotificationRepository notificationRepository,
+                          InviteByEmail inviteByEmail, AccessVerifier accessVerifier
+    ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.boardRepository = boardRepository;
         this.userRoleRepository = userRoleRepository;
         this.eventRepository = eventRepository;
         this.notificationRepository = notificationRepository;
+        this.inviteByEmail = inviteByEmail;
         this.accessVerifier = accessVerifier;
     }
 
@@ -60,6 +63,17 @@ public class InitController {
 
     @GetMapping("/testStuff")
     public String testStuff(){
+        Board board = new Board();
+        board.setName("MidtbyenIL");
+        board.setContactName("Sindre Sæther");
+        board.setContactNumber("93071137");
+        board.setContactEmail("test@test.no");
+        inviteByEmail.sendInvite(board,
+                "",  new User("test0@test.no",
+                        "Ola0", "Nordmann0",
+                        passwordEncoder.encode("123"),
+                        "0000")
+        );
         return "OK";
     }
 

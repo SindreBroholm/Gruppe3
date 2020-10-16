@@ -17,7 +17,7 @@
         </div>
         <div>
             <ul th:each="match : ${listProducts}">
-                <li><a th:text="${match.name}" th:href="'/boardHome/' + ${match.name}"></a></li>
+                <li><a th:text="${match.id}" th:href="'/boardHome/' + ${match.id}"></a></li>
             </ul>
         </div>
     </div>

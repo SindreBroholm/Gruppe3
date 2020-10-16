@@ -85,9 +85,9 @@ public class UserHandlerController {
 
     BOARDHOME
      */
-@GetMapping("/boardHome/{name}")
-    public String boardHome(Model model, @PathVariable String name) {
-    Board board = boardRepository.findByName(name);
+@GetMapping("/boardHome/{boardId}")
+    public String boardHome(Model model, @PathVariable Integer boardId) {
+    Board board = boardRepository.findById(boardId).get();
     model.addAttribute("currentBoard",board);
 
     return "boardHomeView";
