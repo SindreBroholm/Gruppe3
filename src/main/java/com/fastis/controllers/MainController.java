@@ -4,6 +4,7 @@ import com.fastis.data.Board;
 import com.fastis.data.Event;
 import com.fastis.data.User;
 import com.fastis.data.UserRole;
+import com.fastis.datahandlers.LocalDateTimeHandler;
 import com.fastis.repositories.BoardRepository;
 import com.fastis.repositories.EventRepository;
 import com.fastis.repositories.UserRepository;
@@ -29,6 +30,7 @@ public class MainController {
     private UserRoleRepository userRoleRepository;
     private BoardRepository boardRepository;
 
+
     public MainController(EventRepository eventRepository, UserRepository userRepository, UserRoleRepository userRoleRepository, BoardRepository boardRepository, AccessVerifier accessVerifier) {
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
@@ -41,11 +43,13 @@ public class MainController {
     @GetMapping("/")
     public String showAccessedBoards(Principal principal, Model model) {
         if (principal != null) {
+            LocalDateTimeHandler localDateTimeHandler = new LocalDateTimeHandler();
             List<Board> boardsList = accessVerifier.accessedBoard(principal);
             List<Event> eventList = accessVerifier.accessedEvents(principal);
-            //List<Event> eventList = eventRepository.findAllById(accessVerifier.currentUser(principal).getId());
+
             model.addAttribute("eventList", eventList);
             model.addAttribute("boardsList", boardsList);
+
         }
         return "/home";
     }

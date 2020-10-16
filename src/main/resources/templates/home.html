@@ -17,5 +17,12 @@
         <li th:text="${boards.name}"></li>
     </ul>
 </div>
+<div>
+    <ul th:each="events : ${eventList}">
+        <li th:text="${events.name}" ></li>
+        <li th:text="${events.datetime_from.dayOfMonth} + ':' + ${events.datetime_from.month}"></li>
+
+    </ul>
+</div>
 </body>
 </html>
