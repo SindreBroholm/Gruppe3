@@ -1,21 +1,20 @@
 package com.fastis.data;
 
-import com.sun.istack.NotNull;
+public enum  MembershipType {
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+    FOLLOWER("follower"),
+    MEMBER("member"),
+    LEADER("leader"),
+    ADMIN("admin");
 
-@Entity
-public class MembershipType {
-    @Id
-    @NotNull
-    private String name;
+    public final String name;
 
-    private String getName() {
-        return name;
+    MembershipType(String name) {
+        this.name = name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public String toString() {
+        return name;
     }
 }

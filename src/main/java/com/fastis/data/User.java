@@ -16,15 +16,21 @@ public class User {
     private String firstname;
     private String lastname;
     private String password;
+    private String phone_number;
 
     public User() {
     }
 
-    public User(String email, String firstname, String lastname, String password) {
+    public User(String email, String firstname, String lastname, String password, String phone_number) {
         this.email = email;
         this.firstname = firstname;
         this.lastname = lastname;
         this.password = password;
+        this.phone_number = phone_number;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public String getEmail() {
@@ -57,5 +63,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    public void setPhone_number(String number) {
+        this.phone_number = number;
     }
 }

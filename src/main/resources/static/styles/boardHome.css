@@ -1,0 +1,49 @@
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+body {
+    width: 375px;
+    height: 812px;
+    font-family: Roboto;
+}
+.main {
+
+    color: #606060;
+}
+
+.mainfunctionsholder {
+    align-items: center;
+    display: flex;
+    margin: auto;
+
+}
+
+.material-icons.md-24 {
+    font-size: 48px;
+    color: #606060;
+}
+
+
+li {
+    float: left;
+    list-style-type: none;
+
+}
+
+li a {
+    background-color: #606060;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none;
+    text-underline: none;
+
+}
+

@@ -2,35 +2,48 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link th:href="@{/styles/boardHome.css}" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
     <title>homeBoard</title>
 </head>
 <body>
 
-<header>This will be the header</header>
+<header>
+    <nav class="navbar">
+        <ul>
+            <li><a href="#dropmenu"><i class="material-icons">menu</i></a></li>
+            <li><a href="#user"><i class="material-icons">person</i></a></li>
+            <li><a href="#notification"><i class="material-icons">add_alert</i></a></li>
+            <li style="float:right"><a class="search" href="#search">SEARCH</a></li>
+        </ul>
+
+    </nav>
+</header>
 
 <div class="main">
 
-    <section class="imagehodler">
+    <section class="imageholder">
         <img id="mainimage" src="https://lh3.googleusercontent.com/proxy/2Z-YIh_DztKx89QCCkdWmdwMtP2O5pGDjBV_GKX68IJahemBP5znmMs62nQp4EUDrhAQQBRLZOsLtNGCzaDJw7sQfIjA9sXLToRFvZ7rc7TFx0kwgKIp2E7Bd2oDL0040w7URMfaNuoo">
         <img id="overgroupimage" src="">
         <h1 th:text="${currentBoard.name}">Title of Board</h1>
     </section>
 
-    <section class="mainfunctionshodler">
+    <section class="mainfunctionsholder">
         <div id="createEvent">
-            <img id="eventIcon" src="">
-            <a href="Create Event">+Create Event</a>
-            <a href="Manage Event">+Manage Event</a>
+            <i class="material-icons">bookmark</i>
+            <a href="Create Event">+CREATE EVENT</a>
+            <a href="Manage Event">+MANAGE EVENT</a>
         </div>
 
         <div id="notification">
-            <img id="notificationIcon">
-            <a href="Push Notification">+Push Notification</a>
+            <i class="material-icons">add_alert</i>
+            <a href="Push Notification">+PUSH NOTIFICATION</a>
         </div>
 
         <div id="manageMembers">
-            <img id="membersIcon">
-            <a href="Manage Members">+Manage Members</a>
+            <i class="material-icons">group_add</i>
+            <a href="Manage Members">+MANAGE MEMBERS</a>
         </div>
     </section>
 
@@ -38,16 +51,19 @@
         <h2>Upcoming events...</h2>
         <div class="event">
             <h3>Eventname</h3>
+        </br>
             <p>This is a description of the event</p>
         </div>
 
         <div class="event">
             <h3>Eventname</h3>
+            </br>
             <p>This is a description of the event</p>
         </div>
 
         <div class="event">
             <h3>Eventname</h3>
+            </br>
             <p>This is a description of the event</p>
         </div>
 

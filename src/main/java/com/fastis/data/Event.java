@@ -17,7 +17,8 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int board_id = 1;
+    @ManyToOne
+    private Board board;
 
     @Size(max = 5000, message = "Description is to long..")
     private String message;
@@ -32,8 +33,9 @@ public class Event {
 
     private LocalDateTime datetime_created = LocalDateTime.now();
 
-    @NotEmpty
-    private String event_type;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private MembershipType event_type;
 
     private String location;
 
@@ -44,8 +46,12 @@ public class Event {
     public Event() {
     }
 
-    public Event(int board_id, String message, LocalDateTime datetime_from, LocalDateTime datetime_to, LocalDateTime datetime_created, String event_type, String location, String name) {
-        this.board_id = board_id;
+    public Event(Board board, String message,
+                 LocalDateTime datetime_from, LocalDateTime datetime_to,
+                 LocalDateTime datetime_created, MembershipType event_type,
+                 String location, String name
+    ) {
+        this.board = board;
         this.message = message;
         this.datetime_from = datetime_from;
         this.datetime_to = datetime_to;
@@ -55,12 +61,12 @@ public class Event {
         this.name = name;
     }
 
-    public int getBoard_id() {
-        return board_id;
+    public Board getBoard() {
+        return board;
     }
 
-    public void setBoard_id(int board_id) {
-        this.board_id = board_id;
+    public void setBoard(Board board) {
+        this.board = board;
     }
 
     public String getMessage() {
@@ -95,11 +101,11 @@ public class Event {
         this.datetime_created = datetime_created;
     }
 
-    public String getEvent_type() {
+    public MembershipType getEvent_type() {
         return event_type;
     }
 
-    public void setEvent_type(String event_type) {
+    public void setEvent_type(MembershipType event_type) {
         this.event_type = event_type;
     }
 
@@ -119,9 +125,4 @@ public class Event {
         this.name = name;
     }
 
-    public static void main(String[] args) {
-        DateTimeFormatter f = DateTimeFormatter.ISO_LOCAL_DATE_TIME;// ofPattern("yyyy-MM-ddTHH:mm");
-        System.out.println(f.parse("2020-10-23T18:37"));
-
-    }
 }

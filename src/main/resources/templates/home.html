@@ -1,13 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+>
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="fastis profile page">
     <meta name="author" content="fastis">
-    <link th:href="@{/styles/home.css}" rel="stylesheet" />
+    <link th:href="@{/styles/home.css}" rel="stylesheet"/>
     <title>Start</title>
 </head>
 <body>
-    <div id="main">test</div>
+<div id="main">tests</div>
+<a href="/login">login</a>
+
+<div>
+    <ul th:each="boards : ${boardsList}">
+        <li th:text="${boards.name}"></li>
+    </ul>
+</div>
 </body>
 </html>

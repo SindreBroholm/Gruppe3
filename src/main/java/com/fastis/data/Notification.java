@@ -1,21 +1,44 @@
 package com.fastis.data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
 public class Notification {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Integer boardId;
+    @ManyToOne
+    private Board board;
+
     private String message;
-    private LocalDateTime dateTimeCreated;
-    private String notificationType;
+
+    @NotNull
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime datetimeCreated;
+
+    //this sets level access for notifications relative to users
+    //can use the enum directly
+    @Enumerated(EnumType.STRING)
+    private MembershipType notificationType;
+
+    public Notification(Board board, String message,
+                        @NotNull LocalDateTime datetimeCreated,
+                        MembershipType notificationType
+    ) {
+        this.board = board;
+        this.message = message;
+        this.datetimeCreated = datetimeCreated;
+        this.notificationType = notificationType;
+    }
+
+    public Notification() {
+    }
 
     public Integer getId() {
         return id;
@@ -25,12 +48,12 @@ public class Notification {
         this.id = id;
     }
 
-    public Integer getBoardId() {
-        return boardId;
+    public Board getBoard() {
+        return board;
     }
 
-    public void setBoardId(Integer boardId) {
-        this.boardId = boardId;
+    public void setBoard(Board board) {
+        this.board = board;
     }
 
     public String getMessage() {
@@ -41,19 +64,19 @@ public class Notification {
         this.message = message;
     }
 
-    public LocalDateTime getDateTimeCreated() {
-        return dateTimeCreated;
+    public LocalDateTime getDatetimeCreated() {
+        return datetimeCreated;
     }
 
-    public void setDateTimeCreated(LocalDateTime dateTimeCreated) {
-        this.dateTimeCreated = dateTimeCreated;
+    public void setDateTimeCreated(LocalDateTime datetimeCreated) {
+        this.datetimeCreated = datetimeCreated;
     }
 
-    public String getNotificationType() {
+    public MembershipType getNotificationType() {
         return notificationType;
     }
 
-    public void setNotificationType(String notificationType) {
+    public void setNotificationType(MembershipType notificationType) {
         this.notificationType = notificationType;
     }
 }
