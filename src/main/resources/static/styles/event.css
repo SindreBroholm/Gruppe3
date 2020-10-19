@@ -41,7 +41,7 @@ h1 {
             ". time time time ."
             ". loc loc loc ."
             ". descript descript descript ."
-            ". backB . editB .";
+            ". foot foot foot .";
     justify-items: center;
     align-items: center;
 }
@@ -89,26 +89,46 @@ h1 {
     justify-self: start;
     align-self: start;
 }
-.backbutton {
-    grid-area: backB;
-    color: white;
+
+.foot {
+    grid-area: foot;
     width: 100%;
     height: 100%;
-    font: 400 22px roboto;
-    border-radius: 22px;
-    background: linear-gradient(#606060,#000000);
-    box-shadow: 0px 0px 41px -7px rgba(0, 0, 0, 0.70);
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-evenly;
+    align-items: center;
 }
-.editbutton {
-    grid-area: editB;
-    text-align: center;
-    color: white;
-    width: 100%;
-    height: 100%;
+.backbutton {
+    width: 215px;
+    height: 61px;
     font: 400 22px roboto;
     border-radius: 22px;
     background: linear-gradient(#606060,#000000);
     box-shadow: 0px 0px 41px -7px rgba(0, 0, 0, 0.70);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.backbutton > a {
+    color: white;
+    text-decoration: none;
+}
+
+.editbutton {
+    width: 215px;
+    height: 61px;
+    font: 400 22px roboto;
+    border-radius: 22px;
+    background: linear-gradient(#606060,#000000);
+    box-shadow: 0px 0px 41px -7px rgba(0, 0, 0, 0.70);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.editbutton > a {
+    color: white;
+    text-decoration: none;
 }
 
 
