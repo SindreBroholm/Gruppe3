@@ -85,4 +85,34 @@ public class AccessVerifier {
         return eventList;
     }
 
+    public List<Event> eventsForBoard(Board board){
+        return eventRepository.findAllByBoardId(board.getId());
+    }
+
+    public List<Event> filterEvents(List<Event> listOfEvents, MembershipType accessType) {
+        List<Event> fileteredList = new ArrayList<>();
+        if (accessType == MembershipType.ADMIN){
+            return  listOfEvents;
+        }
+        if (accessType == MembershipType.LEADER){
+            for (Event event : listOfEvents){
+                if (event.getEvent_type() != MembershipType.ADMIN){
+                    fileteredList.add(event);
+                }
+            }
+        } else if (accessType == MembershipType.MEMBER){
+            for (Event event : listOfEvents){
+                if (event.getEvent_type() != MembershipType.ADMIN || event.getEvent_type() != MembershipType.LEADER){
+                    fileteredList.add(event);
+                }
+            }
+        } else if (accessType == MembershipType.FOLLOWER){
+            for (Event event: listOfEvents){
+               if (event.getEvent_type() == MembershipType.FOLLOWER){
+                   fileteredList.add(event);
+               }
+            }
+        }
+        return fileteredList;
+    }
 }

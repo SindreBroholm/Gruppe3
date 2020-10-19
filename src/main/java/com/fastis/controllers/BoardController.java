@@ -11,10 +11,7 @@ import com.fastis.validator.EventValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -36,6 +33,37 @@ public class BoardController {
         this.accessVerifier = accessVerifier;
     }
 
+
+    /*
+
+
+    BOARDHOME
+     */
+    @GetMapping("/boardHome/{boardId}")
+    public String boardHome(Model model, @PathVariable Integer boardId, Principal principal) {
+        Board board = boardRepository.findById(boardId).get();
+        model.addAttribute("board",board);
+
+        model.addAttribute("admin", false);
+
+        MembershipType accesstype;
+        if (principal != null){
+            User user = accessVerifier.currentUser(principal);
+            accesstype = accessVerifier.getUserRole(user, board).getMembershipType();
+            if (accesstype == MembershipType.ADMIN){
+                model.addAttribute("admin", true);
+            }
+        } else {
+            System.out.println("Something else");
+            accesstype = MembershipType.FOLLOWER;
+        }
+
+        List<Event> listOfEvents = accessVerifier.eventsForBoard(board);
+        listOfEvents = accessVerifier.filterEvents(listOfEvents, accesstype);
+        model.addAttribute("events", listOfEvents);
+
+        return "boardHomeView";
+    }
 
     @GetMapping("/event")
     public String showEvent(Model model, Principal principal){
