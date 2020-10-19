@@ -87,7 +87,7 @@ public class BoardController {
          model.addAttribute("hourAndMinEnd", localDateTimeHandler.getHourAndMin(event.getDatetime_to()));
          model.addAttribute("location", event.getLocation());
          model.addAttribute("description", event.getMessage());
-         model.addAttribute("role", ur.getMembershipType());
+         model.addAttribute("role", ur.getMembershipType().name);
          return "event";
     }
 

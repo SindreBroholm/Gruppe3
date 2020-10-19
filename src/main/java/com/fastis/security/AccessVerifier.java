@@ -121,13 +121,15 @@ public class AccessVerifier {
         User user = currentUser(principal);
         UserRole ur = userRoleRepository.findAllByUserIdAndBoardId(user.getId(), board.getId());
 
+
+
         if (ur.getMembershipType() == MembershipType.ADMIN){
             return true;
         }
 
         if (ur.getMembershipType() == MembershipType.LEADER){
-            switch (ur.getMembershipType()){
-                case ADMIN, LEADER -> {
+            switch (accessType){
+                case LEADER, MEMBER, FOLLOWER -> {
                     return true;
                 }
                 default -> {
@@ -137,8 +139,8 @@ public class AccessVerifier {
         }
 
         if (ur.getMembershipType() == MembershipType.MEMBER){
-            switch (ur.getMembershipType()){
-                case ADMIN, LEADER, MEMBER -> {
+            switch (accessType){
+                case MEMBER, FOLLOWER -> {
                     return true;
                 }
                 default -> {
@@ -147,9 +149,10 @@ public class AccessVerifier {
             }
         }
 
-        if (ur.getMembershipType() == MembershipType.FOLLOWER){
+        if (accessType == MembershipType.FOLLOWER){
             return true;
         }
+
         return false;
     }
 }
