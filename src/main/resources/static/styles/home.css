@@ -4,10 +4,45 @@
     padding: 0px;
 }
 body {
-    width: 375px;
-    height: 812px;
+
 }
 #main {
     background-color: aquamarine;
     color: red;
+}
+
+.events {
+    background: #6F6F6F;
+    border-radius: 25px;
+    padding: 20px;
+    width: auto;
+    display: flex;
+    height: fit-content;
+    margin: 20px;
+}
+
+.events > li {
+    display: inline-flex;
+    color: white;
+}
+.events > div > div {
+    display: inline-flex;
+    color: white;
+}
+
+#dateBox > #datotagg {
+    float: right;
+}
+
+.events > #dateBox {
+    color: #707070;
+}
+#eventName {
+    font-family: Arial;
+}
+
+#datotagg{
+    color: #54E7E7;
+    font-size: 90px;
+
 }

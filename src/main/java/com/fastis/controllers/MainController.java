@@ -47,7 +47,6 @@ public class MainController {
 
             model.addAttribute("eventList", eventList);
             model.addAttribute("boardsList", boardsList);
-
         }
 
         return "/home";

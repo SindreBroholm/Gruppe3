@@ -7,7 +7,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @Entity
 @Table(name = "events")
@@ -60,6 +62,8 @@ public class Event {
         this.location = location;
         this.name = name;
     }
+
+
 
     public Board getBoard() {
         return board;
@@ -123,6 +127,10 @@ public class Event {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDay() {
+        return DateTimeFormatter.ofPattern("EEE").format(datetime_from);
     }
 
 }
