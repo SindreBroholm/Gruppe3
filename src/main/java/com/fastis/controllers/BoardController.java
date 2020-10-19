@@ -92,13 +92,22 @@ public class BoardController {
     }
 
 
-    @GetMapping("/addevent/{boardId}")
-    public String showAddEvent(Model model, @PathVariable Integer boardId, Principal principal){
+    @GetMapping(value={"/addevent/{boardId}", "/addevent/{boardId}/{eventId}"})
+    public String showAddEvent(Model model, @PathVariable Integer boardId, @PathVariable(required = false) Integer eventId, Principal principal){
 
         User user = accessVerifier.currentUser(principal);
+        Board board = boardRepository.findById(boardId).get();
+
+        if (!accessVerifier.doesUserHaveAccess(principal, board, MembershipType.LEADER)){
+            return "redirect: home";
+        }
 
         Event event = new Event();
+        if(eventId != null){
+            event = eventRepository.findById(eventId).get();
+        }
         model.addAttribute("event", event);
+
         return "eventform";
     }
 
