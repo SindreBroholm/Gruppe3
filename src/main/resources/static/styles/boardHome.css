@@ -1,3 +1,10 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
 body {
     min-height: 100vh;
     background: linear-gradient(319deg, rgb(146, 255, 237) 0%, #606060 100%);
@@ -25,37 +32,40 @@ h3 {
     background-color:#606060;
     /* border-radius: 10px; */
     width: 480px;
-    height: 480px;
+    min-height: 480px;
     /* margin: 5px; */
-    text-align: center;
-    line-height: 75px;
     font-size: 30px;
     box-shadow: 0px 0px 41px -7px rgba(0, 0, 0, 0.70);
 }
 
 
+/***** Header *****/
+
 header{
-    position:sticky;
     background-color:#606060;
     /* border-radius: 10px; */
     width: 480px;
     height: 80px;
-    margin:auto;
     align-items: center;
     box-shadow: 0px 0px 41px -7px rgba(0, 0, 0, 0.70);
     background: linear-gradient(#606060,#000000);
 }
 
-
-
-.navbar > ul{
-    margin-left: -15px;
+header > ul {
+    height: 100%;
+    display: flex;
+    flex-flow: nowrap row;
+    align-items: center;
 }
 
-.navbar > ul > li{
-    margin-top: 15px ;
-
+header > ul > li {
+    margin: 0 5px;
 }
+
+header > ul > li:last-child {
+    margin-left: auto;
+}
+
 
 input  {
     margin-top: 5px;
@@ -63,24 +73,12 @@ input  {
     border-radius:5px;
 }
 
-.search {
-    margin-right: 15px;
-}
-
-
-
 li {
-    margin-left: 5px;
-    margin-right: 5px;
-
-    float: left;
     list-style-type: none;
-
 }
 
 
 i.material-icons {
-
     font-size: 36px;
     color:white;
 }
@@ -92,7 +90,6 @@ i.material-icons {
 
 .text .search {
     border-radius: 10px;
-    float: left;
     width: 20%;
     padding: 10px;
     color:#606060 ;
@@ -102,16 +99,18 @@ i.material-icons {
     margin-right: 5px;
 }
 
+
 #imageholder{
-    position: absolute;
+    display: flex;
+    flex-flow: nowrap column;
+    align-items: center;
+    justify-content: flex-end;
     background-color: white;
     height:130px;
     width: 400px;
     border-radius: 10px;
-    margin: 7px;
-    margin-top: -15px;
     box-shadow: 0px 0px 41px -3px rgba(0, 0, 0, 0.70);
-
+    transform: translate(0, -5px);
 }
 
 #optionsholder{
@@ -123,7 +122,11 @@ i.material-icons {
 }
 
 #optionsholder > ul{
-    margin-top: 150px;
+    height: 350px;
+    display: flex;
+    flex-flow: nowrap column;
+    align-items: center;
+    justify-content: space-around;
 }
 
 #optionsholder > ul >li > i.material-icons{
@@ -137,34 +140,17 @@ i.material-icons {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height:auto;
 }
 
 .lievent > h3{
-    margin-top: -50px;
-    margin-bottom: -5px;
     font-size: 18px;
     color:#606060;
 }
 
 
-
-
-#optionsholder > ul >li {
-
-    width: 400px;
-    margin: auto;
-    display: list-item;
-    align-items: center;
-}
-
-
-
-
 /* Eventstream */
 
 #upcomingevents{
-
     font-style: italic;
     font-weight: normal;
     letter-spacing: 2px;
@@ -176,13 +162,11 @@ i.material-icons {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height:2000px;
     background: linear-gradient(#606060,#000000,#606060,#000000,#606060,#000000,#606060,#000000);
     text-align: left;
 }
 
 #eventstream > h3 {
-    margin-top: -10px;
     color: white;
 }
 
@@ -193,7 +177,6 @@ i.material-icons {
 }
 
 #eventstream > ul {
-    margin-top: -30px;
 }
 
 #eventstream > ul >li {
@@ -209,13 +192,9 @@ i.material-icons {
 /* Event Tiltle and descrition */
 
 .eventdescription {
-    margin-top: -30px;
-    margin-left: 20px;
 }
 
 .eventdescription > p {
-    margin-top: -70px;
-    margin-left: 20px;
 }
 
 
@@ -230,14 +209,9 @@ i.material-icons {
 #datotagg{
     color: rgb(17, 156, 133);
     font-size: 90px;
-    margin-top: -15px;
-    margin-right: 10px;
 }
 
 #date {
-    position: absolute;
-    margin-top: -20px;
-    margin-left: 25px;
     color: white;
     font-style: bold;
     font-size: 18px;

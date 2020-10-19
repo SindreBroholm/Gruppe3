@@ -41,14 +41,19 @@ public class BoardController {
      */
     @GetMapping("/boardHome/{boardId}")
     public String boardHome(Model model, @PathVariable Integer boardId, Principal principal) {
-        if (principal != null){
-            System.out.println("SOmething");
-        }
         Board board = boardRepository.findById(boardId).get();
-        model.addAttribute("currentBoard",board);
+        MembershipType accesstype;
+        if (principal != null){
+            User user = accessVerifier.currentUser(principal);
+            accesstype = accessVerifier.getUserRole(user, board).getMembershipType();
+        } else {
+            System.out.println("Something else");
+            accesstype = MembershipType.FOLLOWER;
+        }
+        model.addAttribute("board",board);
 
         List<Event> listOfEvents = accessVerifier.eventsForBoard(board);
-        listOfEvents = accessVerifier.filterEvents(listOfEvents);
+        listOfEvents = accessVerifier.filterEvents(listOfEvents, accesstype);
         model.addAttribute("events", listOfEvents);
 
         return "boardHomeView";
