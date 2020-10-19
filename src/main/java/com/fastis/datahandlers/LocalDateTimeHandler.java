@@ -9,12 +9,11 @@ import java.util.List;
 public class LocalDateTimeHandler {
 
     public String getDateString(LocalDateTime localDateTime){
-        String date = getDayOfWeek(localDateTime) + " " + getDayOfMonth(localDateTime) +"/"+getMonth(localDateTime);
+        String date = getDayOfWeek(localDateTime) + " " + getDayOfMonth(localDateTime) +"/"+getMonth(localDateTime.getMonthValue());
         return date;
     }
 
-    public String getMonth(LocalDateTime localDateTime) {
-        int month = localDateTime.getMonth().getValue();
+    public String getMonth(int month) {
         switch (month) {
             case 1:
                 return "Jan";
@@ -100,7 +99,7 @@ public class LocalDateTimeHandler {
     public String getDayOfMonth(LocalDateTime localDateTime){
         int month = localDateTime.getMonth().getValue();
         int dayOfMonth = localDateTime.getDayOfMonth();
-        return dayOfMonth +"/"+month;
+        return dayOfMonth +"/"+getMonth(month);
     }
 
     public String getHourAndMin(LocalDateTime localDateTime){

@@ -30,7 +30,6 @@
                 </div>
                 <h3 th:if="${dayOfWeekStart != dayOfWeekEnd}">To </h3>
                 <div class="dateend" th:if="${dayOfWeekStart != dayOfWeekEnd}">
-
                     <h3 th:text="${dayOfWeekEnd}"></h3>
                     <p th:text="${dayAndMonthEnd}"></p>
                 </div>
@@ -43,9 +42,18 @@
 
             <h3 class="loacation" th:text="${location}"></h3>
             <p class="description" th:text="${description}"></p>
-            <button class="backbutton" type="button" >Back</button>
-            <a class="editbutton" type="submit" th:href="@{/addevent}" th:if="${role == 'admin'}">Edit</a>
-            <a class="editbutton" type="submit" th:href="@{/addevent}" th:if="${role == 'leader'}">Edit</a>
+            <div class="foot">
+                <div class="backbutton">
+                    <a class="backbutton" type="button" >Back</a>
+                </div>
+
+                <div class="editbutton" th:if="${role == 'admin'}">
+                    <a type="submit" th:href="@{/addevent}">Edit</a>
+                </div>
+                <div class="editbutton" th:if="${role == 'leader'}">
+                    <a type="submit" th:href="@{/addevent}">Edit</a>
+                </div>
+            </div>
         </div>
     </div>
 </body>
