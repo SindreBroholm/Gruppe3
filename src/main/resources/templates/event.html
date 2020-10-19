@@ -23,12 +23,12 @@
         <div class="grid-container">
             <h1 class="eventname" th:text="${name}"></h1>
             <div class="date">
-                <h3>From</h3>
+                <h3 th:if="${dayOfWeekStart != dayOfWeekEnd}">From</h3>
                 <div class="datestart">
                     <h3 th:text="${dayOfWeekStart}"></h3>
                     <p th:text="${dayAndMonthStart}"></p>
                 </div>
-                <h3>To </h3>
+                <h3 th:if="${dayOfWeekStart != dayOfWeekEnd}">To </h3>
                 <div class="dateend" th:if="${dayOfWeekStart != dayOfWeekEnd}">
 
                     <h3 th:text="${dayOfWeekEnd}"></h3>
@@ -44,7 +44,8 @@
             <h3 class="loacation" th:text="${location}"></h3>
             <p class="description" th:text="${description}"></p>
             <button class="backbutton" type="button" >Back</button>
-            <button class="editbutton" type="button" th:if="${role == role.ADMIN || role.LEADER}">Edit</button>
+            <a class="editbutton" type="submit" th:href="@{/addevent}" th:if="${role == 'admin'}">Edit</a>
+            <a class="editbutton" type="submit" th:href="@{/addevent}" th:if="${role == 'leader'}">Edit</a>
         </div>
     </div>
 </body>
