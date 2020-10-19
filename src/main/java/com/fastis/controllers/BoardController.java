@@ -86,8 +86,11 @@ public class BoardController {
     }
 
 
-    @GetMapping("/addevent")
-    public String showAddEvent(Model model){
+    @GetMapping("/addevent/{boardId}")
+    public String showAddEvent(Model model, @PathVariable Integer boardId, Principal principal){
+
+        User user = accessVerifier.currentUser(principal);
+
         Event event = new Event();
         model.addAttribute("event", event);
         return "eventform";
