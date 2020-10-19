@@ -85,4 +85,12 @@ public class AccessVerifier {
         return eventList;
     }
 
+    public List<Event> eventsForBoard(Board board){
+        return eventRepository.findAllByBoardId(board.getId());
+    }
+
+    public List<Event> filterEvents(List<Event> listOfEvents, User user) {
+
+        return listOfEvents;
+    }
 }

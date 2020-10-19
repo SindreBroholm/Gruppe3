@@ -38,26 +38,14 @@
             <a href="Manage Members">+MANAGE MEMBERS</a>
     </section>
 
-    <section class="eventStream">
+    <section class="event-stream">
         <h2>Upcoming events...</h2>
-        <div class="event">
-            <h3>Eventname</h3>
-        </br>
-            <p>This is a description of the event</p>
-        </div>
-
-        <div class="event">
-            <h3>Eventname</h3>
-            </br>
-            <p>This is a description of the event</p>
-        </div>
-
-        <div class="event">
-            <h3>Eventname</h3>
-            </br>
-            <p>This is a description of the event</p>
+	<div th:each="event: ${events}" class="event">
+	    <h3 th:text="${event.name}">Eventname</h3>
+	<p th:text="${event.message}">This is a description of the event</p>
         </div>
     </section>
+
 </main>
 </body>
 </html>

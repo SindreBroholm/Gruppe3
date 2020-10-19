@@ -40,9 +40,16 @@ public class BoardController {
     BOARDHOME
      */
     @GetMapping("/boardHome/{boardId}")
-    public String boardHome(Model model, @PathVariable Integer boardId) {
+    public String boardHome(Model model, @PathVariable Integer boardId, Principal principal) {
+        if (principal != null){
+            System.out.println("SOmething");
+        }
         Board board = boardRepository.findById(boardId).get();
         model.addAttribute("currentBoard",board);
+
+        List<Event> listOfEvents = accessVerifier.eventsForBoard(board);
+        listOfEvents = accessVerifier.filterEvents(listOfEvents);
+        model.addAttribute("events", listOfEvents);
 
         return "boardHomeView";
     }

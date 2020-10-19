@@ -75,7 +75,7 @@ li > a  {
     flex-flow: nowrap column;
     justify-content: space-evenly;
     align-items: center;
-
+    margin-bottom: 20px;
 }
 
 .icon {
@@ -85,6 +85,10 @@ li > a  {
 
 
 /***** Event Stream *****/
+
+.event-stream{
+    align-self: flex-end;
+}
 
 .material-icons.md-24 {
     font-size: 48px;
