@@ -15,60 +15,123 @@
             <li><a href="#dropmenu"><i class="material-icons">menu</i></a></li>
             <li><a href="#user"><i class="material-icons">person</i></a></li>
             <li><a href="#notification"><i class="material-icons">add_alert</i></a></li>
-            <li style="float:right"><a class="search" href="#search">SEARCH</a></li>
+
+            <li><img id="logo" src="" height="40px"></li>
+
+            <li style="float:right">
+                <form class="search" action="/action_page.php" style="margin:auto;max-width:300px">
+                    <input type="text" placeholder="Search.." name="search">
+                    <!-- <button type="submit"><i class="search"></i></button> -->
+                </form></li>
         </ul>
 
     </nav>
+
 </header>
 
-<div class="main">
 
-    <section class="imageholder">
-        <img id="mainimage" src="https://lh3.googleusercontent.com/proxy/2Z-YIh_DztKx89QCCkdWmdwMtP2O5pGDjBV_GKX68IJahemBP5znmMs62nQp4EUDrhAQQBRLZOsLtNGCzaDJw7sQfIjA9sXLToRFvZ7rc7TFx0kwgKIp2E7Bd2oDL0040w7URMfaNuoo">
-        <img id="overgroupimage" src="">
-        <h1 th:text="${currentBoard.name}">Title of Board</h1>
-    </section>
+<div class="flex-container">
 
-    <section class="mainfunctionsholder">
-        <div id="createEvent">
-            <i class="material-icons">bookmark</i>
-            <a href="Create Event">+CREATE EVENT</a>
-            <a href="Manage Event">+MANAGE EVENT</a>
+
+    <div id="optionsholder">
+        <div id="imageholder">
+            <img height="130px" src="">
         </div>
+        <ul>
+            <li class="lievent">
+                <i class="material-icons">bookmark</i>
+                <h3>+Create Event</h3>
+            </li>
 
-        <div id="notification">
-            <i class="material-icons">add_alert</i>
-            <a href="Push Notification">+PUSH NOTIFICATION</a>
-        </div>
+            <li class="lievent">
+                <i class="material-icons">add_alert</i>
+                <h3>+Add Notification</h3>
+            </li>
 
-        <div id="manageMembers">
-            <i class="material-icons">group_add</i>
-            <a href="Manage Members">+MANAGE MEMBERS</a>
-        </div>
-    </section>
+            <li class="lievent">
+                <i class="material-icons">person</i>
+                <h3>+View Members</h3>
+            </li>
+        </ul>
+    </div>
 
-    <section class="eventStream">
-        <h2>Upcoming events...</h2>
-        <div class="event">
-            <h3>Eventname</h3>
-        </br>
-            <p>This is a description of the event</p>
-        </div>
+    <div id="eventstream">
+        <h3 id="upcomingevents">UPCOMING EVENTS...</h3>
+        <ul>
 
-        <div class="event">
-            <h3>Eventname</h3>
-            </br>
-            <p>This is a description of the event</p>
-        </div>
+            <li class="eventli">
+                <div class="eventdescription">
+                    <h3>Eventname</h3>
+                    <p>eventdescription</p>
+                    <p>Start: date and time. End: date and time.</p>
+                </div>
+                <div class="eventdate">
+                    <i id ="datotagg" class="material-icons">bookmark</i>
+                    <p id="date">11/2</p>
+                </div>
+            </li>
 
-        <div class="event">
-            <h3>Eventname</h3>
-            </br>
-            <p>This is a description of the event</p>
-        </div>
+            <li class="eventli">
+                <div class="eventdescription">
+                    <h3>Eventname</h3>
+                    <p>eventdescription</p>
+                </div>
+                <div class="eventdate">
+                    <i id ="datotagg" class="material-icons">bookmark</i>
+                    <p id="date">11/2</p>
+                </div>
+            </li>
 
-    </section>
 
+            <li class="eventli">
+                <div class="eventdescription">
+                    <h3>Eventname</h3>
+                    <p>eventdescription</p>
+                </div>
+                <div class="eventdate">
+                    <i id ="datotagg" class="material-icons">bookmark</i>
+                    <p id="date">11/2</p>
+                </div>
+            </li>
+
+            <li class="eventli">
+                <div class="eventdescription">
+                    <h3>Eventname</h3>
+                    <p>eventdescription</p>
+                </div>
+                <div class="eventdate">
+                    <i id ="datotagg" class="material-icons">bookmark</i>
+                    <p id="date">11/2</p>
+                </div>
+            </li>
+
+            <li class="eventli">
+                <div class="eventdescription">
+                    <h3>Eventname</h3>
+                    <p>eventdescription</p>
+                </div>
+                <div class="eventdate">
+                    <i id ="datotagg" class="material-icons">bookmark</i>
+                    <p id="date">11/2</p>
+                </div>
+            </li>
+
+
+            <li class="eventli">
+                <div class="eventdescription">
+                    <h3>Eventname</h3>
+                    <p>eventdescription</p>
+                </div>
+                <div class="eventdate">
+                    <i id ="datotagg" class="material-icons">bookmark</i>
+                    <p id="date">11/2</p>
+                </div>
+            </li>
+
+
+
+        </ul>
+    </div>
 </div>
 </body>
 </html>
