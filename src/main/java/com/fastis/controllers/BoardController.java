@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
 import java.util.List;
@@ -75,7 +76,7 @@ public class BoardController {
         if (accessVerifier.doesUserHaveAccess(principal, board, event.getEvent_type())){
             ur = accessVerifier.getUserRole(user, board);
         }else {
-            return "redirect: home";
+            return "home";
         }
          LocalDateTimeHandler localDateTimeHandler = new LocalDateTimeHandler();
          model.addAttribute("name", event.getName());
@@ -99,7 +100,7 @@ public class BoardController {
         Board board = boardRepository.findById(boardId).get();
 
         if (!accessVerifier.doesUserHaveAccess(principal, board, MembershipType.LEADER)){
-            return "redirect: home";
+            return "home";
         }
 
         Event event = new Event();
