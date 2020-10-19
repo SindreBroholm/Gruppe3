@@ -48,7 +48,7 @@ public class BoardController {
         model.addAttribute("currentBoard",board);
 
         List<Event> listOfEvents = accessVerifier.eventsForBoard(board);
-        listOfEvents = accessVerifier.filterEvents(listOfEvents);
+        //listOfEvents = accessVerifier.filterEvents(listOfEvents);
         model.addAttribute("events", listOfEvents);
 
         return "boardHomeView";
