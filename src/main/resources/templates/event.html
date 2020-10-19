@@ -44,7 +44,7 @@
             <h3 class="loacation" th:text="${location}"></h3>
             <p class="description" th:text="${description}"></p>
             <button class="backbutton" type="button" >Back</button>
-            <button class="editbutton" type="button">Edit</button>
+            <button class="editbutton" type="button" th:if="${role == role.ADMIN || role.LEADER}">Edit</button>
         </div>
     </div>
 </body>

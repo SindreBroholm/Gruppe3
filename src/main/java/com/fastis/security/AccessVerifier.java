@@ -1,5 +1,6 @@
 package com.fastis.security;
 
+import ch.qos.logback.core.joran.conditional.IfAction;
 import com.fastis.data.*;
 import com.fastis.repositories.BoardRepository;
 import com.fastis.repositories.EventRepository;
@@ -114,5 +115,41 @@ public class AccessVerifier {
             }
         }
         return fileteredList;
+    }
+
+    public boolean doesUserHaveAccess(Principal principal, Board board, MembershipType accessType) {
+        User user = currentUser(principal);
+        UserRole ur = userRoleRepository.findAllByUserIdAndBoardId(user.getId(), board.getId());
+
+        if (ur.getMembershipType() == MembershipType.ADMIN){
+            return true;
+        }
+
+        if (ur.getMembershipType() == MembershipType.LEADER){
+            switch (ur.getMembershipType()){
+                case ADMIN, LEADER -> {
+                    return true;
+                }
+                default -> {
+                    return false;
+                }
+            }
+        }
+
+        if (ur.getMembershipType() == MembershipType.MEMBER){
+            switch (ur.getMembershipType()){
+                case ADMIN, LEADER, MEMBER -> {
+                    return true;
+                }
+                default -> {
+                    return false;
+                }
+            }
+        }
+
+        if (ur.getMembershipType() == MembershipType.FOLLOWER){
+            return true;
+        }
+        return false;
     }
 }
