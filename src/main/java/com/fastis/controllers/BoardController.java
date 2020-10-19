@@ -65,12 +65,18 @@ public class BoardController {
         return "boardHomeView";
     }
 
-    @GetMapping("/event")
-    public String showEvent(Model model, Principal principal){
+    @GetMapping("/event/{boardId}/{eventId}")
+    public String showEvent(Model model, Principal principal, @PathVariable Integer boardId, @PathVariable Integer eventId){
+        Board board = boardRepository.findById(boardId).get();
+        Event event = eventRepository.findById(eventId).get();
+        User user = accessVerifier.currentUser(principal);
+        UserRole ur;
 
-
-         Event event = eventRepository.findById(1);
-
+        if (accessVerifier.doesUserHaveAccess(principal, board, event.getEvent_type())){
+            ur = accessVerifier.getUserRole(user, board);
+        }else {
+            return "redirect: home";
+        }
          LocalDateTimeHandler localDateTimeHandler = new LocalDateTimeHandler();
          model.addAttribute("name", event.getName());
          model.addAttribute("dayOfWeekStart", localDateTimeHandler.getDayOfWeek(event.getDatetime_from()));
@@ -81,7 +87,7 @@ public class BoardController {
          model.addAttribute("hourAndMinEnd", localDateTimeHandler.getHourAndMin(event.getDatetime_to()));
          model.addAttribute("location", event.getLocation());
          model.addAttribute("description", event.getMessage());
-         //model.addAttribute("role", userRole.getMembershipType());
+         model.addAttribute("role", ur.getMembershipType());
          return "event";
     }
 
