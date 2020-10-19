@@ -4,9 +4,9 @@ insert into user(Email, Firstname, Lastname, Password) values
 ('fredrsan@gmail.com', 'Fredrik', 'Sandbakk', 'Fredrik123'),
 ('helgerannem@gmail.com', 'Helge', 'Rannem', 'Helge123');
 
-insert into board(name) values
-('Fastis test Board'),
-('Fastis Subtest Board');
+insert into board(name, contact_Email, contact_Name, contact_Number) values
+('Fastis test Board', 'helge@mail.com', 'frank', '99434990'),
+('Fastis Subtest Board','helge@mail.com', 'frank', '99434990');
 
 insert into membership_type(name) values
 ('admin'),
@@ -25,4 +25,11 @@ insert into user_role(user_id, board_id, membership_type, numb_of_members) value
 (4, 2, 'follower', 1);
 
 insert into events(Board_Id, Message, Datetime_From, Datetime_To, Datetime_Created, Event_Type, Location, Name) values
-(1, 'Hælg', '2020-10-16 16:00:00', '2020-10-16 17:00:00', '2020-10-12 12:00:00', 'follower', 'Bratørkaia 17A', 'Skål');
+(2, 'Hælg', '2020-10-16 16:00:00', '2020-10-16 17:00:00', '2020-10-12 12:00:00', 'follower', 'Bratørkaia 17A', 'Skål');
+
+
+select e.* from user_role ur
+    join Board b on b.id = ur.Board_Id
+    join events e on b.id = e.Board_Id
+where ur.User_Id = 1  and ur.membership_Type = 'admin'
+      order by e.datetime_from;

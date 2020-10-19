@@ -9,12 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import javax.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -23,6 +18,8 @@ public class UserHandlerController {
     private UserRepository repository;
     private PasswordEncoder passwordEncoder;
     private BoardRepository boardRepository;
+
+
 
     public UserHandlerController(UserRepository repository, PasswordEncoder passwordEncoder, BoardRepository boardRepository) {
         this.repository = repository;
@@ -49,8 +46,10 @@ public class UserHandlerController {
      * */
     @GetMapping("/signup")
     public String signup(Model model) {
+
         User user = new User();
         model.addAttribute("user", user);
+
         return "signup";
     }
 
@@ -74,8 +73,8 @@ public class UserHandlerController {
     //
 
     @GetMapping("/myprofile")
-    public String myProfile(){
-        return null;
+    public String myprofile() {
+       return "myprofile";
     }
 
 
@@ -83,18 +82,6 @@ public class UserHandlerController {
 
 
 
-    /*
-
-
-    BOARDHOME
-     */
-@GetMapping("/boardHome/{name}")
-    public String boardHome(Model model, @PathVariable String name) {
-    Board board = boardRepository.findByName(name);
-    model.addAttribute("currentBoard",board);
-
-    return "boardHomeView";
-}
 
 
 

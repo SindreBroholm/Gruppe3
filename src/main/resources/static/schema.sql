@@ -1,4 +1,4 @@
-
+/* create schema fastis; */
 
 create table fastis.user(
     Id int auto_increment unique,
@@ -57,7 +57,7 @@ create table fastis.events(
 create table fastis.notification
 (
     Id int auto_increment unique not null,
-    Board_Id int unique not null,
+    Board_Id int not null,
     Message varchar(5000) not null,
     Datetime_Created datetime not null,
     notification_Type varchar(56) not null,
@@ -65,3 +65,4 @@ create table fastis.notification
     foreign key (Board_Id) references board(Id) ON DELETE CASCADE,
     foreign key (notification_Type) references membership_Type(name)
 );
+

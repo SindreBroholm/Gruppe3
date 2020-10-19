@@ -1,19 +1,20 @@
 package com.fastis.controllers;
 
-import com.fastis.data.Board;
-import com.fastis.data.Event;
-import com.fastis.data.User;
+import com.fastis.data.*;
 import com.fastis.repositories.BoardRepository;
 import com.fastis.datahandlers.LocalDateTimeHandler;
 import com.fastis.repositories.EventRepository;
 import com.fastis.repositories.UserRepository;
+
+import com.fastis.security.AccessVerifier;
 import com.fastis.validator.EventValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+import java.util.List;
 
 
 @Controller
@@ -22,20 +23,60 @@ public class BoardController {
     private EventRepository eventRepository;
     private BoardRepository boardRepository;
     private UserRepository userRepository;
+    private AccessVerifier accessVerifier;
 
-    public BoardController(EventRepository eventRepository,BoardRepository boardRepository, UserRepository userRepository) {
+
+    public BoardController(EventRepository eventRepository,BoardRepository boardRepository, UserRepository userRepository, AccessVerifier accessVerifier) {
         this.eventRepository = eventRepository;
         this.boardRepository = boardRepository;
         this.userRepository = userRepository;
+        this.accessVerifier = accessVerifier;
     }
 
-    // Denne skal inn når AccessVerifier er på plass.
-    // <button type="button" th:if="${role == 'admin'|| 'leader'}">Edit</button>
 
-    @GetMapping("/event")
-    public String showEvent(Model model){
-         Event event = eventRepository.findById(5);
+    /*
 
+
+    BOARDHOME
+     */
+    @GetMapping("/boardHome/{boardId}")
+    public String boardHome(Model model, @PathVariable Integer boardId, Principal principal) {
+        Board board = boardRepository.findById(boardId).get();
+        model.addAttribute("board",board);
+
+        model.addAttribute("admin", false);
+
+        MembershipType accesstype;
+        if (principal != null){
+            User user = accessVerifier.currentUser(principal);
+            accesstype = accessVerifier.getUserRole(user, board).getMembershipType();
+            if (accesstype == MembershipType.ADMIN){
+                model.addAttribute("admin", true);
+            }
+        } else {
+            System.out.println("Something else");
+            accesstype = MembershipType.FOLLOWER;
+        }
+
+        List<Event> listOfEvents = accessVerifier.eventsForBoard(board);
+        listOfEvents = accessVerifier.filterEvents(listOfEvents, accesstype);
+        model.addAttribute("events", listOfEvents);
+
+        return "boardHomeView";
+    }
+
+    @GetMapping("/event/{boardId}/{eventId}")
+    public String showEvent(Model model, Principal principal, @PathVariable Integer boardId, @PathVariable Integer eventId){
+        Board board = boardRepository.findById(boardId).get();
+        Event event = eventRepository.findById(eventId).get();
+        User user = accessVerifier.currentUser(principal);
+        UserRole ur;
+
+        if (accessVerifier.doesUserHaveAccess(principal, board, event.getEvent_type())){
+            ur = accessVerifier.getUserRole(user, board);
+        }else {
+            return "redirect: home";
+        }
          LocalDateTimeHandler localDateTimeHandler = new LocalDateTimeHandler();
          model.addAttribute("name", event.getName());
          model.addAttribute("dayOfWeekStart", localDateTimeHandler.getDayOfWeek(event.getDatetime_from()));
@@ -46,7 +87,7 @@ public class BoardController {
          model.addAttribute("hourAndMinEnd", localDateTimeHandler.getHourAndMin(event.getDatetime_to()));
          model.addAttribute("location", event.getLocation());
          model.addAttribute("description", event.getMessage());
-         //model.addAttribute("role", userRole.getMembershipType())
+         model.addAttribute("role", ur.getMembershipType().name);
          return "event";
     }
 
@@ -59,19 +100,21 @@ public class BoardController {
     }
 
 
-    //Legg til funksjon for å redigere en eksisterende event!
     @PostMapping("/addevent")
-    public String addOrEditEvent(@ModelAttribute Event event, BindingResult br){
+    public String addOrEditEvent(@ModelAttribute Event event, BindingResult br, @RequestParam(required = false) int id){
         EventValidator validator = new EventValidator();
         if(validator.supports(event.getClass())){
             validator.validate(event, br);
         }
         if(br.hasErrors()){
             return "eventform";
-        } else {
+        }
+        if(eventRepository.findById(id) != null){
             eventRepository.save(event);
             return "redirect: /event";
         }
+        eventRepository.save(event);
+        return "redirect: /event";
     }
 
     @GetMapping("/createboard")
@@ -95,11 +138,11 @@ public class BoardController {
         }
     }
 
-    @GetMapping("/profile")
+/*    @GetMapping("/profile")
     public String showUserProfile(Model model){
-        /*User user = userRepository.findById(1); //trenger hjelp her
+        *//*User user = userRepository.findById(1); //trenger hjelp her
         String username = user.getFirstname() + user.getLastname();
-        model.addAttribute("user", user);*/
+        model.addAttribute("user", user);*//*
         return "userprofile";
     }
 
@@ -111,7 +154,26 @@ public class BoardController {
     @PostMapping("/updateprofile")
     public String updateProfile(@ModelAttribute User user, BindingResult br){
         return "settingsprofile";
+    }*/
+
+
+    @GetMapping("/search")
+    public String openSearch(){
+
+        return "search";
     }
 
-
+    @PostMapping("/search")
+    public String search(Model model, @RequestParam() String keyword) {
+        List<Board> searchResults;
+        if (keyword != null) {
+            searchResults = boardRepository.search(keyword);
+        } else {
+            searchResults = (List<Board>) boardRepository.findAll();
+        }
+        model.addAttribute("listProducts", searchResults);
+        model.addAttribute("keyword", keyword);
+        System.out.println(searchResults.toString());
+        return "search";
+    }
 }

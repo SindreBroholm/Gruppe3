@@ -1,16 +1,13 @@
 package com.fastis.security;
 
-import com.fastis.data.Board;
-import com.fastis.data.MembershipType;
-import com.fastis.data.User;
-import com.fastis.data.UserRole;
-import com.fastis.repositories.BoardRepository;
-import com.fastis.repositories.UserRepository;
-import com.fastis.repositories.UserRoleRepository;
+import com.fastis.data.*;
+import com.fastis.datahandlers.InviteByEmail;
+import com.fastis.repositories.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,16 +19,25 @@ public class InitController {
     private PasswordEncoder passwordEncoder;
     private BoardRepository boardRepository;
     private UserRoleRepository userRoleRepository;
+    private EventRepository eventRepository;
+    private NotificationRepository notificationRepository;
+    private InviteByEmail inviteByEmail;
 
-    public InitController(UserRepository userRepository,
-                          PasswordEncoder passwordEncoder,
-                          BoardRepository boardRepository,
-                          UserRoleRepository userRoleRepository
-                          ) {
+    private AccessVerifier accessVerifier;
+
+    public InitController(UserRepository userRepository, PasswordEncoder passwordEncoder,
+                          BoardRepository boardRepository, UserRoleRepository userRoleRepository,
+                          EventRepository eventRepository, NotificationRepository notificationRepository,
+                          InviteByEmail inviteByEmail, AccessVerifier accessVerifier
+    ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.boardRepository = boardRepository;
         this.userRoleRepository = userRoleRepository;
+        this.eventRepository = eventRepository;
+        this.notificationRepository = notificationRepository;
+        this.inviteByEmail = inviteByEmail;
+        this.accessVerifier = accessVerifier;
     }
 
     @GetMapping("/init")
@@ -47,9 +53,28 @@ public class InitController {
         connectingUsersToBoards(users, boards);
 
         //setting up events
-        settingUpEvents();
+        settingUpEvents(users, boards);
+
+        //setting up notifications
+        settingUpNotifications(boards);
 
         return "ok";
+    }
+
+    @GetMapping("/testStuff")
+    public String testStuff(){
+        Board board = new Board();
+        board.setName("MidtbyenIL");
+        board.setContactName("Sindre Sæther");
+        board.setContactNumber("93071137");
+        board.setContactEmail("test@test.no");
+        inviteByEmail.sendInvite(board,
+                "",  new User("test0@test.no",
+                        "Ola0", "Nordmann0",
+                        passwordEncoder.encode("123"),
+                        "0000")
+        );
+        return "OK";
     }
 
     public List<User> settingUpUsers() {
@@ -93,11 +118,11 @@ public class InitController {
         return Arrays.asList(board1, board2);
     }
 
-    public List<UserRole> connectingUsersToBoards(List<User> users, List<Board> boards){
+    public List<UserRole> connectingUsersToBoards(List<User> users, List<Board> boards) {
 
         List<UserRole> userRoles = (List<UserRole>) userRoleRepository.findAll();
 
-        if (userRoles == null || userRoles.size() == 0){
+        if (userRoles == null || userRoles.size() == 0) {
             //user0 admin board0
             UserRole userRole1 = new UserRole(users.get(0).getId(),
                     boards.get(0).getId(),
@@ -135,17 +160,116 @@ public class InitController {
                     userRole3,
                     userRole4,
                     userRole5
-                    ));
-            for (UserRole role : userRoles){
+            ));
+            for (UserRole role : userRoles) {
                 userRoleRepository.save(role);
             }
         }
         return userRoles;
     }
 
-    public void settingUpEvents(){
-        //TODO
-        List<Board> boards = (List<Board>) boardRepository.findAll();
+    public List<Event> settingUpEvents(List<User> users, List<Board> boards) {
+
+        List<Event> events = (List<Event>) eventRepository.findAll();
+
+        if (events == null || events.size() == 0) {
+            LocalDateTime today = LocalDateTime.now();
+
+            //populating first board in list with events
+            Board board = boards.get(0);
+            String message = "this is a message1 about an event";
+            LocalDateTime start = today;
+            Event event1 = new Event(board, message,
+                    start, start.plusDays(2),
+                    start, MembershipType.MEMBER,
+                    "Trondheim", "Oppvarming til Trønderferst!");
+
+            message = "this is a message2 about an event";
+            start = today.plusDays(1);
+            Event event2 = new Event(board, message,
+                    start, start.plusDays(2),
+                    start, MembershipType.MEMBER,
+                    "Trondheim", "Trønderferst!");
+
+            message = "this is a message3 about an event";
+            start = today.plusDays(7);
+            Event event3 = new Event(board, message,
+                    start, start,
+                    start, MembershipType.MEMBER,
+                    "Trondheim", "Trøndernach!");
+
+            message = "this is a message4 about an event";
+            start = today.plusDays(14);
+            Event event4 = new Event(board, message,
+                    start, start.plusDays(2),
+                    start, MembershipType.FOLLOWER,
+                    "Trondheim", "Opprydding!");
+
+            message = "this is a message5 about an event";
+            start = today.plusDays(21);
+            Event event5 = new Event(board, message,
+                    start, start,
+                    start, MembershipType.FOLLOWER,
+                    "Trondheim", "Follower fest!");
+
+            events.addAll(Arrays.asList(event1, event2, event3, event4, event5));
+
+            for (Event event : events) {
+                eventRepository.save(event);
+            }
+        }
+        return events;
+    }
+
+    public void settingUpNotifications(List<Board> boards) {
+        List<Notification> notifications = (List<Notification>) notificationRepository.findAll();
+
+        if (notifications == null || notifications.size() == 0) {
+
+            LocalDateTime today = LocalDateTime.now();
+
+            //setting up notifications for first board in list
+            Board board = boards.get(0);
+            String message = "This is a very important notification";
+            LocalDateTime created = today;
+            Notification notification1 = new Notification(
+                    board, message,
+                    created, MembershipType.MEMBER
+                    );
+
+            message = "This is not a very important notification";
+            created = today.minusDays(2);
+            Notification notification2 = new Notification(
+                    board, message,
+                    created, MembershipType.MEMBER
+            );
+
+            message = "This is something else";
+            created = today.minusDays(3);
+            Notification notification3 = new Notification(
+                    board, message,
+                    created, MembershipType.FOLLOWER
+            );
+
+            message = "This is a very strange follwoer notification!";
+            created = today.minusDays(7);
+            Notification notification4 = new Notification(
+                    board, message,
+                    created, MembershipType.FOLLOWER
+            );
+
+            notifications.addAll(Arrays.asList(
+                    notification1,
+                    notification2,
+                    notification3,
+                    notification4
+            ));
+
+            for (Notification notification : notifications){
+                notificationRepository.save(notification);
+            }
+
+        }
     }
 
 
