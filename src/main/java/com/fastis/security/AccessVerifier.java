@@ -96,9 +96,23 @@ public class AccessVerifier {
         }
         if (accessType == MembershipType.LEADER){
             for (Event event : listOfEvents){
+                if (event.getEvent_type() != MembershipType.ADMIN){
+                    fileteredList.add(event);
+                }
+            }
+        } else if (accessType == MembershipType.MEMBER){
+            for (Event event : listOfEvents){
+                if (event.getEvent_type() != MembershipType.ADMIN || event.getEvent_type() != MembershipType.LEADER){
+                    fileteredList.add(event);
+                }
+            }
+        } else if (accessType == MembershipType.FOLLOWER){
+            for (Event event: listOfEvents){
+               if (event.getEvent_type() == MembershipType.FOLLOWER){
+                   fileteredList.add(event);
+               }
             }
         }
-
-        return listOfEvents;
+        return fileteredList;
     }
 }

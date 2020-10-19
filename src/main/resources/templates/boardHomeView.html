@@ -30,10 +30,10 @@
 		    <img height="" src="">
 		    <h1 th:text="${board.name}">Board Name</h1>
 		</div>
-		<ul>
+		<ul th:if="${admin}">
 		    <li class="lievent">
 			<i class="material-icons">bookmark</i>
-			<h3>+Create Event</h3>
+			<h3><a th:href="@{/addevent}">+Create Event</a></h3>
 		    </li>
 
 		    <li class="lievent">
