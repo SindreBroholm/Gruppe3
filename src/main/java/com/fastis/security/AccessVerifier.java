@@ -89,7 +89,15 @@ public class AccessVerifier {
         return eventRepository.findAllByBoardId(board.getId());
     }
 
-    public List<Event> filterEvents(List<Event> listOfEvents, User user) {
+    public List<Event> filterEvents(List<Event> listOfEvents, MembershipType accessType) {
+        List<Event> fileteredList = new ArrayList<>();
+        if (accessType == MembershipType.ADMIN){
+            return  listOfEvents;
+        }
+        if (accessType == MembershipType.LEADER){
+            for (Event event : listOfEvents){
+            }
+        }
 
         return listOfEvents;
     }

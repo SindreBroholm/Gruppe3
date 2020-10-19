@@ -1,51 +1,69 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <link th:href="@{/styles/boardHome.css}" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet">
-    <title>homeBoard</title>
-</head>
-<body>
+    <head>
+	<meta charset="UTF-8">
+	<link th:href="@{/styles/boardHome.css}" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	      rel="stylesheet">
+	<title th:text="${board.name}">homeBoard</title>
+    </head>
+    <body>
+	<div class="flex-container">
+	    <header>
+		<ul>
+		    <li><a href="#dropmenu"><i class="material-icons">menu</i></a></li>
+		    <li><a href="#user"><i class="material-icons">person</i></a></li>
+		    <li><a href="#notification"><i class="material-icons">add_alert</i></a></li>
 
-<header>
-        <ul>
-            <li><a href="#dropmenu"><i class="material-icons">menu</i></a></li>
-            <li><a href="#user"><i class="material-icons">person</i></a></li>
-            <li><a href="#notification"><i class="material-icons">add_alert</i></a></li>
-            <li><a class="search" href="#search">SEARCH</a></li>
-        </ul>
-</header>
+		    <li><img id="logo" src="" height="40px"></li>
 
-<main>
-    <section class="image-holder">
-        <img id="mainimage" src="">
-        <img id="overgroupimage" src="">
-        <h1 th:text="${currentBoard.name}">Title of Board</h1>
-    </section>
+		    <li class="test">
+			<form class="search" action="/action_page.php">
+			    <input type="text" placeholder="Search.." name="search">
+			    <!-- <button type="submit"><i class="search"></i></button> -->
+			</form>
+		    </li>
+		</ul>
+	    </header>
+	    <div id="optionsholder">
+		<div id="imageholder">
+		    <img height="" src="">
+		    <h1 th:text="${board.name}">Board Name</h1>
+		</div>
+		<ul>
+		    <li class="lievent">
+			<i class="material-icons">bookmark</i>
+			<h3>+Create Event</h3>
+		    </li>
 
-    <section class="manage-content">
+		    <li class="lievent">
+			<i class="material-icons">add_alert</i>
+			<h3>+Add Notification</h3>
+		    </li>
 
-            <i class="material-icons icon">bookmark</i>
-            <a href="Create Event">+CREATE EVENT</a>
-            <a href="Manage Event">+MANAGE EVENT</a>
+		    <li class="lievent">
+			<i class="material-icons">person</i>
+			<h3>+View Members</h3>
+		    </li>
+		</ul>
+	    </div>
 
-            <i class="material-icons icon">add_alert</i>
-            <a href="Push Notification">+PUSH NOTIFICATION</a>
-
-            <i class="material-icons icon">group_add</i>
-            <a href="Manage Members">+MANAGE MEMBERS</a>
-    </section>
-
-    <section class="event-stream">
-        <h2>Upcoming events...</h2>
-	<div th:each="event: ${events}" class="event">
-	    <h3 th:text="${event.name}">Eventname</h3>
-	<p th:text="${event.message}">This is a description of the event</p>
-        </div>
-    </section>
-
-</main>
-</body>
+	    <div id="eventstream">
+		<h3 id="upcomingevents">UPCOMING EVENTS...</h3>
+		<ul th:if="${events != null}">
+		    <li th:each="event : ${events}" class="eventli">
+			<div class="eventdescription">
+			    <h3 th:text="${event.name}">Eventname</h3>
+			    <p th:text="${event.message}">eventdescription</p>
+			    <p th:text="${event.datetime_from}">Start: date and time. End: date and time.</p>
+			</div>
+			<div class="eventdate">
+			    <i id ="datotagg" class="material-icons">bookmark</i>
+			    <p id="date">11/2</p>
+			</div>
+		    </li>
+		</ul>
+	    </div>
+	</div>
+    </body>
 </html>
