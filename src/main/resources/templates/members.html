@@ -2,27 +2,44 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link th:href="@{/styles/members.css}" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
     <title>Members</title>
 </head>
 <body>
+    <header>
+        <nav class="navbar">
+            <ul>
+                <li><a href="#dropmenu"><i class="material-icons">menu</i></a></li>
+                <li><a href="#user"><i class="material-icons">person</i></a></li>
+                <li><a href="#notification"><i class="material-icons">add_alert</i></a></li>
+                <li style="float:right"><a class="search" href="#search">SEARCH</a></li>
+            </ul>
+        </nav>
+    </header>
     <div>
-        <div>
-            <ul th:each="member : ${members}">
-                <li th:if="${member.id != curentuser.userId}"><span th:text="${member.firstname + ' '+ member.lastname}"></span>
+        <div id="main">
+            <ul>
+                <li th:each="member : ${members}" th:if="${member.id != curentuser.userId}">
+                    <span th:text="${member.firstname + ' '+ member.lastname}"></span>
                     <form th:action="${boardId}" th:method="post" th:object="${userrole}">
                         <input name="userId" th:value="${member.id}" type="hidden">
                         <input name="boardId" th:value="${curentboardId}" type="hidden">
 
                         <select th:field="*{membershipType}">
-                            <option th:if="${T(com.fastis.data.MembershipType).ADMIN == curentuser.membershipType}" th:value="${T(com.fastis.data.MembershipType).LEADER.name()}">Leader</option>
-                            <option th:value="${T(com.fastis.data.MembershipType).MEMBER.name()}">Member</option>
                             <option th:value="${T(com.fastis.data.MembershipType).FOLLOWER.name()}">Follower</option>
+                            <option th:value="${T(com.fastis.data.MembershipType).MEMBER.name()}">Member</option>
+                            <option th:if="${T(com.fastis.data.MembershipType).ADMIN == curentuser.membershipType}" th:value="${T(com.fastis.data.MembershipType).LEADER.name()}">Leader</option>
                         </select>
 
                         <input type="submit" value="Update">
                     </form>
                 </li>
             </ul>
+            <div class="backbutton">
+            <a class="backbutton" type="button" >Back</a>
+            </div>
         </div>
     </div>
 </body>
