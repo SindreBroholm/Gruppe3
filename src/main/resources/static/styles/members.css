@@ -82,7 +82,29 @@ option {
     background: linear-gradient(#606060,#000000);
     color: whitesmoke;
 }
-
+input {
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    color: whitesmoke;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    appearance: textfield;
+    background-color: black;
+    -webkit-rtl-ordering: logical;
+    cursor: text;
+    margin: 0em;
+    font: 400 16px roboto;
+    padding: 1px 2px;
+    border-width: 2px;
+    border-style: inset;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    border-image: initial;
+}
 /*HEADER*/
 header{
     position:sticky;

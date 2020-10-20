@@ -1,5 +1,8 @@
 package com.fastis.data;
 
+import com.fastis.repositories.UserRoleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 
 @Entity
@@ -49,6 +52,7 @@ public class UserRole {
         return membershipType;
     }
 
+
     public void setMembershipType(MembershipType membershipType) {
         this.membershipType = membershipType;
     }
@@ -60,4 +64,5 @@ public class UserRole {
     public void setNumbOfMembers(int numberOfMembers) {
         this.numbOfMembers = numberOfMembers;
     }
+
 }

@@ -21,10 +21,10 @@
     <div>
         <div id="main">
             <ul>
-                <li th:each="member : ${members}" th:if="${member.id != curentuser.userId}">
-                    <span th:text="${member.firstname + ' '+ member.lastname}"></span>
+                <li th:each="member : ${members}" th:if="${member.user.id != curentuser.userId}">
+                    <span th:text="${member.user.firstname + ' '+ member.user.lastname+' : '+ member.userRole.membershipType}"></span>
                     <form th:action="${boardId}" th:method="post" th:object="${userrole}">
-                        <input name="userId" th:value="${member.id}" type="hidden">
+                        <input name="userId" th:value="${member.user.id}" type="hidden">
                         <input name="boardId" th:value="${curentboardId}" type="hidden">
 
                         <select th:field="*{membershipType}">

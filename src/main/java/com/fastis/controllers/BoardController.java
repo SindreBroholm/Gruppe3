@@ -15,9 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
-
-import static javax.swing.text.html.CSS.getAttribute;
 
 
 @Controller
@@ -216,12 +215,21 @@ public class BoardController {
         }
         User user = accessVerifier.currentUser(principal);
         UserRole currentuser = userRoleRepository.findAllByUserIdAndBoardId(user.getId(), boardId);
+        List<UserRole> listOfUR = userRoleRepository.getAllByBoardId(boardId);
+        List<UserWithRole> userList = new ArrayList<>();
+        for (UserRole userRole : listOfUR) {
+            UserWithRole userWithRole = new UserWithRole();
+            userWithRole.setUserRole(userRole);
+            userWithRole.setUser(userRepository.findById(userRole.getUserId()).get());
+            userList.add(userWithRole);
+        }
 
         UserRole userRole = new UserRole();
+        model.addAttribute("listOfUr", listOfUR);
         model.addAttribute("userrole", userRole);
         model.addAttribute("curentboardId", boardId);
         model.addAttribute("curentuser", currentuser);
-        model.addAttribute("members", userRoleRepository.findAllUsersByBoardId(boardId));
+        model.addAttribute("members", userList);
         return "members";
     }
 
@@ -234,4 +242,5 @@ public class BoardController {
         userRoleRepository.save(userRole);
         return "redirect:/members/"+boardId;
     }
+
 }
