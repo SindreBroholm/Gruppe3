@@ -1,10 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-    <p>Here you should be able to send an email invite</p>
-</body>
+    <head>
+	<meta charset="UTF-8">
+	<title>Invite By Email</title>
+	<link rel="stylesheet" th:href="@{/styles/inviteByEmail.css}">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	      rel="stylesheet">
+    </head>
+    <body>
+	<div class="flex-container">
+	    <header>
+		<ul>
+		    <li><a href="#dropmenu"><i class="material-icons">menu</i></a></li>
+		    <li><a href="#user"><i class="material-icons">person</i></a></li>
+		    <li><a href="#notification"><i class="material-icons">add_alert</i></a></li>
+
+		    <li><img id="logo" src="" height="40px"></li>
+
+		    <li class="test">
+			<form class="search" action="/action_page.php">
+			    <input type="text" placeholder="Search.." name="search">
+			    <!-- <button type="submit"><i class="search"></i></button> -->
+			</form>
+		    </li>
+		</ul>
+	    </header>
+	    <main>
+		<form th:action="@{'/inviteByEmail/' + ${boardId}}" method="post">
+		    <label for="email">Email:</label>
+		    <br>
+		    <input type="text" name="email">
+		</form>
+	    </main>
+	</div>
+    </body>
 </html>
