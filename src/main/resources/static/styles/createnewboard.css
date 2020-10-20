@@ -1,99 +1,98 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    margin: auto;
+}
+
+
 body {
 
+    min-height: 100vh;
     background: linear-gradient(319deg, rgb(146, 255, 237) 0%, #ffffff 100%);
     font-family: roboto;
+
 }
 
 p{
-    font-size: 14px;
+    font-size: 12px;
 }
 
 h3 {
     font-size: 18px;
-    font-style: oblique;
-    margin-bottom: -45px;
-    margin-top: -10px;
+    font-weight: lighter;
 }
 
 
-#maincontainer {
-
-    margin: auto;
+.flex-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
     width: 480px;
+    min-height: 480px;
+    height: 100vh;
     background-color:white;
-    box-shadow: 0px 0px 41px -7px rgba(0, 0, 0, 0.70);
-    text-align: center;
+
 
 }
 
 
 
-/* header */
-
+/***** Header *****/
 
 header{
-    position:sticky;
-    background-color:#606060;
-    /* border-radius: 10px; */
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: rgb(17, 156, 133);
     width: 480px;
-    height: 80px;
-    margin:auto;
+    height: 90px;
     align-items: center;
-    box-shadow: 0px 0px 41px -7px rgba(0, 0, 0, 0.70);
-    background: linear-gradient(#606060,#000000);
 }
 
-
-
-.navbar > ul{
-    margin-left: -15px;
+header > ul {
+    height: 100%;
+    display: flex;
+    flex-flow: nowrap row;
+    align-items: center;
 }
 
-.navbar > ul > li{
-    margin-top: 15px ;
+header > ul > li {
+    margin: 0 5px;
 
 }
+
+header > ul > li:last-child {
+    margin-left: auto;
+}
+
 
 input  {
     margin-top: 5px;
     margin-right: 25px;
     border-radius:5px;
+    border: 1px solid #E0E7FF;
+    font-size: 12px;
+    border-radius: 3px;
 }
-
-.search {
-    margin-right: 15px;
-}
-
-
 
 li {
-    margin-left: 5px;
-    margin-right: 5px;
-
-    float: left;
     list-style-type: none;
-
 }
 
 
 i.material-icons {
-
-    font-size: 36px;
+    font-size: 32px;
     color:white;
+
 }
 
 #logo{
-
+    transform: translate(50%);
 
 }
 
 .text .search {
     border-radius: 10px;
-    float: left;
     width: 20%;
     padding: 10px;
     color:#606060 ;
@@ -104,121 +103,93 @@ i.material-icons {
 }
 
 
-/* createboardform */
+/***** create event body *****/
 
-a{
-    text-decoration: none;
-    color: rgb(17, 156, 133);
+h3 {
+    margin-bottom: 5px;
     font-size: 14px;
-    font-weight: bolder;
+    text-align: center;
 }
 
-h2 {
+h2{
+    text-align: center;
     margin-top: 15px;
-    font-size: 24px;
-    color: #606060;
-    margin-bottom: -20px;
-
+    margin-bottom: 10px;
 }
 
-h3{
-    margin-top: 10px;
-    margin-bottom: auto;
+#boks1{
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px -3px rgba(0, 0, 0, 0.70);
+}
 
+#boks2{
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px -3px rgba(0, 0, 0, 0.70);
 }
 
 .forminput {
-    color: #606060;
-    width: 260px;
-    border-color: #606060;
-    margin-top: 10px;
-
-}
-
-textarea {
-    margin-top: -30px;
-    border-radius: 10px;
-    border-color: #606060;
-}
-
-label {
-    margin-top: 20px;
-    margin-bottom: 60px;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    align-items: center;
+    min-width: 300px;
+    max-width: 380px;
+    margin-bottom: 10px;
 }
 
 #contactinformation {
-    margin-top: 20px;
-    color:rgb(17, 156, 133);
-
-
+    font-size: larger;
+    font-weight: normal;
+    padding: 20px;
 }
 
-
-
-
-/* createbutton*/
-
-#createbutton {
-
-
-    width: 205px;
-    margin: 15px;
-
+#imagebutton {
+    width: 95px;
+    margin-top: 5px;
+    align-items: center;
     color: white;
     text-decoration: none;
-    background-color: #606060;
     background-color: rgb(17, 156, 133);
-    border: 1px solid #606060;
+    border: 1px solid rgb(17, 156, 133);
     border-radius: 30px;
-    padding: 10px 30px;
+    padding: 5px 15px;
     transition: all 1s;
     font: 400 13.3333px Roboto;
 }
 
-#errorlist {
-
-
+/*Må fikse farge her*/
+input#file-upload-button{
+    background: rgb(17, 156, 133);
+    color:rgb(17, 156, 133);
 }
+#createbutton {
 
-.textarea {
+    width: 205px;
     margin-top: 20px;
     align-items: center;
-}
-
-
-#addimage {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-}
-
-#addimage > input {
-    width: 100px;
-    margin: 15px;
-    text-decoration: none;
     color: white;
-
+    text-decoration: none;
     background-color: rgb(17, 156, 133);
     border: 1px solid rgb(17, 156, 133);
     border-radius: 30px;
     padding: 10px 30px;
     transition: all 1s;
     font: 400 13.3333px Roboto;
+
 }
 
-
-
-.boardform {
-
-    color: #606060;
-    margin:auto;
-    padding-bottom:20px;
-    padding-top:20px;
-    width: 400px;
-    height: 600px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0px 0px 41px -7px rgba(0, 0, 0, 0.70);
-
-
+a{
+    text-align: center;
+    text-decoration: none;
+    color: rgb(17, 156, 133);
+    font-size: 14px;
+    font-weight: bolder;
 }
