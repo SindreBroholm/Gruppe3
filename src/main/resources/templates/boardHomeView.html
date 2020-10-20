@@ -1,74 +1,69 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <link th:href="@{/styles/boardHome.css}" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet">
-    <title>homeBoard</title>
-</head>
-<body>
+    <head>
+	<meta charset="UTF-8">
+	<link th:href="@{/styles/boardHome.css}" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	      rel="stylesheet">
+	<title th:text="${board.name}">homeBoard</title>
+    </head>
+    <body>
+	<div class="flex-container">
+	    <header>
+		<ul>
+		    <li><a href="#dropmenu"><i class="material-icons">menu</i></a></li>
+		    <li><a href="#user"><i class="material-icons">person</i></a></li>
+		    <li><a href="#notification"><i class="material-icons">add_alert</i></a></li>
 
-<header>
-    <nav class="navbar">
-        <ul>
-            <li><a href="#dropmenu"><i class="material-icons">menu</i></a></li>
-            <li><a href="#user"><i class="material-icons">person</i></a></li>
-            <li><a href="#notification"><i class="material-icons">add_alert</i></a></li>
-            <li style="float:right"><a class="search" href="#search">SEARCH</a></li>
-        </ul>
+		    <li><img id="logo" src="" height="40px"></li>
 
-    </nav>
-</header>
+		    <li class="test">
+			<form class="search" action="/action_page.php">
+			    <input type="text" placeholder="Search.." name="search">
+			    <!-- <button type="submit"><i class="search"></i></button> -->
+			</form>
+		    </li>
+		</ul>
+	    </header>
+	    <div id="optionsholder">
+		<div id="imageholder">
+		    <img height="" src="">
+		    <h1 th:text="${board.name}">Board Name</h1>
+		</div>
+		<ul th:if="${admin}">
+		    <li class="lievent">
+			<i class="material-icons">bookmark</i>
+			<h3><a th:href="@{/addevent}">+Create Event</a></h3>
+		    </li>
 
-<div class="main">
+		    <li class="lievent">
+			<i class="material-icons">add_alert</i>
+			<h3>+Add Notification</h3>
+		    </li>
 
-    <section class="imageholder">
-        <img id="mainimage" src="https://lh3.googleusercontent.com/proxy/2Z-YIh_DztKx89QCCkdWmdwMtP2O5pGDjBV_GKX68IJahemBP5znmMs62nQp4EUDrhAQQBRLZOsLtNGCzaDJw7sQfIjA9sXLToRFvZ7rc7TFx0kwgKIp2E7Bd2oDL0040w7URMfaNuoo">
-        <img id="overgroupimage" src="">
-        <h1 th:text="${currentBoard.name}">Title of Board</h1>
-    </section>
+		    <li class="lievent">
+			<i class="material-icons">person</i>
+			<h3>+View Members</h3>
+		    </li>
+		</ul>
+	    </div>
 
-    <section class="mainfunctionsholder">
-        <div id="createEvent">
-            <i class="material-icons">bookmark</i>
-            <a href="Create Event">+CREATE EVENT</a>
-            <a href="Manage Event">+MANAGE EVENT</a>
-        </div>
-
-        <div id="notification">
-            <i class="material-icons">add_alert</i>
-            <a href="Push Notification">+PUSH NOTIFICATION</a>
-        </div>
-
-        <div id="manageMembers">
-            <i class="material-icons">group_add</i>
-            <a href="Manage Members">+MANAGE MEMBERS</a>
-        </div>
-    </section>
-
-    <section class="eventStream">
-        <h2>Upcoming events...</h2>
-        <div class="event">
-            <h3>Eventname</h3>
-        </br>
-            <p>This is a description of the event</p>
-        </div>
-
-        <div class="event">
-            <h3>Eventname</h3>
-            </br>
-            <p>This is a description of the event</p>
-        </div>
-
-        <div class="event">
-            <h3>Eventname</h3>
-            </br>
-            <p>This is a description of the event</p>
-        </div>
-
-    </section>
-
-</div>
-</body>
+	    <div id="eventstream">
+		<h3 id="upcomingevents">UPCOMING EVENTS...</h3>
+		<ul th:if="${events != null}">
+		    <li th:each="event : ${events}" class="eventli">
+			<div class="eventdescription">
+			    <h3 th:text="${event.name}">Eventname</h3>
+			    <p th:text="${event.message}">eventdescription</p>
+			    <p th:text="${event.datetime_from}">Start: date and time. End: date and time.</p>
+			</div>
+			<div class="eventdate">
+			    <i id ="datotagg" class="material-icons">bookmark</i>
+			    <p id="date">11/2</p>
+			</div>
+		    </li>
+		</ul>
+	    </div>
+	</div>
+    </body>
 </html>

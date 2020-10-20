@@ -13,7 +13,8 @@ public interface EventRepository extends CrudRepository<Event, Integer> {
 
     List<Event> findAllById(int id);
 
-
     @Query("select e from Event e join UserRole ur on ur.boardId = e.board.id where ur.userId = ?1")
     List<Event> getAllUserEvents(int userId);
+
+    List<Event> findAllByBoardId(Integer boardId);
 }

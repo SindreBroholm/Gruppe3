@@ -1,7 +1,7 @@
 package com.fastis.security;
 
 import com.fastis.data.*;
-import com.fastis.handlers.InviteByEmail;
+import com.fastis.datahandlers.InviteByEmail;
 import com.fastis.repositories.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;

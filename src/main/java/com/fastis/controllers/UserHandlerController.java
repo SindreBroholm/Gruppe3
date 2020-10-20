@@ -20,6 +20,7 @@ public class UserHandlerController {
     private BoardRepository boardRepository;
 
 
+
     public UserHandlerController(UserRepository repository, PasswordEncoder passwordEncoder, BoardRepository boardRepository) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
@@ -45,8 +46,10 @@ public class UserHandlerController {
      * */
     @GetMapping("/signup")
     public String signup(Model model) {
+
         User user = new User();
         model.addAttribute("user", user);
+
         return "signup";
     }
 
@@ -79,19 +82,6 @@ public class UserHandlerController {
 
 
 
-
-    /*
-
-
-    BOARDHOME
-     */
-@GetMapping("/boardHome/{boardId}")
-    public String boardHome(Model model, @PathVariable Integer boardId) {
-    Board board = boardRepository.findById(boardId).get();
-    model.addAttribute("currentBoard",board);
-
-    return "boardHomeView";
-}
 
 
 

@@ -11,10 +11,8 @@ import com.fastis.validator.EventValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
 import java.util.List;
@@ -37,12 +35,49 @@ public class BoardController {
     }
 
 
-    @GetMapping("/event")
-    public String showEvent(Model model, Principal principal){
+    /*
 
 
-         Event event = eventRepository.findById(1);
+    BOARDHOME
+     */
+    @GetMapping("/boardHome/{boardId}")
+    public String boardHome(Model model, @PathVariable Integer boardId, Principal principal) {
+        Board board = boardRepository.findById(boardId).get();
+        model.addAttribute("board",board);
 
+        model.addAttribute("admin", false);
+
+        MembershipType accesstype;
+        if (principal != null){
+            User user = accessVerifier.currentUser(principal);
+            accesstype = accessVerifier.getUserRole(user, board).getMembershipType();
+            if (accesstype == MembershipType.ADMIN){
+                model.addAttribute("admin", true);
+            }
+        } else {
+            System.out.println("Something else");
+            accesstype = MembershipType.FOLLOWER;
+        }
+
+        List<Event> listOfEvents = accessVerifier.eventsForBoard(board);
+        listOfEvents = accessVerifier.filterEvents(listOfEvents, accesstype);
+        model.addAttribute("events", listOfEvents);
+
+        return "boardHomeView";
+    }
+
+    @GetMapping("/event/{boardId}/{eventId}")
+    public String showEvent(Model model, Principal principal, @PathVariable Integer boardId, @PathVariable Integer eventId){
+        Board board = boardRepository.findById(boardId).get();
+        Event event = eventRepository.findById(eventId).get();
+        User user = accessVerifier.currentUser(principal);
+        UserRole ur;
+
+        if (accessVerifier.doesUserHaveAccess(principal, board, event.getEvent_type())){
+            ur = accessVerifier.getUserRole(user, board);
+        }else {
+            return "home";
+        }
          LocalDateTimeHandler localDateTimeHandler = new LocalDateTimeHandler();
          model.addAttribute("name", event.getName());
          model.addAttribute("dayOfWeekStart", localDateTimeHandler.getDayOfWeek(event.getDatetime_from()));
@@ -53,15 +88,27 @@ public class BoardController {
          model.addAttribute("hourAndMinEnd", localDateTimeHandler.getHourAndMin(event.getDatetime_to()));
          model.addAttribute("location", event.getLocation());
          model.addAttribute("description", event.getMessage());
-         //model.addAttribute("role", userRole.getMembershipType());
+         model.addAttribute("role", ur.getMembershipType().name);
          return "event";
     }
 
 
-    @GetMapping("/addevent")
-    public String showAddEvent(Model model){
+    @GetMapping(value={"/addevent/{boardId}", "/addevent/{boardId}/{eventId}"})
+    public String showAddEvent(Model model, @PathVariable Integer boardId, @PathVariable(required = false) Integer eventId, Principal principal){
+
+        User user = accessVerifier.currentUser(principal);
+        Board board = boardRepository.findById(boardId).get();
+
+        if (!accessVerifier.doesUserHaveAccess(principal, board, MembershipType.LEADER)){
+            return "home";
+        }
+
         Event event = new Event();
+        if(eventId != null){
+            event = eventRepository.findById(eventId).get();
+        }
         model.addAttribute("event", event);
+
         return "eventform";
     }
 

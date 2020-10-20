@@ -2,34 +2,58 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link th:href="@{/styles/event.css}" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
     <title>Events</title>
 </head>
 <body>
-    <div id="header">
-        <div class="nav"></div>
-        <div class="myprofile"></div>
-        <div class="notification"></div>
-        <div class="search"></div>
-    </div>
+<header>
+    <nav class="navbar">
+        <ul>
+            <li><a href="#dropmenu"><i class="material-icons">menu</i></a></li>
+            <li><a href="#user"><i class="material-icons">person</i></a></li>
+            <li><a href="#notification"><i class="material-icons">add_alert</i></a></li>
+            <li style="float:right"><a class="search" href="#search">SEARCH</a></li>
+        </ul>
+
+    </nav>
+</header>
     <div id="main">
-        <div id="event">
-            <h2 th:text="${name}"></h2>
-            <div>
-                <h3 th:text="${dayOfWeekStart}"></h3>
-                <p th:text="${dayAndMonthStart}"></p>
+        <div class="grid-container">
+            <h1 class="eventname" th:text="${name}"></h1>
+            <div class="date">
+                <h3 th:if="${dayOfWeekStart != dayOfWeekEnd}">From</h3>
+                <div class="datestart">
+                    <h3 th:text="${dayOfWeekStart}"></h3>
+                    <p th:text="${dayAndMonthStart}"></p>
+                </div>
+                <h3 th:if="${dayOfWeekStart != dayOfWeekEnd}">To </h3>
+                <div class="dateend" th:if="${dayOfWeekStart != dayOfWeekEnd}">
+                    <h3 th:text="${dayOfWeekEnd}"></h3>
+                    <p th:text="${dayAndMonthEnd}"></p>
+                </div>
             </div>
-            <div th:if="${dayOfWeekStart != dayOfWeekEnd}">
-                <h3 th:text="${dayOfWeekEnd}"></h3>
-                <p th:text="${dayAndMonthEnd}"></p>
+            <div class="time">
+                <h3 class="timestart" th:text="${hourAndMinStart}"></h3>
+                <h3><-></h3>
+                <h3 class="timeend" th:text="${hourAndMinEnd}"></h3>
             </div>
-            <div>
-                <h4 th:text="${hourAndMinStart}"></h4>
-                <h4 th:text="${hourAndMinEnd}"></h4>
+
+            <h3 class="loacation" th:text="${location}"></h3>
+            <p class="description" th:text="${description}"></p>
+            <div class="foot">
+                <div class="backbutton">
+                    <a class="backbutton" type="button" >Back</a>
+                </div>
+
+                <div class="editbutton" th:if="${role == 'admin'}">
+                    <a type="submit" th:href="@{/addevent}">Edit</a>
+                </div>
+                <div class="editbutton" th:if="${role == 'leader'}">
+                    <a type="submit" th:href="@{/addevent}">Edit</a>
+                </div>
             </div>
-            <h3 th:text="${location}"></h3>
-            <p th:text="${description}"></p>
-            <button type="button">Back</button>
-            <button type="button" th:if="${role == 'admin'||'leader'}">Edit</button>
         </div>
     </div>
 </body>

@@ -18,4 +18,5 @@ public interface UserRoleRepository extends CrudRepository<UserRole, UserRoleId>
     @Query("select b.name from UserRole ur join Board b on b.id = ur.boardId where\n" +
             "ur.userId = ?1 order by b.name")
     List<String> getAllBoardsFromUserId(int id);
+
 }

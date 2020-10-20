@@ -1,4 +1,4 @@
-package com.fastis.handlers;
+package com.fastis.datahandlers;
 
 import com.fastis.data.Board;
 import com.fastis.data.User;

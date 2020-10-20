@@ -1,0 +1,207 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(319deg, rgb(146, 255, 237) 0%, #606060 100%);
+    font-family: roboto;
+    background-repeat: no-repeat;
+}
+#main {
+    height: 732px;
+}
+
+p{
+    font-size: 22px;
+}
+
+h3 {
+    font-size: 28px;
+    font-style: oblique;
+}
+h1 {
+    font-size: 40px;
+}
+
+
+
+.grid-container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1.5fr 0.5fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+            ". eventname eventname eventname ."
+            ". date date date . "
+            ". time time time ."
+            ". loc loc loc ."
+            ". descript descript descript ."
+            ". foot foot foot .";
+    justify-items: center;
+    align-items: center;
+}
+
+.eventname {
+    grid-area: eventname;
+    align-self: center;
+}
+.date {
+    grid-area: date;
+    width: 100%;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.datestart {
+
+}
+.dateend {
+
+}
+.time {
+    grid-area: time;
+    display: flex;
+    flex-flow: wrap;
+    justify-items: auto;
+    align-items: center;
+}
+
+.timestart {
+    padding-right: 50px;
+    padding-left: 50px;
+}
+.timeend {
+    padding-right: 50px;
+    padding-left: 50px;
+}
+.loacation {
+    grid-area: loc;
+}
+.description {
+    grid-area: descript;
+    justify-self: start;
+    align-self: start;
+}
+
+.foot {
+    grid-area: foot;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.backbutton {
+    width: 215px;
+    height: 61px;
+    font: 400 22px roboto;
+    border-radius: 22px;
+    background: linear-gradient(#606060,#000000);
+    box-shadow: 0px 0px 41px -7px rgba(0, 0, 0, 0.70);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.backbutton > a {
+    color: white;
+    text-decoration: none;
+}
+
+.editbutton {
+    width: 215px;
+    height: 61px;
+    font: 400 22px roboto;
+    border-radius: 22px;
+    background: linear-gradient(#606060,#000000);
+    box-shadow: 0px 0px 41px -7px rgba(0, 0, 0, 0.70);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.editbutton > a {
+    color: white;
+    text-decoration: none;
+}
+
+
+header{
+    position:sticky;
+    height: 80px;
+    align-items: center;
+    color: whitesmoke;
+    box-shadow: 0px 0px 41px -7px rgba(0, 0, 0, 0.70);
+    background: linear-gradient(#606060,#000000);
+}
+
+
+
+.navbar > ul{
+    margin-left: -15px;
+}
+
+.navbar > ul > li{
+    margin-top: 15px ;
+
+}
+
+input  {
+    margin-top: 5px;
+    margin-right: 25px;
+    border-radius:5px;
+}
+
+.search {
+    margin-right: 15px;
+    color: white;
+}
+
+
+
+li {
+    margin-left: 5px;
+    margin-right: 5px;
+
+    float: left;
+    list-style-type: none;
+
+}
+
+
+i.material-icons {
+
+    font-size: 36px;
+    color:white;
+}
+
+#logo{
+
+
+}
+
+.text .search {
+    border-radius: 10px;
+    float: left;
+    width: 20%;
+    padding: 10px;
+    color:#606060 ;
+    font-size: 14px;
+    border: 1px solid grey;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+
+
+
+
+
+
+

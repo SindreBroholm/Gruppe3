@@ -1,5 +1,6 @@
 package com.fastis.security;
 
+import ch.qos.logback.core.joran.conditional.IfAction;
 import com.fastis.data.*;
 import com.fastis.repositories.BoardRepository;
 import com.fastis.repositories.EventRepository;
@@ -85,4 +86,73 @@ public class AccessVerifier {
         return eventList;
     }
 
+    public List<Event> eventsForBoard(Board board){
+        return eventRepository.findAllByBoardId(board.getId());
+    }
+
+    public List<Event> filterEvents(List<Event> listOfEvents, MembershipType accessType) {
+        List<Event> fileteredList = new ArrayList<>();
+        if (accessType == MembershipType.ADMIN){
+            return  listOfEvents;
+        }
+        if (accessType == MembershipType.LEADER){
+            for (Event event : listOfEvents){
+                if (event.getEvent_type() != MembershipType.ADMIN){
+                    fileteredList.add(event);
+                }
+            }
+        } else if (accessType == MembershipType.MEMBER){
+            for (Event event : listOfEvents){
+                if (event.getEvent_type() != MembershipType.ADMIN || event.getEvent_type() != MembershipType.LEADER){
+                    fileteredList.add(event);
+                }
+            }
+        } else if (accessType == MembershipType.FOLLOWER){
+            for (Event event: listOfEvents){
+               if (event.getEvent_type() == MembershipType.FOLLOWER){
+                   fileteredList.add(event);
+               }
+            }
+        }
+        return fileteredList;
+    }
+
+    public boolean doesUserHaveAccess(Principal principal, Board board, MembershipType accessType) {
+        User user = currentUser(principal);
+        UserRole ur = userRoleRepository.findAllByUserIdAndBoardId(user.getId(), board.getId());
+
+
+
+        if (ur.getMembershipType() == MembershipType.ADMIN){
+            return true;
+        }
+
+        if (ur.getMembershipType() == MembershipType.LEADER){
+            switch (accessType){
+                case LEADER, MEMBER, FOLLOWER -> {
+                    return true;
+                }
+                default -> {
+                    return false;
+                }
+            }
+        }
+
+        if (ur.getMembershipType() == MembershipType.MEMBER){
+            switch (accessType){
+                case MEMBER, FOLLOWER -> {
+                    return true;
+                }
+                default -> {
+                    return false;
+                }
+            }
+        }
+
+        if (accessType == MembershipType.FOLLOWER){
+            return true;
+        }
+
+        return false;
+    }
 }
