@@ -3,47 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <link th:href="@{/styles/eventform.css}" rel="stylesheet" />
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
     <title>Add Event</title>
 </head>
 <body>
-    <div id="header"></div>
-    <div id="main">
-        <form th:action="addevent" th:method="post" th:object="${event}">
-            <label>+ Event title
-                <input type="text"  th:field="*{name}" th:errorclass="filderror">
-            </label>
+<header>
+    <nav class="navbar">
+        <ul>
+            <li><a href="#dropmenu"><i class="material-icons">menu</i></a></li>
+            <li><a href="#user"><i class="material-icons">person</i></a></li>
+            <li><a href="#notification"><i class="material-icons">add_alert</i></a></li>
 
-            <label>+ Start date
-                <input  type="datetime-local" th:field="*{datetime_from}" th:errorclass="filderror">
-            </label>
+            <li><img id="logo" src="" height="40px"></li>
 
-            <label>+ End date
-                <input type="datetime-local" th:field="*{datetime_to}" th:errorclass="filderror" >
-            </label>
+            <li style="float:right">
+                <form class="search" action="/action_page.php" style="margin:auto;max-width:300px">
+                    <input type="text" placeholder="Search.." name="search">
+                    <!-- <button type="submit"><i class="search"></i></button> -->
+                </form></li>
+        </ul>
 
-            <label>+ Location
-                <input type="text" th:field="*{location}">
-            </label>
+    </nav>
 
-            <label>+ Event description
-                <textarea  rows="10" cols="30" th:field="*{message}">Add a deacription of the event.</textarea>
-            </label>
+</header>
+<div class="flex-container">
 
-            <select id="membership" name="access" th:field="*{event_type}">
-                <option value="Follower">Follower</option>
-                <option value="Member">Member</option>
-                <option value="Leader">Leader</option>
-                <option value="Admin">Admin</option>
-            </select>
+    <div class="eventform">
+        <h2>+CREATE NEW EVENT</h2>
+        <section class=form>
+            <form th:action="addevent" th:method="post" th:object="${event}">
+                <label>
+                    <h3>+ Event title</h4>
+                        <input class="forminput" type="text"  th:field="*{name}" th:errorclass="filderror">
+                </label>
 
+                <label><h3>+ Start date</h4>
+                    <input class="forminput" type="datetime-local" th:field="*{datetime_from}" th:errorclass="filderror">
+                </label>
+
+                <label><h3>+ End date</h4>
+                    <input class="forminput" type="datetime-local" th:field="*{datetime_to}" th:errorclass="filderror" >
+                </label>
+
+                <label><h3>+ Location</h4>
+                    <input class="forminput" type="text" th:field="*{location}">
+                </label>
+
+                <div id="createeventfield">
+                    <label><h3>+ Event description</h4>
+                        <textarea id="textarea"  rows="10" cols="30" th:field="*{message}">Add a deacription of the event.</textarea>
+                    </label>
+
+                    <select id="membership" name="access" th:field="*{event_type}">
+                        <option value="Follower">Follower</option>
+                        <option value="Member">Member</option>
+                        <option value="Leader">Leader</option>
+                        <option value="Admin">Admin</option>
+                    </select>
+
+                    <button id="createbutton" type="submit">Create</button>
+                </div>
+        </section>
 	    <input type="hidden" th:field="*{id}" >
 
             <button type="submit">Create</button>
 
-            <ul class="errorlist">
-                <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
-            </ul>
+        <ul class="errorlist">
+            <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+        </ul>
         </form>
     </div>
+</div>
 </body>
 </html>

@@ -2,48 +2,80 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link th:href="@{/styles/createnewboard.css}" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
     <title>Create New Board</title>
 </head>
 <body>
+
+<header>
+    <nav class="navbar">
+        <ul>
+            <li><a href="#dropmenu"><i class="material-icons">menu</i></a></li>
+            <li><a href="#user"><i class="material-icons">person</i></a></li>
+            <li><a href="#notification"><i class="material-icons">add_alert</i></a></li>
+
+            <li><img id="logo" src="" height="40px"></li>
+
+            <li style="float:right">
+                <form class="search" action="/action_page.php" style="margin:auto;max-width:300px">
+                    <input type="text" placeholder="Search.." name="search">
+                    <!-- <button type="submit"><i class="search"></i></button> -->
+                </form>
+            </li>
+        </ul>
+
+    </nav>
+
+</header>
+
 <div id="maincontainer">
-
-    <a href="boardHomeView.html">Cancel</a>
-
     <h2>+CREATE NEW BOARD</h2>
 
-    <form th:action="createboard" th:method="post" th:object="${board}">
-        <label>Name of Board:
-            <input type="text"  th:field="*{name}" th:errorclass="filderror">
-        </label>
+    <div class="boardform">
 
-        <-- må lagre bilde i board, men skal fungere -->
-        <label for="img">Add image:
-        <input type="file" id="img" name="image" accept="image/*">
-            <input type="submit">
-        </label>
 
-        <h3>Contact Information:</h3>
-        <label>Name:
-            <input type="text"  th:field="*{contactName}" th:errorclass="filderror">
-        </label>
+        <form th:action="createboard" th:method="post" th:object="${board}">
+            <label><h3>+ Board Title</h3>
+                <input type="text" th:field="*{name}" th:errorclass="filderror">
+            </label>
 
-        <label>Telephone:
-            <input type="text"  th:field="*{contactNumber}" th:errorclass="filderror">
-        </label>
+            <!-- <-- må lagre bilde i board, men skal fungere -->
+            <label for="img"><h3>+ Add image</h3>
 
-        <label>Email:
-            <input type="text"  th:field="*{contactEmail}" th:errorclass="filderror">
-        </label>
+                <input type="file" id="img" name="image" accept="image/*">
+                <div id="addimage">
+                    <input type="submit">
+                </div>
+            </label>
 
-        <label>Homepage:
-            <input type="text"  th:field="*{homepage}" th:errorclass="filderror">
-        </label>
 
-        <button type="submit">Create</button>
+            <h3 id="contactinformation">Contact Information:</h3>
+            <label><h3>+ Name</h3>
+                <input class="forminput" type="text" th:field="*{contactName}" th:errorclass="filderror">
+            </label>
 
-        <ul class="errorlist">
-            <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
-        </ul>
+            <label><h3>+ Telephone</h3>
+                <input class="forminput" type="text" th:field="*{contactNumber}" th:errorclass="filderror">
+            </label>
+
+            <label><h3>+ Email</h3>
+                <input class="forminput" type="text" th:field="*{contactEmail}" th:errorclass="filderror">
+            </label>
+
+            <label><h3>+ Homepage</h3>
+                <input class="forminput" type="text" th:field="*{homepage}" th:errorclass="filderror">
+            </label>
+
+            <button id="createbutton" type="submit">Create</button>
+            <br/>
+            <a href="boardHomeView.html">X Cancel</a>
+
+            <ul class="errorlist">
+                <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+            </ul>
+    </div>
 
     </form>
 </div>

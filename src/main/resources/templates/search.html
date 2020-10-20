@@ -2,29 +2,34 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link th:href="@{/styles/search.css}" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
     <title>Search</title>
 </head>
 <body>
-    <div id="main">
-        <div>
-            <form th:action="@{/search}" method="post">
-                Filter: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}"/>
-                &nbsp;
-                <input type="submit" value="Search" />
-                &nbsp;
-                <input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
-            </form>
-        </div>
-        <div>
-            <ul th:each="match : ${listProducts}">
-                <li><a th:text="${match.name}" th:href="'/boardHome/' + ${match.id}"></a></li>
-            </ul>
-        </div>
+<div id="main">
+    <div>
+        <form th:action="@{/search}" method="post">
+            <i class="material-icons">search</i>
+            <p>Search:</p>
+            Filter: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}"/>
+            &nbsp;
+            <input class="button" type="submit" value="Search" />
+            &nbsp;
+            <input class="button" type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
+        </form>
     </div>
-    <script type="text/javascript">
-        function clearSearch() {
-            window.location = "[[@{/search}]]";
-        }
-    </script>
+    <div>
+        <ul th:each="match : ${listProducts}">
+            <li><a th:text="${match.name}" th:href="'/boardHome/' + ${match.id}"></a></li>
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    function clearSearch() {
+        window.location = "[[@{/search}]]";
+    }
+</script>
 </body>
 </html>
