@@ -6,6 +6,7 @@ import com.fastis.datahandlers.LocalDateTimeHandler;
 import com.fastis.repositories.EventRepository;
 import com.fastis.repositories.UserRepository;
 
+import com.fastis.repositories.UserRoleRepository;
 import com.fastis.security.AccessVerifier;
 import com.fastis.validator.EventValidator;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
+import static javax.swing.text.html.CSS.getAttribute;
+
 
 @Controller
 public class BoardController {
@@ -24,13 +27,15 @@ public class BoardController {
     private BoardRepository boardRepository;
     private UserRepository userRepository;
     private AccessVerifier accessVerifier;
+    private UserRoleRepository userRoleRepository;
 
 
-    public BoardController(EventRepository eventRepository,BoardRepository boardRepository, UserRepository userRepository, AccessVerifier accessVerifier) {
+    public BoardController(EventRepository eventRepository,BoardRepository boardRepository, UserRepository userRepository, AccessVerifier accessVerifier, UserRoleRepository userRoleRepository) {
         this.eventRepository = eventRepository;
         this.boardRepository = boardRepository;
         this.userRepository = userRepository;
         this.accessVerifier = accessVerifier;
+        this.userRoleRepository = userRoleRepository;
     }
 
 
@@ -201,5 +206,32 @@ public class BoardController {
         model.addAttribute("keyword", keyword);
         System.out.println(searchResults.toString());
         return "search";
+    }
+
+    @GetMapping("/members/{boardId}")
+    public String showMembers(Principal principal, @PathVariable Integer boardId, Model model){
+        Board board = boardRepository.findById(boardId).get();
+        if (!accessVerifier.doesUserHaveAccess(principal, board, MembershipType.LEADER)){
+            return "home";
+        }
+        User user = accessVerifier.currentUser(principal);
+        UserRole currentuser = userRoleRepository.findAllByUserIdAndBoardId(user.getId(), boardId);
+
+        UserRole userRole = new UserRole();
+        model.addAttribute("userrole", userRole);
+        model.addAttribute("curentboardId", boardId);
+        model.addAttribute("curentuser", currentuser);
+        model.addAttribute("members", userRoleRepository.findAllUsersByBoardId(boardId));
+        return "members";
+    }
+
+    @PostMapping("/members/{boardId}")
+    public String updateMembers(Principal principal, @PathVariable Integer boardId,@ModelAttribute UserRole userRole){
+        Board board = boardRepository.findById(boardId).get();
+        if (!accessVerifier.doesUserHaveAccess(principal, board, MembershipType.LEADER)){
+            return "home";
+        }
+        userRoleRepository.save(userRole);
+        return "redirect:/members/"+boardId;
     }
 }

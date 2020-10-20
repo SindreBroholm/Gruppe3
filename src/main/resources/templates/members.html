@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Members</title>
+</head>
+<body>
+    <div>
+        <div>
+            <ul th:each="member : ${members}">
+                <li th:if="${member.id != curentuser.userId}"><span th:text="${member.firstname + ' '+ member.lastname}"></span>
+                    <form th:action="${boardId}" th:method="post" th:object="${userrole}">
+                        <input name="userId" th:value="${member.id}" type="hidden">
+                        <input name="boardId" th:value="${curentboardId}" type="hidden">
+
+                        <select th:field="*{membershipType}">
+                            <option th:if="${T(com.fastis.data.MembershipType).ADMIN == curentuser.membershipType}" th:value="${T(com.fastis.data.MembershipType).LEADER.name()}">Leader</option>
+                            <option th:value="${T(com.fastis.data.MembershipType).MEMBER.name()}">Member</option>
+                            <option th:value="${T(com.fastis.data.MembershipType).FOLLOWER.name()}">Follower</option>
+                        </select>
+
+                        <input type="submit" value="Update">
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
