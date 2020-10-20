@@ -57,4 +57,15 @@ public class MainController {
         return "userHomeView";
     }
 
+    @GetMapping("/boards")
+    public String myBoards(Principal principal, Model model) {
+
+        if (principal != null) {
+            List<Board> boardsList = accessVerifier.accessedBoard(principal);
+            model.addAttribute("boardsList", boardsList);
+        }
+
+        return "/boards";
+    }
+
 }
