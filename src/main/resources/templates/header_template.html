@@ -2,22 +2,50 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link th:href="@{/styles/boardHome.css}" rel="stylesheet" />
+    <link th:href="@{/styles/header.css}" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
     <title>Header-design</title>
 </head>
 <body>
-<header>
-    <nav class="navbar">
-        <ul>
-            <li><a href="#dropmenu"><i class="material-icons">menu</i></a></li>
-            <li><a href="#user"><i class="material-icons">person</i></a></li>
-            <li><a href="#notification"><i class="material-icons">add_alert</i></a></li>
-            <li style="float:right"><a class="search" href="#search">SEARCH</a></li>
-        </ul>
+<header th:fragment="header">
+    <div class="navbar">
+        <div class="dropdown">
+            <button onclick="myFunction()" class="dropbtn"><i class="material-icons clicker">menu</i>
+            </button>
+            <div id="myDropdown" class="dropdown-content">
+                <a href="/profile">Settings</a>
+                <a href="/boards">My boards</a>
+                <a href="#">Eventstream</a>
+                <a href="/createboard">Create board</a>
+            </div>
+        </div>
+        <a class="material-icons" href="/profile">person</a>
+        <a class="material-icons" style="float: left" href="#">notifications</a>
+        <img class="logoNavbar" style="width: 80px" th:src="@{images/ezraNew.png}">
+        <a href="/search" style="float: right">Search</a>
+    </div>
+    <script>
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
 
-    </nav>
+        let clickerNode = document.getElementsByClassName("clicker");
+        clickerNode.addEventListener("click", () => myFunction())
+
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                let dropdowns = document.getElementsByClassName("dropdown-content");
+                let i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    let openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
 </header>
 
 </body>

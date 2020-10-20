@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="fastis profile page">
+    <meta name="author" content="fastis">
+    <link th:href="@{/styles/home.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/header.css}" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>My boards</title>
+</head>
+<body>
+<div sec:authorize="isAuthenticated()">
+    <ul class="boards" th:each="boards : ${boardsList}">
+        <li id="eventName" th:text="${boards.name}"></li>
+    </ul>
+</div>
+<button type="button" onclick="window.history.go(-1);">Back</button>
+</body>
+</html>

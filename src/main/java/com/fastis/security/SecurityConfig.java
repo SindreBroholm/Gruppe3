@@ -19,11 +19,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/home", "/boardHome/*", "/signup", "/init", "/styles/**", "/event/*", "/testStuff", "/myprofile", "/search**").permitAll()
-                .antMatchers("/*.css", "/*.js").permitAll()
+                .antMatchers("/", "/home", "/boardHome/*", "/signup", "/init", "/styles/**", "/event/*", "/testStuff", "/search**", "/images/*").permitAll()
+                .antMatchers("/*.css", "/*.js", "/*.png").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().defaultSuccessUrl("/myprofile", true)
+                .formLogin().defaultSuccessUrl("/", true)
                 .and()
                 .formLogin()
                 .loginPage("/login")
