@@ -1,6 +1,5 @@
 package com.fastis.controllers;
 
-import com.fastis.data.Board;
 import com.fastis.data.User;
 import com.fastis.repositories.BoardRepository;
 import com.fastis.repositories.UserRepository;
@@ -72,9 +71,9 @@ public class UserHandlerController {
     // Myprofile
     //
 
-    @GetMapping("/myprofile")
-    public String myprofile() {
-       return "myprofile";
+    @GetMapping("/profile")
+    public String profile() {
+       return "profile";
     }
 
 

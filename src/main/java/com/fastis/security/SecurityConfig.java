@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/*.css", "/*.js").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().defaultSuccessUrl("/myprofile", true)
+                .formLogin().defaultSuccessUrl("/", true)
                 .and()
                 .formLogin()
                 .loginPage("/login")

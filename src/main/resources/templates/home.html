@@ -9,27 +9,29 @@
     <meta name="author" content="fastis">
     <link th:href="@{/styles/home.css}" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <title>Start</title>
+    <title>Home</title>
 </head>
 
 <body>
 <div class="navbar">
     <div class="dropdown">
-        <button onclick="myFunction()" class="dropbtn"><i class="material-icons">menu</i></button>
+        <button onclick="myFunction()" class="dropbtn"><i class="material-icons clicker">menu</i>
+        </button>
         <div id="myDropdown" class="dropdown-content">
-            <a href="/myprofile">Settings</a>
-            <a href="#">My boards</a>
+            <a href="/profile">Settings</a>
+            <a href="/boards">My boards</a>
             <a href="#">Eventstream</a>
             <a href="/createboard">Create board</a>
         </div>
     </div>
-    <a class="material-icons" href="#">person</a>
-    <a href="#" style="float: right">Search</a>
-    <a class="material-icons" style="float: right" href="#">notifications</a>
+    <a class="material-icons" href="/profile">person</a>
+    <a href="/search" style="float: right">Search</a>
+    <a class="material-icons" style="float: left" href="#">notifications</a>
 </div>
 
 <div sec:authorize="isAuthenticated()">
-    <div style="align-content: center; justify-content: center;" th:text="${#dates.format(#dates.createNow(), 'MMMMM')}"></div>
+    <div style="align-content: center; justify-content: center;"
+         th:text="${#dates.format(#dates.createNow(), 'MMMMM')}"></div>
     <ul class="events" th:each="events : ${eventList}">
         <li id="eventName" th:text="${events.name}"></li>
         <div id="dateBox">
@@ -53,6 +55,8 @@
         document.getElementById("myDropdown").classList.toggle("show");
     }
 
+    let clickerNode = document.getElementsByClassName("clicker");
+    clickerNode.addEventListener("click", () => myFunction())
 
     window.onclick = function (event) {
         if (!event.target.matches('.dropbtn')) {
