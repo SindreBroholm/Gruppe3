@@ -8,6 +8,7 @@
 
 body {
     height: 100vh;
+    background: linear-gradient(319deg, rgb(146, 255, 237) 0%, #ffffff 100%);
 
 }
 
@@ -17,7 +18,7 @@ main {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-areas: "login";
-    background-color: #FAF4F2;
+
 
 }
 
