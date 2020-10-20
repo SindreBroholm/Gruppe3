@@ -133,4 +133,7 @@ public class Event {
         return DateTimeFormatter.ofPattern("EEE").format(datetime_from);
     }
 
+    public int getId() {
+        return id;
+    }
 }

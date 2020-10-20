@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
 import java.util.List;
@@ -103,6 +102,9 @@ public class BoardController {
             return "home";
         }
 
+        //so we can add event to correct board
+        model.addAttribute("boardId", boardId);
+
         Event event = new Event();
         if(eventId != null){
             event = eventRepository.findById(eventId).get();
@@ -113,8 +115,8 @@ public class BoardController {
     }
 
 
-    @PostMapping("/addevent")
-    public String addOrEditEvent(@ModelAttribute Event event, BindingResult br, @RequestParam(required = false) int id){
+    @PostMapping("/addevent/{boardId}")
+    public String addOrEditEvent(@ModelAttribute Event event, @PathVariable Integer boardId, BindingResult br){
         EventValidator validator = new EventValidator();
         if(validator.supports(event.getClass())){
             validator.validate(event, br);
@@ -122,12 +124,20 @@ public class BoardController {
         if(br.hasErrors()){
             return "eventform";
         }
-        if(eventRepository.findById(id) != null){
-            eventRepository.save(event);
-            return "redirect: /event";
+        if(eventRepository.findById(event.getId()) == null){
+            event.setBoard(boardRepository.findById(boardId).get());
+        } else {
+            Event oldEvent = eventRepository.findById(event.getId());
+            oldEvent.setMessage(event.getMessage());
+            oldEvent.setDatetime_from(event.getDatetime_from());
+            oldEvent.setDatetime_to(event.getDatetime_to());
+            oldEvent.setLocation(event.getLocation());
+            oldEvent.setName(event.getName());
+            oldEvent.setEvent_type(event.getEvent_type());
+            event = oldEvent;
         }
         eventRepository.save(event);
-        return "redirect: /event";
+        return "redirect:/event/" + event.getBoard().getId() + "/" + event.getId();
     }
 
     @GetMapping("/createboard")

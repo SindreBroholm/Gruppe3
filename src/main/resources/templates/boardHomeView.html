@@ -33,7 +33,7 @@
 		<ul th:if="${admin}">
 		    <li class="lievent">
 			<i class="material-icons">bookmark</i>
-			<h3><a th:href="@{/addevent}">+Create Event</a></h3>
+			<h3><a th:href="@{'/addevent/' + ${board.id}}">+Create Event</a></h3>
 		    </li>
 
 		    <li class="lievent">
@@ -53,7 +53,7 @@
 		<ul th:if="${events != null}">
 		    <li th:each="event : ${events}" class="eventli">
 			<div class="eventdescription">
-			    <h3 th:text="${event.name}">Eventname</h3>
+			    <a th:href="@{'/event/' + ${board.id} + '/' + ${event.id}}"><h3 th:text="${event.name}">Eventname</h3></a>
 			    <p th:text="${event.message}">eventdescription</p>
 			    <p th:text="${event.datetime_from}">Start: date and time. End: date and time.</p>
 			</div>
