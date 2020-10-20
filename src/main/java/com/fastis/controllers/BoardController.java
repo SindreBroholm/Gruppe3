@@ -1,6 +1,7 @@
 package com.fastis.controllers;
 
 import com.fastis.data.*;
+import com.fastis.datahandlers.InviteByEmail;
 import com.fastis.repositories.BoardRepository;
 import com.fastis.datahandlers.LocalDateTimeHandler;
 import com.fastis.repositories.EventRepository;
@@ -27,22 +28,27 @@ public class BoardController {
     private UserRepository userRepository;
     private AccessVerifier accessVerifier;
     private UserRoleRepository userRoleRepository;
+    private InviteByEmail emailInviter;
 
 
-    public BoardController(EventRepository eventRepository,BoardRepository boardRepository, UserRepository userRepository, AccessVerifier accessVerifier, UserRoleRepository userRoleRepository) {
+    public BoardController(EventRepository eventRepository, BoardRepository boardRepository,
+                           UserRepository userRepository, AccessVerifier accessVerifier,
+                           InviteByEmail emailInviter, UserRoleRepository userRoleRepository) {
         this.eventRepository = eventRepository;
         this.boardRepository = boardRepository;
         this.userRepository = userRepository;
         this.accessVerifier = accessVerifier;
         this.userRoleRepository = userRoleRepository;
+        this.emailInviter = emailInviter;
     }
 
 
     /*
 
-
     BOARDHOME
+
      */
+
     @GetMapping("/boardHome/{boardId}")
     public String boardHome(Model model, @PathVariable Integer boardId, Principal principal) {
         Board board = boardRepository.findById(boardId).get();
@@ -119,6 +125,25 @@ public class BoardController {
         model.addAttribute("event", event);
 
         return "eventform";
+    }
+
+    @GetMapping("/inviteByEmail/{boardId}")
+    public String inviteByEmail(Model model, Principal principal, @PathVariable Integer boardId){
+        User user = accessVerifier.currentUser(principal);
+        Board board = boardRepository.findById(boardId).get();
+        if (!accessVerifier.doesUserHaveAccess(principal, board, MembershipType.LEADER)){
+            return "home";
+        }
+        model.addAttribute("boardId", boardId);
+        return "inviteByEmail";
+    }
+
+    @PostMapping("/inviteByEmail/{boardId}")
+    public String inviteByEmail(Principal principal, @RequestParam String email, @PathVariable Integer boardId){
+        User user = accessVerifier.currentUser(principal);
+        Board board = boardRepository.findById(boardId).get();
+        emailInviter.sendInvite(board, email, user);
+        return "home";
     }
 
 
