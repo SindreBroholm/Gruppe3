@@ -16,6 +16,7 @@ body {
 }
 
 
+
 /***** Header *****/
 
 header{
@@ -64,10 +65,6 @@ i.material-icons {
 
 }
 
-#logo{
-    transform: translate(50%);
-
-}
 
 .text .search {
     border-radius: 10px;
@@ -78,4 +75,8 @@ i.material-icons {
     border: 1px solid grey;
     cursor: pointer;
     margin-right: 5px;
+}
+
+.logoNavbar {
+    width: 80px;
 }

@@ -5,9 +5,13 @@
     <meta name="description" content="fastis profile page">
     <meta name="author" content="fastis">
     <link rel="stylesheet" th:href="@{/styles/login.css}">
+    <link rel="stylesheet" th:href="@{/styles/home.css}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
     <title>Login</title>
 </head>
 <body>
+<header th:insert="header_template :: header"></header>
 <main>
     <section>
         <form name="f" th:action="@{/login}" method="post" class="loginbox">
@@ -32,8 +36,6 @@
                 <p>Don’t Have An Account? <a th:href="signup">Create One</a></p>
             </div>
         </form>
-
-        <img id="logo" src="C:\Users\Marit Pedersen\Desktop\GratduationProjectJavaFall2020\ezraNew.png" height="100px">
     </section>
 </main>
 </body>
