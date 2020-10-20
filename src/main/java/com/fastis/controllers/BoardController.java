@@ -88,7 +88,10 @@ public class BoardController {
          model.addAttribute("location", event.getLocation());
          model.addAttribute("description", event.getMessage());
          model.addAttribute("role", ur.getMembershipType().name);
-         return "event";
+
+         model.addAttribute("boardId", boardId);
+        model.addAttribute("eventId", eventId);
+        return "event";
     }
 
 

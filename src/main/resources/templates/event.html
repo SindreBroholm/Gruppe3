@@ -46,12 +46,8 @@
                 <div class="backbutton">
                     <a class="backbutton" type="button" >Back</a>
                 </div>
-
-                <div class="editbutton" th:if="${role == 'admin'}">
-                    <a type="submit" th:href="@{/addevent}">Edit</a>
-                </div>
-                <div class="editbutton" th:if="${role == 'leader'}">
-                    <a type="submit" th:href="@{/addevent}">Edit</a>
+                <div class="editbutton" th:if="${role == 'leader' || role == 'admin'}">
+		    <a type="submit" th:href="@{'/addevent/' + ${boardId} + '/' + ${eventId}}">Edit</a>
                 </div>
             </div>
         </div>
