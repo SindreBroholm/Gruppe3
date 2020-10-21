@@ -3,33 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link th:href="@{/styles/event.css}" rel="stylesheet" />
+    <link th:href="@{/styles/event.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/styles/GlobalHeader.css}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
     <title>Events</title>
 </head>
 <body>
-<header>
-    <nav class="navbar">
-        <ul>
-            <li><a href="#dropmenu"><i class="material-icons">menu</i></a></li>
-            <li><a href="#user"><i class="material-icons">person</i></a></li>
-            <li><a href="#notification"><i class="material-icons">add_alert</i></a></li>
-            <li style="float:right"><a class="search" href="#search">SEARCH</a></li>
-        </ul>
-
-    </nav>
-</header>
-    <div id="main">
+<header th:insert="header_template :: header"></header>
+<main>
+    <div>
         <div class="grid-container">
             <h1 class="eventname" th:text="${name}"></h1>
             <div class="date">
-                <h3 th:if="${dayOfWeekStart != dayOfWeekEnd}">From</h3>
                 <div class="datestart">
                     <h3 th:text="${dayOfWeekStart}"></h3>
                     <p th:text="${dayAndMonthStart}"></p>
                 </div>
-                <h3 th:if="${dayOfWeekStart != dayOfWeekEnd}">To </h3>
+                <h3 th:if="${dayOfWeekStart != dayOfWeekEnd}"> <-> </h3>
                 <div class="dateend" th:if="${dayOfWeekStart != dayOfWeekEnd}">
                     <h3 th:text="${dayOfWeekEnd}"></h3>
                     <p th:text="${dayAndMonthEnd}"></p>
@@ -48,10 +39,11 @@
                     <a class="backbutton" type="button" >Back</a>
                 </div>
                 <div class="editbutton" th:if="${role == 'leader' || role == 'admin'}">
-		    <a type="submit" th:href="@{'/addevent/' + ${boardId} + '/' + ${eventId}}">Edit</a>
+		            <a type="submit" th:href="@{'/addevent/' + ${boardId} + '/' + ${eventId}}">Edit</a>
                 </div>
             </div>
         </div>
     </div>
+</main>
 </body>
 </html>
