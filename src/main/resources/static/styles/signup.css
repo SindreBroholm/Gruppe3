@@ -42,7 +42,7 @@ form {
     "lastname lastname1"
     "password password1"
     "phoneNumber phoneNumber1"
-    "error submit"
+    "backB submit"
     "errorlist errorlist";
 }
 
@@ -101,8 +101,8 @@ main > section > .newUser > h3 {
     grid-area: phoneNumber1;
 }
 
-.error {
-    grid-area: error;
+.backbuttom {
+    grid-area: backB;
 }
 .errorlist {
     grid-area: errorlist;
@@ -124,9 +124,9 @@ form > label {
     border: 1px solid red;
 }
 
-form > .loginbuttom > button {
-    width: 205px;
-    margin: 15px;
+button {
+    width: 80%;
+    margin: 2.5%;
     color: white;
     text-decoration: none;
     background-color: black;
@@ -136,3 +136,4 @@ form > .loginbuttom > button {
     transition: all 1s;
     font: 400 1em Roboto;
 }
+

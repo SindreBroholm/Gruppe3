@@ -38,6 +38,11 @@
                 <div class="loginbuttom form-actions">
                     <button type="submit" class="login btb hoverDiscover">Sign up</button>
                 </div>
+
+                <div class="backbuttom form-actions">
+                    <button type="submit" class="login btb hoverDiscover">Back</button>
+                </div>
+
                 <ul class="errorlist">
                     <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
                 </ul>
