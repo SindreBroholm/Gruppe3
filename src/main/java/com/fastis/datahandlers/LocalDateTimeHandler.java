@@ -8,69 +8,80 @@ import java.util.List;
 @Service
 public class LocalDateTimeHandler {
 
-    public String getDateString(LocalDateTime localDateTime){
-        String date = getDayOfWeek(localDateTime) + " " + getDayOfMonth(localDateTime) +"/"+getMonth(localDateTime.getMonthValue());
-        return date;
-    }
 
-    public String getMonth(int month) {
+    public LocalDateTime getMonth(int month, int plussyear) {
+        int year = LocalDateTime.now().getYear();
+        year += plussyear;
         switch (month) {
             case 1:
-                return "Jan";
+                String jan = year +"-01-01T00:00:00";
+                return LocalDateTime.parse(jan);
             case 2:
-                return "Feb";
+                String feb = year +"-02-01T00:00:00";
+                return LocalDateTime.parse(feb);
             case 3:
-                return "Mar";
+                String mar = year +"-03-01T00:00:00";
+                return LocalDateTime.parse(mar);
             case 4:
-                return "Apr";
+                        String apr =  year +"-04-01T00:00:00";
+                        return LocalDateTime.parse(apr);
+            case 5:
+                String may =  year+"-05-01T00:00:00";
+                return LocalDateTime.parse(may);
+            case 6:
+                String jun = year +"-06-01T00:00:00";
+                return LocalDateTime.parse(jun);
+            case 7:
+                String jul = year +"-07-01T00:00:00";
+                return LocalDateTime.parse(jul);
+            case 8:
+                String aug = year +"-08-01T00:00:00";
+                return LocalDateTime.parse(aug);
+            case 9:
+                String sep = year +"-09-01T00:00:00";
+                return LocalDateTime.parse(sep);
+            case 10:
+                String oct =  year +"-10-01T00:00:00";
+                return LocalDateTime.parse(oct);
+            case 11:
+                String nov =  year +"-11-01T00:00:00";
+                return LocalDateTime.parse(nov);
+            case 12:
+                String des = year +"-12-01T00:00:00";
+                return LocalDateTime.parse(des);
+            default:
+                String janu = year +"-01-01T00:00:00";
+                return LocalDateTime.parse(janu);
+        }
+    }
+    public String getCurrentMonth(int month) {
+        switch (month) {
+            case 1:
+                return "January";
+            case 2:
+                return "February";
+            case 3:
+                return "March";
+            case 4:
+                return "April";
             case 5:
                 return "May";
             case 6:
-                return "jun";
+                return "June";
             case 7:
-                return "Jul";
+                return "July";
             case 8:
-                return "Aug";
+                return "August";
             case 9:
-                return "Sep";
+                return "September";
             case 10:
-                return "Oct";
+                return "October";
             case 11:
-                return "Nov";
+                return "November";
             case 12:
-                return "Des";
+                return "Desember";
             default:
-                return "Not found";
-        }
-    }
-    public int getNumbOfDaysInMonth(int month) {
-        switch (month) {
-            case 1:
-                return 31;
-            case 2:
-                return 28;
-            case 3:
-                return 31;
-            case 4:
-                return 30;
-            case 5:
-                return 31;
-            case 6:
-                return 30;
-            case 7:
-                return 31;
-            case 8:
-                return 31;
-            case 9:
-                return 30;
-            case 10:
-                return 31;
-            case 11:
-                return 30;
-            case 12:
-                return 31;
-            default:
-                return 30;
+                return "ops";
         }
     }
 
@@ -99,7 +110,7 @@ public class LocalDateTimeHandler {
     public String getDayOfMonth(LocalDateTime localDateTime){
         int month = localDateTime.getMonth().getValue();
         int dayOfMonth = localDateTime.getDayOfMonth();
-        return dayOfMonth +"/"+getMonth(month);
+        return dayOfMonth +"/"+getMonth(month, 0);
     }
 
     public String getHourAndMin(LocalDateTime localDateTime){

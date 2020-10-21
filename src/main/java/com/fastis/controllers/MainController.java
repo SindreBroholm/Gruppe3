@@ -2,6 +2,8 @@ package com.fastis.controllers;
 
 import com.fastis.data.Board;
 import com.fastis.data.Event;
+import com.fastis.data.User;
+import com.fastis.data.UserRole;
 import com.fastis.datahandlers.LocalDateTimeHandler;
 import com.fastis.repositories.BoardRepository;
 import com.fastis.repositories.EventRepository;
@@ -11,8 +13,10 @@ import com.fastis.security.AccessVerifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -26,7 +30,6 @@ public class MainController {
     private BoardRepository boardRepository;
 
 
-
     public MainController(EventRepository eventRepository, UserRepository userRepository, UserRoleRepository userRoleRepository, BoardRepository boardRepository, AccessVerifier accessVerifier) {
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
@@ -37,19 +40,40 @@ public class MainController {
     }
 
 
-    @GetMapping("/")
-    public String showAccessedBoards(Principal principal, Model model) {
-
+    private int plussyear = 0;
+    private int year = 2020;
+    @GetMapping(value = {"/", "/{nextMonth}"})
+    public String showAccessedBoards(Principal principal, Model model, @PathVariable(required = false) Integer nextMonth) {
         if (principal != null) {
-            LocalDateTimeHandler localDateTimeHandler = new LocalDateTimeHandler();
-            List<Board> boardsList = accessVerifier.accessedBoard(principal);
-            List<Event> eventList = accessVerifier.accessedEvents(principal);
+            int month = LocalDateTime.now().getMonth().getValue();
+            if (nextMonth != null){
+                month = nextMonth;
+                if (month == 13) {
+                    plussyear++;
+                    year++;
+                    month = 1;
+                }
+                if (month == 0) {
+                    plussyear--;
+                    year--;
+                    month = 12;
+                }
+            }
+            model.addAttribute("CM", month);
+            User user = accessVerifier.currentUser(principal);
+            LocalDateTimeHandler LDTH = new LocalDateTimeHandler();
+            LocalDateTime firstDayOfCurrentMonth = LDTH.getMonth(month, plussyear);
+            LocalDateTime firstDayOfCNextMonth = LDTH.getMonth(month +1, plussyear);
+            LocalDateTime today = LocalDateTime.now();
+            List<Event> usersEvents = eventRepository.EventStreamOrderByMonth(user.getId(),firstDayOfCurrentMonth, firstDayOfCNextMonth, today);
+            String currentMonth = LDTH.getCurrentMonth(month);
 
-            model.addAttribute("eventList", eventList);
-            model.addAttribute("boardsList", boardsList);
+            model.addAttribute("month", currentMonth);
+            model.addAttribute("eventList", usersEvents);
+            model.addAttribute("currentYear", year);
+
             return "home";
         }
-
         return "redirect:/login";
     }
 

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,6 +83,7 @@ public class AccessVerifier {
     @ResponseBody
     public List<Event> accessedEvents(Principal principal) {
         User user = currentUser(principal);
+        LocalDateTime localDateTime = LocalDateTime.now();
         List<Event> eventList =  eventRepository.getAllUserEvents(user.getId());
         return eventList;
     }
