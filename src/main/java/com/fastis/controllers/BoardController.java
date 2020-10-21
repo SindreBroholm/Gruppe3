@@ -148,7 +148,10 @@ public class BoardController {
 
 
     @PostMapping("/addevent/{boardId}")
-    public String addOrEditEvent(@ModelAttribute Event event, @PathVariable Integer boardId, BindingResult br){
+    public String addOrEditEvent(@ModelAttribute Event event, @PathVariable Integer boardId, BindingResult br, Principal principal){
+        if (!accessVerifier.doesUserHaveAccess(principal, boardRepository.findById(boardId).get(), MembershipType.LEADER)){
+            return "redirect:/";
+        }
         EventValidator validator = new EventValidator();
         if(validator.supports(event.getClass())){
             validator.validate(event, br);
