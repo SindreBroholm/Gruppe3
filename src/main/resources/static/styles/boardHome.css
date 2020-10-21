@@ -1,18 +1,14 @@
 *{
     padding: 0;
-
+    margin: 0;
     box-sizing: border-box;
-    margin: auto;
 }
 
 
 body {
-
-    height: 100vh;
+    min-height: 100vh;
     width: 100vw;
-    /* background: linear-gradient(319deg, rgb(146, 255, 237) 0%, #ffffff 100%); */
     font-family: roboto;
-
 }
 
 p{
@@ -26,7 +22,7 @@ h3 {
 
 
 .flex-container {
-    /* display: flex; */
+    display: flex;
     flex-direction: column;
     align-items: center;
 
@@ -37,11 +33,8 @@ h3 {
     background-color:white;
     /* border-radius: 10px; */
     width: 90vw;
-    height: 100vh;
-
-    /* margin: 5px; */
+    min-height: calc(50vh - 56px);
     font-size: 30px;
-    /* box-shadow: 0px 0px 41px -7px rgba(0, 0, 0, 0.70); */
 }
 
 
@@ -123,25 +116,26 @@ i.material-icons {
     border-radius: 10px;
     box-shadow: 0px 0px 15px -3px rgba(0, 0, 0, 0.70);
     transform: translate(0, -5px);
-    margin-bottom: 10px;
+    margin-bottom: 1vh;
+
 }
 
 #optionsholder{
     background-color: white;
-    /* display: flex; */
+    display: flex;
     flex-direction: column;
     align-items: center;
 
 }
 
 #optionsholder > ul{
-    padding-top: 20px;
     width: 90vw;
     display: flex;
     flex-flow: nowrap column;
     align-items: center;
     justify-content: space-around;
-    margin-bottom: 20px;
+    min-height: 50vh;
+    margin-bottom: 1vh;
 }
 
 #optionsholder > ul >li > i.material-icons{
@@ -155,11 +149,9 @@ i.material-icons {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 30px;
 }
 
 .lievent > h3{
-    margin-top: 15px;
     font-size: 28px;
     color:#606060;
 }
@@ -172,7 +164,6 @@ i.material-icons {
     background-color:rgb(17, 156, 133);
     border-radius: 10px;
     width: 100vw;
-    padding: 10px;
     text-align: center;
     color: white;
     font-weight: bodler;
@@ -182,11 +173,6 @@ i.material-icons {
 
 #eventstream  {
     background-color: ;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 3vh;
-    text-align: left;
 }
 
 
@@ -205,9 +191,7 @@ i.material-icons {
     height:100px;
     width: 90vw;
     border-radius: 10px;
-
-    margin-top: 15px;
-
+    margin: 2vh 0;
 }
 
 
@@ -217,30 +201,23 @@ i.material-icons {
     margin: 10px;
 }
 
-.eventdescription > p {
-}
-
 
 /* Eventdate */
 
 .eventdate {
     display: flex;
-    flex-wrap: wrap;
-    margin-right: 10px;
-
-    transform: translate(50px, -20px);
+    margin-left: auto;
 }
 
 #datotagg{
-
+    position: relative;
+    top: -16px;
     color: rgb(17, 156, 133);
     font-size: 90px;
 }
 
 #date {
-
     color: white;
     font-style: bold;
     font-size: 16px;
-    transform: translate(-70px, -15px);
 }
