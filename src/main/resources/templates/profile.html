@@ -12,17 +12,51 @@
 
 </head>
 <body>
-<div sec:authorize="!isAuthenticated()">
-    You are not logged in </div>
 
-<div sec:authorize="isAuthenticated()">
-    You are logged in as: <span sec:authentication="name"></span></div>
-<div sec:authorize="${hasRole(#vars.expectedRole)}">
-    This will only be displayed if authenticated user has a role computed by the controller.
-</div>
-<a href="/">home</a>
-<button type="button" onclick="window.history.go(-1);">Back</button>
+<section class="flex-container">
+
+    <div id="boks1">
+
+        <h3>+ My Profile</h3>
+
+        <form th:action="editprofile" th:method="post" id="user" th:object="${user}">
+
+            <i class="material-icons">person</i>
+            <div class="inputfield">
+                <label class="name">Name </label>
+                <h4 id="name" th:text="${member.name}"></h4>
+            </div>
+
+
+            <i class="material-icons">email</i>
+            <div class="inputfield">
+                <label class="email">E-mail</label>
+                <h4 id="email" th:text="${member.email}"></h4>
+            </div>
+
+            <i class="material-icons">phone</i>
+            <div class="inputfield">
+                <label class="number">Number</label>
+                <h4 id="number" th:text="${member.number}"></h4>
+            </div>
+
+
+            <button class="submitbutton" type="submit" class="submit btb hoverDiscover">Edit Profile</button>
+
+            <div>
+                <a href="/">Home</a>
+            </div>
+
+
+
+        </form>
+    </div>
+
+</section>
+
 </body>
 </html>
+
+
 
 
