@@ -1,47 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <link th:href="@{/styles/boardHome.css}" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet">
-    <title>homeBoard</title>
-</head>
-<body>
-
-<header>
-    <nav class="navbar">
-        <ul>
-            <li><a href="#dropmenu"><i class="material-icons">menu</i></a></li>
-            <li><a href="#user"><i class="material-icons">person</i></a></li>
-            <li><a href="#notification"><i class="material-icons">add_alert</i></a></li>
-
-            <li><img id="logo" src="" height="40px"></li>
-
-            <li style="float:right">
-                <form class="search" action="/action_page.php" style="margin:auto;max-width:300px">
-                    <input type="text" placeholder="Search.." name="search">
-                    <!-- <button type="submit"><i class="search"></i></button> -->
-                </form></li>
-        </ul>
-
-    </nav>
-
-</header>
-
-
-<div class="flex-container">
-
-
-    <div id="optionsholder">
-        <div id="imageholder">
-            <img height="130px" src="">
-        </div>
-        <ul>
-            <li class="lievent">
-                <i class="material-icons">bookmark</i>
-                <h3>+Create Event</h3>
-            </li>
     <head>
 	<meta charset="UTF-8">
 	<link th:href="@{/styles/boardHome.css}" rel="stylesheet" />
@@ -75,100 +33,9 @@
 		<ul th:if="${admin}">
 		    <li class="lievent">
 			<i class="material-icons">bookmark</i>
-			<h3><a th:href="@{'/addevent/' + ${board.id}}">+Create Event</a></h3>
+			<h3><a th:href="@{/addevent}">+Create Event</a></h3>
 		    </li>
 
-            <li class="lievent">
-                <i class="material-icons">add_alert</i>
-                <h3>+Add Notification</h3>
-            </li>
-
-            <li class="lievent">
-                <i class="material-icons">person</i>
-                <h3>+View Members</h3>
-            </li>
-        </ul>
-    </div>
-
-    <div id="eventstream">
-        <h3 id="upcomingevents">UPCOMING EVENTS...</h3>
-        <ul>
-
-            <li class="eventli">
-                <div class="eventdescription">
-                    <h3>Eventname</h3>
-                    <p>eventdescription</p>
-                    <p>Start: date and time. End: date and time.</p>
-                </div>
-                <div class="eventdate">
-                    <i id ="datotagg" class="material-icons">bookmark</i>
-                    <p id="date">11/2</p>
-                </div>
-            </li>
-
-            <li class="eventli">
-                <div class="eventdescription">
-                    <h3>Eventname</h3>
-                    <p>eventdescription</p>
-                </div>
-                <div class="eventdate">
-                    <i id ="datotagg" class="material-icons">bookmark</i>
-                    <p id="date">11/2</p>
-                </div>
-            </li>
-
-
-            <li class="eventli">
-                <div class="eventdescription">
-                    <h3>Eventname</h3>
-                    <p>eventdescription</p>
-                </div>
-                <div class="eventdate">
-                    <i id ="datotagg" class="material-icons">bookmark</i>
-                    <p id="date">11/2</p>
-                </div>
-            </li>
-
-            <li class="eventli">
-                <div class="eventdescription">
-                    <h3>Eventname</h3>
-                    <p>eventdescription</p>
-                </div>
-                <div class="eventdate">
-                    <i id ="datotagg" class="material-icons">bookmark</i>
-                    <p id="date">11/2</p>
-                </div>
-            </li>
-
-            <li class="eventli">
-                <div class="eventdescription">
-                    <h3>Eventname</h3>
-                    <p>eventdescription</p>
-                </div>
-                <div class="eventdate">
-                    <i id ="datotagg" class="material-icons">bookmark</i>
-                    <p id="date">11/2</p>
-                </div>
-            </li>
-
-
-            <li class="eventli">
-                <div class="eventdescription">
-                    <h3>Eventname</h3>
-                    <p>eventdescription</p>
-                </div>
-                <div class="eventdate">
-                    <i id ="datotagg" class="material-icons">bookmark</i>
-                    <p id="date">11/2</p>
-                </div>
-            </li>
-
-
-
-        </ul>
-    </div>
-</div>
-</body>
 		    <li class="lievent">
 			<i class="material-icons">add_alert</i>
 			<h3>+Add Notification</h3>
@@ -186,7 +53,7 @@
 		<ul th:if="${events != null}">
 		    <li th:each="event : ${events}" class="eventli">
 			<div class="eventdescription">
-			    <a th:href="@{'/event/' + ${board.id} + '/' + ${event.id}}"><h3 th:text="${event.name}">Eventname</h3></a>
+			    <h3 th:text="${event.name}">Eventname</h3>
 			    <p th:text="${event.message}">eventdescription</p>
 			    <p th:text="${event.datetime_from}">Start: date and time. End: date and time.</p>
 			</div>
