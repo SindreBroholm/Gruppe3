@@ -3,12 +3,15 @@ package com.fastis.controllers;
 import com.fastis.data.User;
 import com.fastis.repositories.BoardRepository;
 import com.fastis.repositories.UserRepository;
+import com.fastis.security.AccessVerifier;
 import com.fastis.security.UserValidator;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 
 @Controller
@@ -17,13 +20,15 @@ public class UserHandlerController {
     private UserRepository repository;
     private PasswordEncoder passwordEncoder;
     private BoardRepository boardRepository;
+    private AccessVerifier accessVerifier;
 
 
 
-    public UserHandlerController(UserRepository repository, PasswordEncoder passwordEncoder, BoardRepository boardRepository) {
+    public UserHandlerController(UserRepository repository, PasswordEncoder passwordEncoder, BoardRepository boardRepository, AccessVerifier accessVerifier) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
         this.boardRepository = boardRepository;
+        this.accessVerifier = accessVerifier;
     }
 
     /*
@@ -72,7 +77,9 @@ public class UserHandlerController {
     //
 
     @GetMapping("/profile")
-    public String profile() {
+    public String profile(Principal principal, Model model) {
+        User user = accessVerifier.currentUser(principal);
+        model.addAttribute("user", user);
        return "profile";
     }
 
