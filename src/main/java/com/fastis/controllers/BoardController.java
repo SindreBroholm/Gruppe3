@@ -108,11 +108,16 @@ public class BoardController {
     @GetMapping(value={"/addevent/{boardId}", "/addevent/{boardId}/{eventId}"})
     public String showAddEvent(Model model, @PathVariable Integer boardId, @PathVariable(required = false) Integer eventId, Principal principal){
 
+
         User user = accessVerifier.currentUser(principal);
         Board board = boardRepository.findById(boardId).get();
 
         if (!accessVerifier.doesUserHaveAccess(principal, board, MembershipType.LEADER)){
             return "home";
+        }
+        model.addAttribute("admin", false);
+        if (accessVerifier.doesUserHaveAccess(principal, board, MembershipType.ADMIN)){
+            model.addAttribute("admin", true);
         }
 
         //so we can add event to correct board

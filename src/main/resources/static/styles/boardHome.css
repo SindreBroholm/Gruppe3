@@ -119,7 +119,7 @@ i.material-icons {
 
 }
 
-#optionsholder{
+#optionsholder, #not_member {
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -127,13 +127,21 @@ i.material-icons {
 
 }
 
-#optionsholder > ul{
+#not_member {
+    min-height: 50vh;
+}
+
+#not_member > ul > li {
+    margin: auto;
+}
+
+#optionsholder > ul, #not_member > ul {
     width: 90vw;
     display: flex;
     flex-flow: nowrap column;
     align-items: center;
     justify-content: space-around;
-    min-height: 50vh;
+    min-height: 30vh;
     margin-bottom: 1vh;
 }
 
@@ -142,6 +150,10 @@ i.material-icons {
     color:#404040;
 }
 
+#not_member > ul >li > i.material-icons{
+    font-size: 52px;
+    color:#404040;
+}
 
 
 .lievent{
@@ -149,6 +161,8 @@ i.material-icons {
     flex-direction: column;
     align-items: center;
 }
+
+
 
 .lievent > h3{
     font-size: 28px;
@@ -162,7 +176,7 @@ i.material-icons {
     align-items: center;
     background-color:rgb(17, 156, 133);
     border-radius: 10px;
-    width: 100vw;
+    width: 90vw;
     text-align: center;
     color: white;
     font-weight: bodler;

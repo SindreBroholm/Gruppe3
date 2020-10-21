@@ -48,16 +48,17 @@
                     <input class="forminput" type="text" th:field="*{location}">
                 </label>
 
+		<input type="hidden" th:field="*{id}">
 
                 <label><h3>+ Event description</h4>
                     <textarea id="textarea"  rows="10" cols="30" th:field="*{message}">Add a deacription of the event.</textarea>
                 </label>
 
                 <select id="membership" name="access" th:field="*{event_type}">
-                    <option value="Follower">Follower</option>
-                    <option value="Member">Member</option>
-                    <option value="Leader">Leader</option>
-                    <option value="Admin">Admin</option>
+                    <option value="FOLLOWER">Follower</option>
+                    <option value="MEMBER">Member</option>
+                    <option value="LEADER">Leader</option>
+		    <option th:if="${admin}" value="ADMIN">Admin</option>
                 </select>
 
                 <button id="createbutton" type="submit">Create</button>
