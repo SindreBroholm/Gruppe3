@@ -1,65 +1,57 @@
 * {
-    margin: 0px;
-    padding: 0px;
-
-}
-
-* {
     box-sizing: border-box;
     margin: 0;
+    padding: 0px;
     font-family: 'Roboto', sans-serif;
-    font-size: 12px;
+    font-size: 16px;
 }
 
 body {
-    min-height: 100vh;
     background: linear-gradient(319deg, rgb(146, 255, 237) 0%, #ffffff 100%);
 }
-
 main {
-    width: 100%;
-
-    background: linear-gradient(319deg, rgb(146, 255, 237) 0%, #ffffff 100%);
-    height: 100vh;
+    width: 100vw;
+    height: calc(100vh - 56px);
     display: grid;
     grid-template-columns: 1fr;
     grid-template-areas: "login";
+    align-items: center;
 }
 
 main > section {
     display: flex;
-    justify-content: center;
-    align-items: center;
-
 }
 
 main > section > .loginbox {
     grid-area: login;
-    width: 500px;
-    height: 500px;
+    margin: 5%;
+    width: 100%;
+    height: 100%;
 }
 
 main > section > .loginbox > div {
-    margin-bottom: 15px;
+    margin-bottom: 5%;
 }
 
 main > section > .loginbox > h3 {
-    font-size: 28px;
+    font-size: 3em;
+    text-align: center;
     color: black;
 }
 
 main > section > .loginbox > .userpass {
     color: #8C98A9;
-    margin-top: 15px;
+    margin-top: 5%;
 }
 
 main > section > .loginbox > .userpass > .pass {
-    margin-top: 15px;
+    margin-top: 5%;
 }
 
 main > section > .loginbox > .userpass > div > input {
     width: 100%;
     border-radius: 3px;
+    padding: 3%;
     border: 1px solid #E0E7FF;
 }
 

@@ -8,29 +8,30 @@
     <meta name="description" content="fastis profile page">
     <meta name="author" content="fastis">
     <link rel="stylesheet" th:href="@{/styles/signup.css}">
+    <link rel="stylesheet" th:href="@{/styles/GlobalHeader.css}">
     <title>Sign Up</title>
 </head>
 <body>
+<header th:insert="header_template :: header"></header>
 <main>
     <section>
-        <img src="C:\Users\Marit Pedersen\Desktop\GratduationProjectJavaFall2020\ezraNew.png" id="logo" width="200px">
         <div class="newUser">
             <h3>Sign up</h3>
             <form th:action="signup" th:method="post" id="user" th:object="${user}">
 
-                <label class="email">E-mail</label>
+                <label class="email">E-mail*</label>
                 <input class="email1" th:errorclass="filderror" th:field="*{email}">
 
-                <label class="firstname">Firstname </label>
+                <label class="firstname">Firstname* </label>
                 <input class="firstname1" th:errorclass="filderror" th:field="*{firstname}">
 
-                <label class="lastname">Lastname </label>
+                <label class="lastname">Lastname* </label>
                 <input class="lastname1" th:errorclass="filderror" th:field="*{lastname}">
 
-                <label class="password">Password </label>
+                <label class="password">Password* </label>
                 <input class="password1" th:errorclass="filderror" type="password" th:field="*{password}">
 
-                <label class="phoneNumber">Phone number optinial </label>
+                <label class="phoneNumber">Phone number</label>
                 <input class="phoneNumber1" th:errorclass="filderror" th:field="*{phone_number}">
 
 

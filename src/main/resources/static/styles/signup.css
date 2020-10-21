@@ -1,53 +1,38 @@
 * {
     box-sizing: border-box;
     margin: 0;
+    padding: 0px;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
-
 }
 
 body {
-    height: 100vh;
     background: linear-gradient(319deg, rgb(146, 255, 237) 0%, #ffffff 100%);
-
 }
 
 main {
-    width: 100%;
-    height: 100vh;
+    width: 100vw;
+    min-height: calc(100vh - 56px);
     display: grid;
     grid-template-columns: 1fr;
     grid-template-areas: "login";
-
-
+    align-items: center;
 }
 
 main > section {
     display: flex;
-    justify-content: center;
-    align-items: center;
-
 }
 
 main > section > .newUser {
     grid-area: login;
-    width: 500px;
-    max-height: 700px;
+    width: 100%;
+    height: 80%;
+    margin: 5%;
 }
-
-main > section > .newUser > h3 {
-    font-size: 28px;
-    margin-left: 40px;
-    margin-bottom: 30px;
-    color: #E76F51;
-    margin-block-end: 0px;
-}
-
 form {
-    margin: 5px 40px;
-    height: 700px;
+    height: 100%;
     display: grid;
-    gap: 10px 10px;
+    gap: 1%;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-columns: 1fr 1fr;
     justify-content: space-evenly;
@@ -59,6 +44,13 @@ form {
     "phoneNumber phoneNumber1"
     "error submit"
     "errorlist errorlist";
+}
+
+
+main > section > .newUser > h3 {
+    font-size: 3em;
+    text-align: center;
+    color: black;
 }
 
 .firstname {
@@ -120,9 +112,12 @@ form {
     grid-area: submit;
 }
 form > input {
-    width: 100%;
-    padding: 3px;
-    size: 10px;
+    padding: 3%;
+    margin: 10% 0%;
+}
+form > label {
+    text-align: center;
+    align-self: center;
 }
 
 .filderror {
@@ -134,47 +129,10 @@ form > .loginbuttom > button {
     margin: 15px;
     color: white;
     text-decoration: none;
-    background-color: #E76F51;
-    border: 1px solid #E76F51;
+    background-color: black;
+    border: 1px solid black;
     border-radius: 30px;
     padding: 10px 30px;
     transition: all 1s;
-    font: 400 13.3333px Roboto;
-}
-
-@media screen and (max-width: 768px) {
-    main {
-        grid-template-areas: "image";
-        grid-template-rows: 1fr;
-        grid-template-columns: 1fr;
-    }
-
-    main > figure > p {
-        font-size: 23px;
-        margin: 22px 35px;
-    }
-
-    main > figure {
-        background-size: cover;
-        background-position: center;
-        width: 768px;
-    }
-}
-
-@media screen and (max-width: 375px) {
-    main {
-        grid-template-areas: "image";
-        grid-template-rows: 1fr;
-        grid-template-columns: 1fr;
-    }
-
-    main > figure {
-        background-size: cover;
-        width: 100%;
-    }
-
-    main > figure > p {
-        font-size: 19px;
-        margin: 20px 30px;
-    }
+    font: 400 1em Roboto;
 }
