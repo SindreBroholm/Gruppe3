@@ -3,45 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link th:href="@{/styles/members.css}" rel="stylesheet" />
+    <link th:href="@{/styles/members.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/styles/GlobalHeader.css}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
     <title>Members</title>
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <ul>
-                <li><a href="#dropmenu"><i class="material-icons">menu</i></a></li>
-                <li><a href="#user"><i class="material-icons">person</i></a></li>
-                <li><a href="#notification"><i class="material-icons">add_alert</i></a></li>
-                <li style="float:right"><a class="search" href="#search">SEARCH</a></li>
-            </ul>
-        </nav>
-    </header>
+<header th:insert="header_template :: header"></header>
+<main>
     <div>
-        <div id="main">
-            <ul>
-                <li th:each="member : ${members}" th:if="${member.user.id != curentuser.userId}">
-                    <span th:text="${member.user.firstname + ' '+ member.user.lastname+' : '+ member.userRole.membershipType}"></span>
-                    <form th:action="${boardId}" th:method="post" th:object="${userrole}">
-                        <input name="userId" th:value="${member.user.id}" type="hidden">
-                        <input name="boardId" th:value="${curentboardId}" type="hidden">
+        <ul>
+            <li th:each="member : ${members}" th:if="${member.user.id != curentuser.userId}">
+                <span class="name" th:text="${member.user.firstname + ' '+ member.user.lastname}"></span><span class="type" th:text="${member.userRole.membershipType}"></span>
+                <form th:action="${boardId}" th:method="post" th:object="${userrole}">
+                    <input name="userId" th:value="${member.user.id}" type="hidden">
+                    <input name="boardId" th:value="${curentboardId}" type="hidden">
 
-                        <select th:field="*{membershipType}">
-                            <option th:value="${T(com.fastis.data.MembershipType).FOLLOWER.name()}">Follower</option>
-                            <option th:value="${T(com.fastis.data.MembershipType).MEMBER.name()}">Member</option>
-                            <option th:if="${T(com.fastis.data.MembershipType).ADMIN == curentuser.membershipType}" th:value="${T(com.fastis.data.MembershipType).LEADER.name()}">Leader</option>
-                        </select>
+                    <select class="option" th:field="*{membershipType}">
+                        <option th:value="${T(com.fastis.data.MembershipType).FOLLOWER.name()}">Follower</option>
+                        <option th:value="${T(com.fastis.data.MembershipType).MEMBER.name()}">Member</option>
+                        <option th:if="${T(com.fastis.data.MembershipType).ADMIN == curentuser.membershipType}" th:value="${T(com.fastis.data.MembershipType).LEADER.name()}">Leader</option>
+                    </select>
 
-                        <input type="submit" value="Update">
-                    </form>
-                </li>
-            </ul>
-            <div class="backbutton">
-            <a class="backbutton" type="button" >Back</a>
-            </div>
+                    <input class="update" type="submit" value="Update">
+                </form>
+            </li>
+        </ul>
+        <div class="backbutton">
+            <a type="button" >Back</a>
         </div>
     </div>
+</main>
 </body>
 </html>
