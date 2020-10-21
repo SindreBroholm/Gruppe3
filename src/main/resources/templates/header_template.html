@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link th:href="@{/styles/header.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/GlobalHeader.css}" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
     <title>Header-design</title>
 </head>
 <body>
-<header th:fragment="header">
+<header th:fragment="header" id="header">
     <div class="navbar">
         <div class="dropdown">
             <button onclick="myFunction()" class="dropbtn"><i class="material-icons clicker">menu</i>
@@ -23,29 +23,50 @@
         </div>
         <a class="material-icons" href="/profile">person</a>
         <a class="material-icons" style="float: left" href="#">notifications</a>
-        <img class="logoNavbar" style="width: 80px" th:src="@{images/ezraNew.png}">
+        <img class="logoNavbar" style="width: 80px; position: relative; top: 8px;" th:src="@{images/ezraNew.png}">
         <a href="/search" style="float: right">Search</a>
     </div>
     <script>
-        function myFunction() {
-            document.getElementById("myDropdown").classList.toggle("show");
-        }
+        window.onscroll = function () {
+            headerScroller()
+        };
 
-        let clickerNode = document.getElementsByClassName("clicker");
-        clickerNode.addEventListener("click", () => myFunction())
+        // Get the header
+        var header = document.getElementById("header");
 
-        window.onclick = function (event) {
-            if (!event.target.matches('.dropbtn')) {
-                let dropdowns = document.getElementsByClassName("dropdown-content");
-                let i;
-                for (i = 0; i < dropdowns.length; i++) {
-                    let openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
+        // Get the offset position of the navbar
+        var sticky = header.offsetTop;
+
+        // Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
+        function headerScroller() {
+            if (window.pageYOffset > sticky) {
+                header.classList.add("sticky");
+            } else {
+                header.classList.remove("sticky");
+            }}
+
+            function myFunction() {
+                document.getElementById("myDropdown").classList.toggle("show");
+            }
+
+            let clickerNode = document.getElementsByClassName("clicker");
+            clickerNode.addEventListener("click", () => myFunction())
+
+            window.onclick = function (event) {
+                if (!event.target.matches('.dropbtn')) {
+                    let dropdowns = document.getElementsByClassName("dropdown-content");
+                    let i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        let openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
                     }
                 }
             }
-        }
+
+
+
     </script>
 </header>
 

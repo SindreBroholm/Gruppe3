@@ -1,6 +1,6 @@
 
 .navbar {
-    overflow: hidden;
+
     background-color: #707070;
     font-family: Arial, Helvetica, sans-serif;
     width: 100%;
@@ -14,11 +14,34 @@
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    position: relative;
+    top: 4px;
 }
+
+
+/* Page content */
+.content {
+    padding: 16px;
+}
+
+/* The sticky class is added to the header with JS when it reaches its scroll position */
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the header gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+    padding-top: 102px;
+}
+
 
 .dropdown {
     float: left;
-    overflow: hidden;
+
 }
 
 .dropdown .dropbtn {
