@@ -1,6 +1,6 @@
 body {
+    width: 100vw;
     min-height: 100vh;
-    background: linear-gradient(319deg, rgb(146, 255, 237) 0%, #ffffff 100%);
     font-family: roboto;
 }
 
@@ -8,14 +8,25 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 480px;
+    width: 80vw;
+    height: auto;
     box-shadow: 0px 0px 41px -7px rgba(0, 0, 0, 0.70);
     background-color: white;
     margin:auto;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
+    margin-top: 20vh;
 
+}
+
+p{
+    font-size: 14px;
+}
+
+h3{
+    font-size: 20px;
+    font-weight: lighter;
 }
 
 i.material-icons {
@@ -25,8 +36,6 @@ i.material-icons {
 }
 
 input{
-
-
 
     padding: 3px;
 
