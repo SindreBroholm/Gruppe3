@@ -3,7 +3,7 @@
 
     <head>
 	<meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link th:href="@{/styles/boardHome.css}" rel="stylesheet" />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	      rel="stylesheet">
@@ -48,6 +48,22 @@
 			<h3>+View Members</h3>
 		    </li>
 		</ul>
+		<ul th:unless="${admin}">
+		    <li class="lievent">
+			<i class="material-icons">bookmark</i>
+			<h3>SOmething</h3>
+		    </li>
+
+		    <li class="lievent">
+			<i class="material-icons">add_alert</i>
+			<h3>Something</h3>
+		    </li>
+
+		    <li class="lievent">
+			<i class="material-icons">person</i>
+			<h3>Become Member</h3>
+		    </li>
+		</ul>
 	    </div>
 
 	    <div id="eventstream">
@@ -61,7 +77,6 @@
 			</div>
 			<div class="eventdate">
 			    <i id ="datotagg" class="material-icons">bookmark</i>
-			    <p id="date">11/2</p>
 			</div>
 		    </li>
 		</ul>
