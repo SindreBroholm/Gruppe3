@@ -228,7 +228,6 @@ public class BoardController {
         }
         model.addAttribute("listProducts", searchResults);
         model.addAttribute("keyword", keyword);
-        System.out.println(searchResults.toString());
         return "search";
     }
 
@@ -252,6 +251,7 @@ public class BoardController {
         UserRole userRole = new UserRole();
         model.addAttribute("listOfUr", listOfUR);
         model.addAttribute("userrole", userRole);
+
         model.addAttribute("curentboardId", boardId);
         model.addAttribute("curentuser", currentuser);
         model.addAttribute("members", userList);
