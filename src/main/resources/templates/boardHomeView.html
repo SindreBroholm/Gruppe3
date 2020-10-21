@@ -35,7 +35,7 @@
 		<ul th:if="${admin}">
 		    <li class="lievent">
 			<i class="material-icons">bookmark</i>
-			<h3><a th:href="@{/addevent}">+Create Event</a></h3>
+			<h3><a th:href="@{'/addevent/' + ${boardId}}">+Create Event</a></h3>
 		    </li>
 
 		    <li class="lievent">
