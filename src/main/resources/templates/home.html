@@ -9,11 +9,13 @@
     <meta name="description" content="fastis profile page">
     <meta name="author" content="fastis">
     <link th:href="@{/styles/home.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/GlobalHeader.css}" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Home</title>
 </head>
-<header th:insert="/header_template :: header"></header>
+
 <body>
+<div th:insert="/header_template :: header"></div>
 <div sec:authorize="isAuthenticated()">
     <div style="align-content: center; justify-content: center;"
          th:text="${#dates.format(#dates.createNow(), 'MMMMM')}"></div>
