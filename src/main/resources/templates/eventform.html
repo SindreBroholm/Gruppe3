@@ -30,7 +30,7 @@
     <div class="boks1">
         <h2>+ Create New Event</h2>
         <section class=form>
-            <form th:action="addevent" th:method="post" th:object="${event}">
+	    <form th:action="@{'/addevent/' + ${boardId}}" method="post" th:object="${event}">
                 <label>
                     <h3>+ Event title</h3>
                     <input class="forminput" type="text"  th:field="*{name}" th:errorclass="filderror">
