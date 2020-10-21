@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,28 +12,27 @@
 </head>
 
 <body>
-<div th:insert="/header_template :: header"></div>
-<div sec:authorize="isAuthenticated()">
-    <div style="align-content: center; justify-content: center;"
-         th:text="${#dates.format(#dates.createNow(), 'MMMMM')}"></div>
+<header th:insert="header_template :: header"></header>
+<main>
+    <div class="monthNav">
+        <a th:href="@{'/'+ ${CM-1}}" id="prevButton"><</a>
+        <div class="showMonth">
+            <h3 th:text="${month}"></h3>
+            <p th:text="${currentYear}"></p>
+        </div>
+        <a th:href="@{'/'+ ${CM+1}}" id="nextButton">></a>
+    </div>
     <ul class="events" th:each="events : ${eventList}">
         <li id="eventName" th:text="${events.name}"></li>
         <div id="dateBox">
             <i id="datotagg" class="material-icons">bookmark</i>
             <div id="dateDisplay">
                 <div th:text="${events.day}"></div>
-                <div id="dayInMonth" th:text="${events.datetime_from.dayOfMonth}"></div>
-                <div id="spacer" th:text="'/'"></div>
-                <div id="monthInYear" th:text="${events.datetime_from.getMonthValue()}"></div>
+                <div id="dayInMonth" th:text="${events.datetime_from.dayOfMonth+'/'+ events.datetime_from.getMonthValue()}"></div>
             </div>
         </div>
-        <div id="eventMessage" th:text="${events.message}"></div>
+        <div id="eventMessage" th:text="${events.board.name}"></div>
     </ul>
-</div>
-
-<div sec:authorize="!isAuthenticated()">
-    <a href="/login"> You are currently not logged in, click this link to log in.</a>
-</div>
+</main>
 </body>
-
 </html>

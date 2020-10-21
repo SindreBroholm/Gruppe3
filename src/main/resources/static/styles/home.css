@@ -1,15 +1,20 @@
 * {
-    box-sizing: border-box;
     margin: 0px;
     padding: 0px;
+    box-sizing: border-box;
+    font-family: roboto;
+    font-size: 16px;
 }
 body {
     background: linear-gradient(319deg, rgb(146, 255, 237) 0%, #ffffff 100%);
-
 }
-#main {
-    background-color: aquamarine;
-    color: red;
+main {
+    width: 100vw;
+    height: calc(100vh - 56px);
+}
+.month {
+    font: 600 1.5em Roboto;
+    text-align: center;
 }
 
 .events {
@@ -17,13 +22,39 @@ body {
     border-radius: 10px;
     padding: 16px;
     width: auto;
-
     height: fit-content;
-    margin: 5px;
+    margin: 4%;
     position: relative;
+}
+.monthNav {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "prev month next";
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+#prevButton {
+    grid-area: prev;
+}
+.showMonth {
+    grid-area: month;
+}
+#nextButton {
+    grid-area: next;
+}
+h3 {
+    font-size: 2em;
+}
+p {
+    font-size: 1em;
+}
+a {
+    text-decoration: none;
+    font-size: 3em;
+    color: black;
 
 }
-
 .events > li {
     display: inline-flex;
     color: white;
@@ -44,31 +75,18 @@ body {
 
 #dayInMonth {
     position: relative;
-    left: -10px;
-}
-#monthInYear{
-    position: relative;
-    left: 10px;
-    top: -36px;
-}
-#spacer {
-    position: relative;
-    top: -18px;
-
 }
 
 #dateBox > * {
     text-align: center;
 }
-#eventName {
-    font-family: Arial;
-}
+
 #dateDisplay {
-top: -56px;
+    top: -70px;
     position: relative;
 }
 
 #datotagg{
     color: #54E7E7;
-    font-size: 60px;
+    font-size: 80px;
 }

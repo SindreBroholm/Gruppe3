@@ -9,13 +9,13 @@
 
 .navbar a {
     float: left;
-    font-size: 16px;
+    font-size: 28px;
     color: black;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
     position: relative;
-    top: 4px;
+    margin-top: 0px;
 }
 
 /* material-icons*/
