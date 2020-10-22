@@ -6,7 +6,7 @@
     font-size: 16px;
 }
 body {
-    background: linear-gradient(319deg, rgb(146, 255, 237) 0%, #ffffff 100%);
+    background: white;
 }
 main {
     width: 100vw;
@@ -18,7 +18,8 @@ main {
 }
 
 .events {
-    background: #6F6F6F;
+    background: white;
+    box-shadow: 0px 0px 15px -3px rgba(0, 0, 0, 0.70);
     border-radius: 10px;
     padding: 16px;
     width: auto;
@@ -27,6 +28,8 @@ main {
     position: relative;
 }
 .monthNav {
+    margin-top: 5vh;
+    margin-bottom: 5vh;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas: "prev month next";
@@ -36,15 +39,19 @@ main {
 }
 #prevButton {
     grid-area: prev;
+    color:rgb(17, 156, 133);
 }
 .showMonth {
     grid-area: month;
+
 }
 #nextButton {
     grid-area: next;
+    color:rgb(17, 156, 133);
 }
 h3 {
     font-size: 2em;
+    font-weight: lighter;
 }
 p {
     font-size: 1em;
@@ -87,6 +94,6 @@ a {
 }
 
 #datotagg{
-    color: RGB(251, 59, 176);
+    color: #FBB03B;
     font-size: 80px;
 }
