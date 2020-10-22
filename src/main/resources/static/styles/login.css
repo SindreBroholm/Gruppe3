@@ -7,15 +7,34 @@
 }
 
 body {
-    background: white;
+    display: flex;
+    flex-direction: column;
+
 }
-main {
+header {
+    display: flex;
     width: 100vw;
-    height: calc(100vh - 56px);
+}
+
+.logo {
+    justify-content: center;
+    margin: auto;
+    align-items: center;
+    width: 70vw;
+    margin-top: 5vh;
+}
+
+main {
+    justify-content: center;
+    width: 90vw;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px -3px rgba(0, 0, 0, 0.70);
     display: grid;
     grid-template-columns: 1fr;
     grid-template-areas: "login";
     align-items: center;
+    margin: 0 auto;
+    margin-top: 10%;
 }
 
 main > section {
@@ -25,8 +44,8 @@ main > section {
 main > section > .loginbox {
     grid-area: login;
     margin: 5%;
-    width: 100%;
-    height: 100%;
+    width: 90%;
+ /*   height: 100%;*/
 }
 
 main > section > .loginbox > div {
@@ -34,7 +53,7 @@ main > section > .loginbox > div {
 }
 
 main > section > .loginbox > h3 {
-    font-size: 3em;
+    font-size: 2em;
     text-align: center;
     color: black;
 }

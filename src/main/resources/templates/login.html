@@ -6,13 +6,15 @@
     <meta name="description" content="fastis profile page">
     <meta name="author" content="fastis">
     <link rel="stylesheet" th:href="@{/styles/login.css}">
-    <link rel="stylesheet" th:href="@{/styles/GlobalHeader.css}">
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
     <title>Login</title>
 </head>
 <body>
-<header th:insert="header_template :: header"></header>
+<header>
+    <img class="logo" th:src="@{images/ezraNew.png}">
+</header>
 <main>
     <section>
         <form name="f" th:action="@{/login}" method="post" class="loginbox">
