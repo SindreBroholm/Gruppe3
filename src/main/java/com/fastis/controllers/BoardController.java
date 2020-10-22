@@ -239,8 +239,8 @@ public class BoardController {
         return "search";
     }
 
-    @GetMapping("/members/{boardId}")
-    public String showMembers(Principal principal, @PathVariable Integer boardId, Model model){
+    @GetMapping("/members/{boardId}/{toggle}")
+    public String showMembers(Principal principal, @PathVariable Integer boardId, Model model, @PathVariable Boolean toggle){
         Board board = boardRepository.findById(boardId).get();
         if (!accessVerifier.doesUserHaveAccess(principal, board, MembershipType.LEADER)){
             return "home";
@@ -249,31 +249,44 @@ public class BoardController {
         UserRole currentuser = userRoleRepository.findAllByUserIdAndBoardId(user.getId(), boardId);
         List<UserRole> listOfUR = userRoleRepository.getAllByBoardId(boardId);
         List<UserWithRole> userList = new ArrayList<>();
-        for (UserRole userRole : listOfUR) {
-            UserWithRole userWithRole = new UserWithRole();
-            userWithRole.setUserRole(userRole);
-            userWithRole.setUser(userRepository.findById(userRole.getUserId()).get());
-            userList.add(userWithRole);
-        }
+
+        populateUserList(listOfUR, userList, toggle);
+
 
         UserRole userRole = new UserRole();
         model.addAttribute("listOfUr", listOfUR);
         model.addAttribute("userrole", userRole);
-
+        model.addAttribute("toggle", toggle);
         model.addAttribute("curentboardId", boardId);
         model.addAttribute("curentuser", currentuser);
         model.addAttribute("members", userList);
         return "members";
     }
 
-    @PostMapping("/members/{boardId}")
-    public String updateMembers(Principal principal, @PathVariable Integer boardId,@ModelAttribute UserRole userRole){
+    private void populateUserList(List<UserRole> listOfUR, List<UserWithRole> userList, boolean onlyPending) {
+        for (UserRole userRole : listOfUR) {
+            UserWithRole members = new UserWithRole();
+            members.setUserRole(userRole);
+            members.setUser(userRepository.findById(userRole.getUserId()).get());
+            if (onlyPending){
+                if (userRole.isPendingMember()){
+                    userList.add(members);
+                }
+            } else {
+                userList.add(members);
+            }
+        }
+
+    }
+
+    @PostMapping("/members/{boardId}/{toggle}")
+    public String updateMembers(Principal principal, @PathVariable Integer boardId,@ModelAttribute UserRole userRole, @PathVariable Boolean toggle){
         Board board = boardRepository.findById(boardId).get();
         if (!accessVerifier.doesUserHaveAccess(principal, board, MembershipType.LEADER)){
             return "home";
         }
         userRoleRepository.save(userRole);
-        return "redirect:/members/"+boardId;
+        return "redirect:/members/"+boardId+"/"+toggle;
     }
 
 }

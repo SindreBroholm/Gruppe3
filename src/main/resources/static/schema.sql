@@ -31,6 +31,7 @@ create table fastis.user_role(
     Board_Id int not null,
     membership_Type varchar(56) not null,
     Numb_Of_Members int not null,
+    pending_member boolean,
     primary key (User_Id, Board_Id),
     FOREIGN KEY (User_Id) references user(Id) ON DELETE CASCADE,
     foreign key (Board_Id) references board(Id) ON DELETE CASCADE,

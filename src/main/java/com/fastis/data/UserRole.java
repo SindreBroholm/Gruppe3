@@ -22,6 +22,8 @@ public class UserRole {
 
     private int numbOfMembers;
 
+    private boolean pendingMember = false;
+
     public UserRole() {
     }
 
@@ -30,6 +32,14 @@ public class UserRole {
         this.boardId = boardId;
         this.membershipType = membershipType;
         this.numbOfMembers = numbOfMembers;
+    }
+
+    public boolean isPendingMember() {
+        return pendingMember;
+    }
+
+    public void setPendingMember(boolean pendingMember) {
+        this.pendingMember = pendingMember;
     }
 
     public Integer getUserId() {
