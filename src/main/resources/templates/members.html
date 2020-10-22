@@ -13,6 +13,14 @@
 <header th:insert="header_template :: header"></header>
 <main>
     <div>
+        <div class="navB">
+            <div>
+                <a th:href="${'/members/'+ boardId+'/false'}">Members</a>
+            </div>
+            <div>
+                <a th:href="${'/members/'+ boardId+'/true'}">Pending</a>
+            </div>
+        </div>
         <ul>
             <li th:each="member : ${members}" th:if="${member.user.id != curentuser.userId}">
                 <span class="name" th:text="${member.user.firstname + ' '+ member.user.lastname}"></span><span class="type" th:text="${member.userRole.membershipType}"></span>

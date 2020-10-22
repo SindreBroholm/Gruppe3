@@ -255,6 +255,7 @@ public class BoardController {
                     userList.add(members);
                 }
             } else {
+                if (!userRole.getMembershipType().name.equals("follower"))
                 userList.add(members);
             }
         }
