@@ -188,18 +188,14 @@ public class BoardController {
     }
 
     @PostMapping("/createboard")
-    public String createBoard(@ModelAttribute Board board, BindingResult br){
-        EventValidator validator = new EventValidator();
-        if(validator.supports(board.getClass())){
-            validator.validate(board, br);
-        }
-        if(br.hasErrors()){
-            return "createnewboard";
-        } else {
-            boardRepository.save(board);
-            return "redirect: /board";
-        }
+    public String createBoard(@ModelAttribute Board board, Principal principal){
+        User user = accessVerifier.currentUser(principal);
+        boardRepository.save(board);
+        UserRole ur = new UserRole(user.getId(), board.getId(), MembershipType.ADMIN, 1);
+        userRoleRepository.save(ur);
+        return "redirect:/boardHome/1";
     }
+
 
 /*    @GetMapping("/profile")
     public String showUserProfile(Model model){

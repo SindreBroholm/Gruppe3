@@ -1,88 +1,32 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link th:href="@{/styles/createnewboard.css}" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet">
-    <title>Create New Board</title>
-</head>
-<body>
-
-<header>
-    <nav class="navbar">
-        <ul>
-            <li><a href="#dropmenu"><i class="material-icons">menu</i></a></li>
-            <li><a href="#user"><i class="material-icons">person</i></a></li>
-            <li><a href="#notification"><i class="material-icons">add_alert</i></a></li>
-
-            <li><img id="logo" src="" height="40px"></li>
-
-            <li style="float:right">
-                <form class="search" action="/action_page.php" style="margin:auto;max-width:300px">
-                    <input type="text" placeholder="Search.." name="search">
-                    <!-- <button type="submit"><i class="search"></i></button> -->
-                </form>
-            </li>
-        </ul>
-
-    </nav>
-
-</header>
-
-<div class="flex-container">
-    <h2>+CREATE NEW BOARD</h2>
-
-    <div id="boks1">
-
-
-        <form th:action="createboard" th:method="post" th:object="${board}">
-            <label><h3>+ Board Title</h3>
-                <input type="text" th:field="*{name}" th:errorclass="filderror">
-            </label>
-
-            <!-- <-- må lagre bilde i board, men skal fungere -->
-            <label for="img"><h3>+ Add image</h3>
-
-                <input type="file" id="img" name="image" accept="image/*">
-                <div id="addimage">
-                    <input type="submit">
-                </div>
-            </label>
-    </div>
-
-    <div id="boks2">
-
-        <h3 id="contactinformation">Contact Information:</h3>
-        <label><h3>+ Name</h3>
-            <input class="forminput" type="text" th:field="*{contactName}" th:errorclass="filderror">
-        </label>
-
-        <label><h3>+ Telephone</h3>
-            <input class="forminput" type="text" th:field="*{contactNumber}" th:errorclass="filderror">
-        </label>
-
-        <label><h3>+ Email</h3>
-            <input class="forminput" type="text" th:field="*{contactEmail}" th:errorclass="filderror">
-        </label>
-
-        <label><h3>+ Homepage</h3>
-            <input class="forminput" type="text" th:field="*{homepage}" th:errorclass="filderror">
-        </label>
-
-        <button id="createbutton" type="submit">Create</button>
-        <br/>
-        <a href="boardHomeView.html">X Cancel</a>
-
-        <ul class="errorlist">
-            <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
-        </ul>
-    </div>
-
-    </form>
-</div>
-<button type="button" onclick="window.history.go(-1);">Back</button>
-
-</body>
+    <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link th:href="@{/styles/createnewboard.css}" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/styles/GlobalHeader.css}">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	      rel="stylesheet">
+	<title>Create New Board</title>
+    </head>
+    <body>
+	<header th:insert="header_template :: header"></header>
+	<main>
+	    <h1>Create New Board</h1>
+	    <form th:action="@{/createboard}" th:object="${board}" method="post">
+		<label for="name">Board Name:</label>
+		<input type="text" th:field="*{name}">
+		<label for="contactName">Contact Name:</label>
+		<input type="text" th:field="*{contactName}">
+		<label for="contactNumber">Contact Number:</label>
+		<input type="text" th:field="*{contactNumber}">
+		<label for="contactEmail">Contact Email:</label>
+		<input type="text" th:field="*{contactEmail}">
+		<label for="homepage">Home Page</label>
+		<input type="text" th:field="*{homepage}">
+		<input type="submit" id="submit-button" value="submit">
+		<input type="hidden" th:field="*{id}">
+	    </form>
+	</main>
+    </body>
 </html>

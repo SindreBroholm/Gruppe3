@@ -66,4 +66,5 @@ public class Board {
     public void setHomepage(String homepage) {
         this.homepage = homepage;
     }
+
 }
