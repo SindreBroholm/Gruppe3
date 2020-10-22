@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -227,7 +228,10 @@ public class BoardController {
     }
 
     @PostMapping("/createboard")
-    public String createBoard(@ModelAttribute Board board, Principal principal) {
+    public String createBoard(Model model, @ModelAttribute @Valid Board board, BindingResult br, Principal principal) {
+        if (br.hasErrors()){
+            return "createnewboard";
+        }
         User user = accessVerifier.currentUser(principal);
         boardRepository.save(board);
         UserRole ur = new UserRole(user.getId(), board.getId(), MembershipType.ADMIN, 1);

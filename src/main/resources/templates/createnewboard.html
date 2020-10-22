@@ -14,16 +14,29 @@
 <main>
     <h1>+ Create New Board</h1>
     <form th:action="@{/createboard}" th:object="${board}" method="post">
-        <label for="name">+ Board Name</label>
+	<div>
+	<p style="color:red" th:if="${#fields.hasErrors('name')}">Can not be empty</p>
+	    <label for="name">+ Board Name</label><br>
         <input type="text" th:field="*{name}">
-        <label for="contactName">+ Contact Name</label>
+	</div>
+	<div>
+	<p style="color:red" th:if="${#fields.hasErrors('contactName')}">Can not be empty</p>
+        <label for="contactName">+ Contact Name</label><br>
         <input type="text" th:field="*{contactName}">
-        <label for="contactNumber">+ Contact Number</label>
+	</div>
+	<div>
+        <label for="contactNumber">+ Contact Number</label><br>
         <input type="text" th:field="*{contactNumber}">
-        <label for="contactEmail">+ Contact Email</label>
+	</div>
+	<div>
+	<p style="color:red" th:if="${#fields.hasErrors('contactEmail')}">Can not be empty</p>
+        <label for="contactEmail">+ Contact Email</label><br>
         <input type="text" th:field="*{contactEmail}">
-        <label for="homepage">+ Home Page</label>
+	</div>
+	<div>
+        <label for="homepage">+ Home Page</label><br>
         <input type="text" th:field="*{homepage}">
+	</div>
         <input type="submit" id="submit-button" value="submit">
         <input type="hidden" th:field="*{id}">
 
