@@ -19,29 +19,29 @@
 
         <h3>+ My Profile</h3>
 
-        <form th:action="editprofile" th:method="post" id="user" th:object="${user}">
+        <form th:action="editprofile" th:method="post" id="user">
 
             <i class="material-icons">person</i>
             <div class="inputfield">
                 <label class="name">Name </label>
-                <h4 id="name" th:text="${member.name}"></h4>
+                <h4 id="name" th:text="${user.firstname} + ' ' + ${user.lastname}"></h4>
             </div>
 
 
             <i class="material-icons">email</i>
             <div class="inputfield">
                 <label class="email">E-mail</label>
-                <h4 id="email" th:text="${member.email}"></h4>
+                <h4 id="email" th:text="${user.email}"></h4>
             </div>
 
             <i class="material-icons">phone</i>
             <div class="inputfield">
                 <label class="number">Number</label>
-                <h4 id="number" th:text="${member.number}"></h4>
+                <h4 id="number" th:text="${user.phone_number}"></h4>
             </div>
 
 
-            <button class="submitbutton" type="submit" class="submit btb hoverDiscover">Edit Profile</button>
+            <button type="submit" class="submit btb hoverDiscover submitbutton">Edit Profile</button>
 
             <div>
                 <a href="/">Home</a>
