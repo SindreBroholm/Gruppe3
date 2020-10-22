@@ -7,6 +7,8 @@
 }
 body {
     background: white;
+
+
 }
 main {
     width: 100vw;
@@ -61,6 +63,13 @@ a {
     font-size: 3em;
     color: black;
 
+}
+#eventName{
+    font-size: 1.5em;
+}
+
+#eventMessage > a {
+    font-size: 1em;
 }
 .events > li {
     display: inline-flex;
