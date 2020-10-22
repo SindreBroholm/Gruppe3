@@ -25,22 +25,46 @@
         <a th:href="@{'/'+ ${CM+1}}" id="nextButton">></a>
     </div>
     <ul class="events" th:each="events : ${eventList}">
-        <li><a id="eventName" th:text="${events.name}" th:href="@{'/event/' + ${events.board.id} + '/' + ${events.id}}"></a></li>
-        <div id="dateBox">
-            <i id="datotagg" class="material-icons">bookmark</i>
-            <div id="dateDisplay">
-                <div th:text="${events.day}"></div>
-                <div id="dayInMonth" th:text="${events.datetime_from.dayOfMonth+'/'+ events.datetime_from.getMonthValue()}"></div>
+
+        <div class="information">
+            <li><a id="eventName" th:text="${events.name}"
+                   th:href="@{'/event/' + ${events.board.id} + '/' + ${events.id}}"></a></li>
+
+            <div id="eventMessage">
+                <span th:text="${events.location}"></span>
+                <span th:text="${events.datetime_from.getHour()+':'+events.datetime_from.getMinute()}"></span>
+                <span> to </span>
+                <span th:if="${events.datetime_to.dayOfMonth+'/'+ events.datetime_to.getMonthValue() == events.datetime_from.dayOfMonth+'/'+ events.datetime_from.getMonthValue()}"
+                      th:text="${events.datetime_to.getHour()+':'+events.datetime_to.getMinute()}"></span>
+                <span th:if="${events.datetime_to.dayOfMonth+'/'+ events.datetime_to.getMonthValue() != events.datetime_from.dayOfMonth+'/'+ events.datetime_from.getMonthValue()}"
+                      th:text="${events.datetime_to.dayOfMonth+'/'+ events.datetime_to.getMonthValue()+' '+events.datetime_to.getHour()+':'+events.datetime_to.getMinute()}"></span>
             </div>
         </div>
-        <div id="eventMessage">
-            <span th:text="${events.location}"></span>
-            <span th:text="${events.datetime_from.getHour()+':'+events.datetime_from.getMinute()}"></span>
-            <span> to </span>
-            <span th:if="${events.datetime_to.dayOfMonth+'/'+ events.datetime_to.getMonthValue() == events.datetime_from.dayOfMonth+'/'+ events.datetime_from.getMonthValue()}" th:text="${events.datetime_to.getHour()+':'+events.datetime_to.getMinute()}"></span>
-            <span th:if="${events.datetime_to.dayOfMonth+'/'+ events.datetime_to.getMonthValue() != events.datetime_from.dayOfMonth+'/'+ events.datetime_from.getMonthValue()}" th:text="${events.datetime_to.dayOfMonth+'/'+ events.datetime_to.getMonthValue()+' '+events.datetime_to.getHour()+':'+events.datetime_to.getMinute()}"></span>
+
+        <div id="dateBox">
+            <i id="datotagg" class="material-icons">bookmark</i>
+            <div class="dateDisplay">
+                <div th:text="${events.day}"></div>
+                <div id="dayInMonth"
+                     th:text="${events.datetime_from.dayOfMonth+'/'+ events.datetime_from.getMonthValue()}"></div>
+            </div>
         </div>
     </ul>
 </main>
 </body>
+<script>
+    let datonode = document.getElementsByClassName("dateDisplay")
+    let eventNode = document.getElementsByClassName("information")
+    let boxNode = document.getElementsByClassName("events")
+    let number = boxNode.length;
+
+    for (let i = 0; i < boxNode.length; i++) {
+        for (let y = 1; y < number; y++) {
+            if (datonode[i].innerText == datonode[i + 1].innerText) {
+                eventNode[i].innerHTML = eventNode[i].innerHTML + eventNode[i + 1].innerHTML
+                boxNode[i + 1].remove()
+            }
+        }
+    }
+</script>
 </html>

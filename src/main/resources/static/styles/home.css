@@ -27,6 +27,7 @@ main {
     height: fit-content;
     margin: 4%;
     position: relative;
+    list-style: none;
 }
 .monthNav {
     margin-top: 5vh;
@@ -96,7 +97,7 @@ a {
     text-align: center;
 }
 
-#dateDisplay {
+.dateDisplay {
     top: -70px;
     position: relative;
 }
