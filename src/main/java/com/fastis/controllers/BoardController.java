@@ -54,42 +54,79 @@ public class BoardController {
     @GetMapping("/boardHome/{boardId}")
     public String boardHome(Model model, @PathVariable Integer boardId, Principal principal) {
         Board board = boardRepository.findById(boardId).get();
-        model.addAttribute("board",board);
+        model.addAttribute("board", board);
 
         model.addAttribute("admin", false);
+        model.addAttribute("follower", false);
+        model.addAttribute("member", false);
 
         MembershipType accesstype;
-        if (principal != null){
+        List<Event> listOfEvents = new ArrayList<>();
+        if (principal != null) {
             User user = accessVerifier.currentUser(principal);
-            accesstype = accessVerifier.getUserRole(user, board).getMembershipType();
-            if (accesstype == MembershipType.ADMIN){
-                model.addAttribute("admin", true);
+            model.addAttribute("userId", user.getId());
+            UserRole ur = accessVerifier.getUserRole(user, board);
+            if (ur != null) {
+                accesstype = accessVerifier.getUserRole(user, board).getMembershipType();
+                if (accesstype == MembershipType.ADMIN) {
+                    model.addAttribute("admin", true);
+                }
+                model.addAttribute("follower", true);
+                if (accesstype == MembershipType.MEMBER) {
+                    model.addAttribute("member", true);
+                }
+                listOfEvents = accessVerifier.eventsForBoard(board);
+                listOfEvents = accessVerifier.filterEvents(listOfEvents, accesstype);
             }
         } else {
-            System.out.println("Something else");
             accesstype = MembershipType.FOLLOWER;
         }
 
-        List<Event> listOfEvents = accessVerifier.eventsForBoard(board);
-        listOfEvents = accessVerifier.filterEvents(listOfEvents, accesstype);
         model.addAttribute("events", listOfEvents);
 
         return "boardHomeView";
     }
 
+    @PostMapping("/follow/{boardId}/{userId}")
+    public String followBoard(@PathVariable Integer boardId, @PathVariable Integer userId) {
+        User user = userRepository.findById(userId).get();
+        Board board = boardRepository.findById(boardId).get();
+        if (user != null) {
+            UserRole ur = accessVerifier.getUserRole(user, board);
+            if (ur == null) {
+                ur = new UserRole(userId, boardId, MembershipType.FOLLOWER, 0);
+                userRoleRepository.save(ur);
+            }
+        }
+        return "redirect:/boardHome/" + boardId;
+    }
+
+    @PostMapping("/requestMembership/{boardId}/{userId}")
+    public String requestMembership(@PathVariable Integer boardId, @PathVariable Integer userId) {
+        User user = userRepository.findById(userId).get();
+        Board board = boardRepository.findById(boardId).get();
+        if (user != null) {
+            UserRole ur = accessVerifier.getUserRole(user, board);
+            if (ur != null && ur.getMembershipType() == MembershipType.FOLLOWER) {
+                ur.setPendingMember(true);
+                userRoleRepository.save(ur);
+            }
+        }
+        return "redirect:/boardHome/" + boardId;
+    }
+
     @GetMapping("/event/{boardId}/{eventId}")
-    public String showEvent(Model model, Principal principal, @PathVariable Integer boardId, @PathVariable Integer eventId){
+    public String showEvent(Model model, Principal principal, @PathVariable Integer boardId, @PathVariable Integer eventId) {
         Board board = boardRepository.findById(boardId).get();
         Event event = eventRepository.findById(eventId).get();
         User user = accessVerifier.currentUser(principal);
         UserRole ur;
 
-        if (accessVerifier.doesUserHaveAccess(principal, board, event.getEvent_type())){
+        if (accessVerifier.doesUserHaveAccess(principal, board, event.getEvent_type())) {
             ur = accessVerifier.getUserRole(user, board);
-        }else {
+        } else {
             return "home";
         }
-
         model.addAttribute("name", event.getName());
         model.addAttribute("dayOfWeekStart", LDTH.getDayOfWeek(event.getDatetime_from()));
         model.addAttribute("dayAndMonthStart", LDTH.getDayOfMonth(event.getDatetime_from()));
@@ -107,18 +144,18 @@ public class BoardController {
     }
 
 
-    @GetMapping(value={"/addevent/{boardId}", "/addevent/{boardId}/{eventId}"})
-    public String showAddEvent(Model model, @PathVariable Integer boardId, @PathVariable(required = false) Integer eventId, Principal principal){
+    @GetMapping(value = {"/addevent/{boardId}", "/addevent/{boardId}/{eventId}"})
+    public String showAddEvent(Model model, @PathVariable Integer boardId, @PathVariable(required = false) Integer eventId, Principal principal) {
 
 
         User user = accessVerifier.currentUser(principal);
         Board board = boardRepository.findById(boardId).get();
 
-        if (!accessVerifier.doesUserHaveAccess(principal, board, MembershipType.LEADER)){
+        if (!accessVerifier.doesUserHaveAccess(principal, board, MembershipType.LEADER)) {
             return "home";
         }
         model.addAttribute("admin", false);
-        if (accessVerifier.doesUserHaveAccess(principal, board, MembershipType.ADMIN)){
+        if (accessVerifier.doesUserHaveAccess(principal, board, MembershipType.ADMIN)) {
             model.addAttribute("admin", true);
         }
 
@@ -126,7 +163,7 @@ public class BoardController {
         model.addAttribute("boardId", boardId);
 
         Event event = new Event();
-        if(eventId != null){
+        if (eventId != null) {
             event = eventRepository.findById(eventId).get();
         }
         model.addAttribute("event", event);
@@ -135,10 +172,10 @@ public class BoardController {
     }
 
     @GetMapping("/inviteByEmail/{boardId}")
-    public String inviteByEmail(Model model, Principal principal, @PathVariable Integer boardId){
+    public String inviteByEmail(Model model, Principal principal, @PathVariable Integer boardId) {
         User user = accessVerifier.currentUser(principal);
         Board board = boardRepository.findById(boardId).get();
-        if (!accessVerifier.doesUserHaveAccess(principal, board, MembershipType.LEADER)){
+        if (!accessVerifier.doesUserHaveAccess(principal, board, MembershipType.LEADER)) {
             return "redirect:/";
         }
         model.addAttribute("boardId", boardId);
@@ -146,7 +183,7 @@ public class BoardController {
     }
 
     @PostMapping("/inviteByEmail/{boardId}")
-    public String inviteByEmail(Principal principal, @RequestParam String email, @PathVariable Integer boardId){
+    public String inviteByEmail(Principal principal, @RequestParam String email, @PathVariable Integer boardId) {
         User user = accessVerifier.currentUser(principal);
         Board board = boardRepository.findById(boardId).get();
         emailInviter.sendInvite(board, email, user);
@@ -155,18 +192,18 @@ public class BoardController {
 
 
     @PostMapping("/addevent/{boardId}")
-    public String addOrEditEvent(@ModelAttribute Event event, @PathVariable Integer boardId, BindingResult br, Principal principal){
-        if (!accessVerifier.doesUserHaveAccess(principal, boardRepository.findById(boardId).get(), MembershipType.LEADER)){
+    public String addOrEditEvent(@ModelAttribute Event event, @PathVariable Integer boardId, BindingResult br, Principal principal) {
+        if (!accessVerifier.doesUserHaveAccess(principal, boardRepository.findById(boardId).get(), MembershipType.LEADER)) {
             return "redirect:/";
         }
         EventValidator validator = new EventValidator();
-        if(validator.supports(event.getClass())){
+        if (validator.supports(event.getClass())) {
             validator.validate(event, br);
         }
-        if(br.hasErrors()){
+        if (br.hasErrors()) {
             return "eventform";
         }
-        if(eventRepository.findById(event.getId()) == null){
+        if (eventRepository.findById(event.getId()) == null) {
             event.setBoard(boardRepository.findById(boardId).get());
         } else {
             Event oldEvent = eventRepository.findById(event.getId());
@@ -183,14 +220,14 @@ public class BoardController {
     }
 
     @GetMapping("/createboard")
-    public String showCreateBoard(Model model){
+    public String showCreateBoard(Model model) {
         Board board = new Board();
         model.addAttribute("board", board);
         return "createnewboard";
     }
 
     @PostMapping("/createboard")
-    public String createBoard(@ModelAttribute Board board, Principal principal){
+    public String createBoard(@ModelAttribute Board board, Principal principal) {
         User user = accessVerifier.currentUser(principal);
         boardRepository.save(board);
         UserRole ur = new UserRole(user.getId(), board.getId(), MembershipType.ADMIN, 1);
@@ -200,7 +237,7 @@ public class BoardController {
 
 
     @GetMapping("/search")
-    public String openSearch(){
+    public String openSearch() {
 
         return "search";
     }
@@ -219,9 +256,9 @@ public class BoardController {
     }
 
     @GetMapping("/members/{boardId}/{toggle}")
-    public String showMembers(Principal principal, @PathVariable Integer boardId, Model model, @PathVariable Boolean toggle){
+    public String showMembers(Principal principal, @PathVariable Integer boardId, Model model, @PathVariable Boolean toggle) {
         Board board = boardRepository.findById(boardId).get();
-        if (!accessVerifier.doesUserHaveAccess(principal, board, MembershipType.LEADER)){
+        if (!accessVerifier.doesUserHaveAccess(principal, board, MembershipType.LEADER)) {
             return "home";
         }
         User user = accessVerifier.currentUser(principal);
@@ -247,26 +284,26 @@ public class BoardController {
             UserWithRole members = new UserWithRole();
             members.setUserRole(userRole);
             members.setUser(userRepository.findById(userRole.getUserId()).get());
-            if (onlyPending){
-                if (userRole.isPendingMember()){
+            if (onlyPending) {
+                if (userRole.isPendingMember()) {
                     userList.add(members);
                 }
             } else {
                 if (!userRole.getMembershipType().name.equals("follower"))
-                userList.add(members);
+                    userList.add(members);
             }
         }
 
     }
 
     @PostMapping("/members/{boardId}/{toggle}")
-    public String updateMembers(Principal principal, @PathVariable Integer boardId,@ModelAttribute UserRole userRole, @PathVariable Boolean toggle){
+    public String updateMembers(Principal principal, @PathVariable Integer boardId, @ModelAttribute UserRole userRole, @PathVariable Boolean toggle) {
         Board board = boardRepository.findById(boardId).get();
-        if (!accessVerifier.doesUserHaveAccess(principal, board, MembershipType.LEADER)){
+        if (!accessVerifier.doesUserHaveAccess(principal, board, MembershipType.LEADER)) {
             return "home";
         }
         userRoleRepository.save(userRole);
-        return "redirect:/members/"+boardId+"/"+toggle;
+        return "redirect:/members/" + boardId + "/" + toggle;
     }
 
 }
