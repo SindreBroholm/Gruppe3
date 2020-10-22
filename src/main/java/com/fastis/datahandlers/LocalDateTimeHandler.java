@@ -9,6 +9,27 @@ import java.util.List;
 public class LocalDateTimeHandler {
 
 
+    private int plussyear = 0;
+
+    public int getPlussyear() {
+        return plussyear;
+    }
+
+    public void setPlussyear(int plussyear) {
+        this.plussyear = plussyear;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    private int year = 2020;
+
+
     public LocalDateTime getMonth(int month, int plussyear) {
         int year = LocalDateTime.now().getYear();
         year += plussyear;
@@ -23,8 +44,8 @@ public class LocalDateTimeHandler {
                 String mar = year +"-03-01T00:00:00";
                 return LocalDateTime.parse(mar);
             case 4:
-                        String apr =  year +"-04-01T00:00:00";
-                        return LocalDateTime.parse(apr);
+                String apr =  year +"-04-01T00:00:00";
+                return LocalDateTime.parse(apr);
             case 5:
                 String may =  year+"-05-01T00:00:00";
                 return LocalDateTime.parse(may);

@@ -28,40 +28,48 @@ public class MainController {
     private UserRepository userRepository;
     private UserRoleRepository userRoleRepository;
     private BoardRepository boardRepository;
+    private LocalDateTimeHandler LDTH;
 
 
-    public MainController(EventRepository eventRepository, UserRepository userRepository, UserRoleRepository userRoleRepository, BoardRepository boardRepository, AccessVerifier accessVerifier) {
+    public MainController(EventRepository eventRepository, UserRepository userRepository, UserRoleRepository userRoleRepository, BoardRepository boardRepository, AccessVerifier accessVerifier, LocalDateTimeHandler LDTH) {
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.boardRepository = boardRepository;
         this.accessVerifier = accessVerifier;
+        this.LDTH = LDTH;
 
     }
 
 
-    private int plussyear = 0;
-    private int year = 2020;
+
     @GetMapping(value = {"/", "/{nextMonth}"})
     public String showAccessedBoards(Principal principal, Model model, @PathVariable(required = false) Integer nextMonth) {
         if (principal != null) {
             int month = LocalDateTime.now().getMonth().getValue();
+            int currentDate = LocalDateTime.now().getMonth().getValue();
+            int plussyear = LDTH.getPlussyear();
+            int year = LDTH.getYear();
             if (nextMonth != null){
                 month = nextMonth;
                 if (month == 13) {
                     plussyear++;
+                    LDTH.setPlussyear(plussyear);
                     year++;
+                    LDTH.setYear(year);
                     month = 1;
                 }
                 if (month == 0) {
                     plussyear--;
+                    LDTH.setPlussyear(plussyear);
                     year--;
+                    LDTH.setYear(year);
                     month = 12;
                 }
             }
             model.addAttribute("CM", month);
+
             User user = accessVerifier.currentUser(principal);
-            LocalDateTimeHandler LDTH = new LocalDateTimeHandler();
             LocalDateTime firstDayOfCurrentMonth = LDTH.getMonth(month, plussyear);
             LocalDateTime firstDayOfCNextMonth = LDTH.getMonth(month +1, plussyear);
             LocalDateTime today = LocalDateTime.now();
@@ -71,6 +79,8 @@ public class MainController {
             model.addAttribute("month", currentMonth);
             model.addAttribute("eventList", usersEvents);
             model.addAttribute("currentYear", year);
+            model.addAttribute("MonthNav", firstDayOfCurrentMonth);
+            model.addAttribute("BlockMonthNav", LDTH.getMonth(currentDate, 0));
 
             return "home";
         }

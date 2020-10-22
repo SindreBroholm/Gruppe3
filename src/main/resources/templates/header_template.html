@@ -15,15 +15,15 @@
             <button onclick="myFunction()" class="dropbtn"><i class="material-icons clicker">menu</i>
             </button>
             <div id="myDropdown" class="dropdown-content">
-                <a href="/profile">+ Settings</a>
+                <a href="/settings?">+ Settings</a>
                 <a href="/boards">+ My boards</a>
-                <a href="#">+ Eventstream</a>
+                <a href="/">+ Home</a>
                 <a href="/createboard">+ Create board</a>
             </div>
         </div>
         <a class="material-icons" href="/profile">person</a>
         <a class="material-icons" style="float: left" href="#">notifications</a>
-        <img class="logoNavbar" style="width: 80px; position: relative; top: 8px;" th:src="@{images/ezraNew.png}">
+        <img class="logoNavbar" style="width: 80px; position: relative; top: 8px;" th:src="@{/images/ezraNew.png}">
         <a href="/search" style="float: right;" class="material-icons">search</a>
     </div>
     <script>
