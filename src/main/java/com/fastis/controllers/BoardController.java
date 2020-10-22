@@ -213,7 +213,7 @@ public class BoardController {
         } else {
             searchResults = (List<Board>) boardRepository.findAll();
         }
-        model.addAttribute("listProducts", searchResults);
+        model.addAttribute("boards", searchResults);
         model.addAttribute("keyword", keyword);
         return "search";
     }

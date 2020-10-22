@@ -14,26 +14,27 @@
 <header th:insert="header_template :: header"></header>
 
 <div id="main">
-    <div>
-        <form th:action="@{/search}" method="post">
-            <i id="search" class="material-icons">search</i>
-            <p>Search:</p>
-            Filter: <input type="text" name="keyword" id="keyword"  th:value="${keyword}"/>
 
-            <div class="buttons">
+    <form th:action="@{/search}" method="post">
+        <i id="search" class="material-icons">search</i>
+        <p>Search:</p>
+        <input type="text" name="keyword" id="keyword"  th:value="${keyword}"/>
+
+        <div class="buttons">
             <input class="button" type="submit" value="Search" />
-            &nbsp;
             <input class="button" type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
-            </div>
+        </div>
 
-            <div>
-                <a href="/">Home</a>
-            </div>
-        </form>
-    </div>
-    <div>
-        <ul th:each="match : ${listProducts}">
-            <li><a th:text="${match.name}" th:href="'/boardHome/' + ${match.id}"></a></li>
+        <div class="homeA">
+            <a href="/">Home</a>
+        </div>
+    </form>
+
+    <div class="resultBox">
+        <ul class="searchResults" th:each="board : ${boards}">
+            <li>
+                <a class="searchA" th:text="${board.name}" th:href="'/boardHome/' + ${board.id}"></a>
+            </li>
         </ul>
     </div>
 </div>
