@@ -96,7 +96,7 @@ a {
     text-align: center;
 }
 
-#dateDisplay {
+.dateDisplay {
     top: -70px;
     position: relative;
 }

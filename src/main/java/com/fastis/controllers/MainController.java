@@ -3,7 +3,6 @@ package com.fastis.controllers;
 import com.fastis.data.Board;
 import com.fastis.data.Event;
 import com.fastis.data.User;
-import com.fastis.data.UserRole;
 import com.fastis.datahandlers.LocalDateTimeHandler;
 import com.fastis.repositories.BoardRepository;
 import com.fastis.repositories.EventRepository;
@@ -16,8 +15,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.groupingBy;
 
 @Controller
 public class MainController {
@@ -76,8 +81,14 @@ public class MainController {
             List<Event> usersEvents = eventRepository.EventStreamOrderByMonth(user.getId(),firstDayOfCurrentMonth, firstDayOfCNextMonth, today);
             String currentMonth = LDTH.getCurrentMonth(month);
 
+            List<EventsByDate> eventsByDate = usersEvents.stream()
+                    .collect(groupingBy(f -> f.getDatetime_from().toLocalDate())).entrySet().stream()
+                    .map(k -> new EventsByDate(k.getKey(), k.getValue()))
+                    .sorted(Comparator.comparing(d -> d.fromDate))
+                    .collect(Collectors.toList());
+
             model.addAttribute("month", currentMonth);
-            model.addAttribute("eventList", usersEvents);
+            model.addAttribute("eventList", eventsByDate);
             model.addAttribute("currentYear", year);
             model.addAttribute("MonthNav", firstDayOfCurrentMonth);
             model.addAttribute("BlockMonthNav", LDTH.getMonth(currentDate, 0));
@@ -85,6 +96,33 @@ public class MainController {
             return "home";
         }
         return "redirect:/login";
+    }
+
+    public class EventsByDate {
+        public final LocalDate fromDate;
+        public List<Event> events;
+
+        public EventsByDate(LocalDate fromDate, List<Event> values) {
+            this.fromDate = fromDate;
+            this.events = values;
+        }
+
+        public LocalDate getFromDate() {
+            return fromDate;
+        }
+
+        public String getDayNr() {
+            return fromDate.format(DateTimeFormatter.ofPattern("dd"));
+        }
+
+        public String getDayName() {
+            return fromDate.format(DateTimeFormatter.ofPattern("EEE"));
+        }
+
+        public String getMonth() {
+            return fromDate.format(DateTimeFormatter.ofPattern("MM"));
+        }
+
     }
 
     @GetMapping("/userHomeView")
