@@ -120,3 +120,10 @@ a{
     font-size: 14px;
     font-weight: bolder;
 }
+
+.current {
+    font-size: 11px;
+    font-style: italic;
+    font-weight: lighter;
+    color: #8C98A9;
+}

@@ -22,24 +22,24 @@
             <i class="material-icons">person</i>
             <div class="inputfield">
                 <label class="firstname">Firstname </label>
-                <p th:text="'Current: '+ *{firstname}"></p>
+                <p class="current" th:text="'Current: '+ *{firstname}"></p>
                 <input class="firstname1" th:errorclass="filderror" th:field="*{firstname}">
                 <label class="lastname">Lastname </label>
-                <p th:text="'Current: '+ *{lastname}"></p>
+                <p class="current" th:text="'Current: '+ *{lastname}"></p>
                 <input class="lastname1" th:errorclass="filderror" th:field="*{lastname}">
             </div>
 
             <i class="material-icons">email</i>
             <div class="inputfield">
                 <label class="email">E-mail</label>
-                <p th:text="'Current: '+ *{email}"></p>
+                <p class="current" th:text="'Current: '+ *{email}"></p>
                 <input class="email1" th:errorclass="filderror" th:field="*{email}">
             </div>
 
             <i class="material-icons">phone</i>
             <div class="inputfield">
                 <label class="number">Number</label>
-                <p th:text="'Current: '+ *{phone_number}"></p>
+                <p class="current" th:text="'Current: '+ *{phone_number}"></p>
                 <input class="number" th:errorclass="filderror" th:field="*{phone_number}">
             </div>
 

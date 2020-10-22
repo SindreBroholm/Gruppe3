@@ -12,20 +12,23 @@
     <body>
 	<header th:insert="header_template :: header"></header>
 	<main>
-	    <h1>Create New Board</h1>
+	    <h1>+ Create New Board</h1>
 	    <form th:action="@{/createboard}" th:object="${board}" method="post">
-		<label for="name">Board Name:</label>
+		<label for="name">+ Board Name</label>
 		<input type="text" th:field="*{name}">
-		<label for="contactName">Contact Name:</label>
+		<label for="contactName">+ Contact Name</label>
 		<input type="text" th:field="*{contactName}">
-		<label for="contactNumber">Contact Number:</label>
+		<label for="contactNumber">+ Contact Number</label>
 		<input type="text" th:field="*{contactNumber}">
-		<label for="contactEmail">Contact Email:</label>
+		<label for="contactEmail">+ Contact Email</label>
 		<input type="text" th:field="*{contactEmail}">
-		<label for="homepage">Home Page</label>
+		<label for="homepage">+ Home Page</label>
 		<input type="text" th:field="*{homepage}">
 		<input type="submit" id="submit-button" value="submit">
 		<input type="hidden" th:field="*{id}">
+
+				<a href="/">Cancel</a>
+
 	    </form>
 	</main>
     </body>
