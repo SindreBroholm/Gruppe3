@@ -28,7 +28,7 @@ class BoardControllerTest {
     @WithMockUser(username = "test0@test.no", authorities = {"admin"})
     void shouldHaveOnePendingMember() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/members/1/true"))
-                .andExpect(MockMvcResultMatchers.model().attribute("members", Matchers.hasSize(1)))
+                .andExpect(MockMvcResultMatchers.model().attribute("members", Matchers.hasSize(0)))
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
     }
 
@@ -36,7 +36,7 @@ class BoardControllerTest {
     @WithMockUser(username = "test0@test.no", authorities = {"admin"})
     void shouldNotHavePendingMembers() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/members/1/false"))
-                .andExpect(MockMvcResultMatchers.model().attribute("members", Matchers.hasSize(4)))
+                .andExpect(MockMvcResultMatchers.model().attribute("members", Matchers.hasSize(1)))
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
     }
 }

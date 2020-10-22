@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link th:href="@{/styles/createnewboard.css}" rel="stylesheet">
-	<link rel="stylesheet" th:href="@{/styles/GlobalHeader.css}">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	      rel="stylesheet">
-	<title>Create New Board</title>
-    </head>
-    <body>
-	<header th:insert="header_template :: header"></header>
-	<main>
-	    <h1>+ Create New Board</h1>
-	    <form th:action="@{/createboard}" th:object="${board}" method="post">
-		<label for="name">+ Board Name</label>
-		<input type="text" th:field="*{name}">
-		<label for="contactName">+ Contact Name</label>
-		<input type="text" th:field="*{contactName}">
-		<label for="contactNumber">+ Contact Number</label>
-		<input type="text" th:field="*{contactNumber}">
-		<label for="contactEmail">+ Contact Email</label>
-		<input type="text" th:field="*{contactEmail}">
-		<label for="homepage">+ Home Page</label>
-		<input type="text" th:field="*{homepage}">
-		<input type="submit" id="submit-button" value="submit">
-		<input type="hidden" th:field="*{id}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/styles/createnewboard.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/styles/GlobalHeader.css}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <title>Create New Board</title>
+</head>
+<body>
+<header th:insert="header_template :: header"></header>
+<main>
+    <h1>+ Create New Board</h1>
+    <form th:action="@{/createboard}" th:object="${board}" method="post">
+        <label for="name">+ Board Name</label>
+        <input type="text" th:field="*{name}">
+        <label for="contactName">+ Contact Name</label>
+        <input type="text" th:field="*{contactName}">
+        <label for="contactNumber">+ Contact Number</label>
+        <input type="text" th:field="*{contactNumber}">
+        <label for="contactEmail">+ Contact Email</label>
+        <input type="text" th:field="*{contactEmail}">
+        <label for="homepage">+ Home Page</label>
+        <input type="text" th:field="*{homepage}">
+        <input type="submit" id="submit-button" value="submit">
+        <input type="hidden" th:field="*{id}">
 
-				<a href="/">Cancel</a>
+        <a href="/">Cancel</a>
 
-	    </form>
-	</main>
-    </body>
+    </form>
+</main>
+</body>
 </html>

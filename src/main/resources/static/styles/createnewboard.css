@@ -12,7 +12,7 @@ body {
     font-family: roboto;
 }
 
-main, form {
+main, main > form {
     display: flex;
     flex-flow: nowrap column;
     align-items: center;
@@ -29,7 +29,7 @@ main > h1 {
     margin-top: 5vh;
 }
 
-form {
+main > form {
 
     align-items: center;
     width: 90vw;
@@ -75,7 +75,7 @@ label {
     margin: 15px;
 }
 
-a{
+main > form > a{
     text-align: center;
     text-decoration: none;
     color: rgb(17, 156, 133);
