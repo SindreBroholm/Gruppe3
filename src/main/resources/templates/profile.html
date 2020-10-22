@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+>
 
 <head>
     <meta charset="UTF-8">
@@ -21,7 +21,7 @@
 
         <h3>+ My Profile</h3>
 
-        <form th:action="editprofile" th:method="post" id="user">
+        <form  id="user">
 
             <i class="material-icons">person</i>
             <div class="inputfield">
@@ -41,17 +41,15 @@
                 <label class="number">Number</label>
                 <h4 id="number" th:text="${user.phone_number}"></h4>
             </div>
-
-
-            <button type="submit" class="submit btb hoverDiscover submitbutton">Edit Profile</button>
-
-            <div>
-                <a href="/">Home</a>
-            </div>
-
-
-
         </form>
+        <form th:action="@{/settings}" method="get">
+            <input type="submit" value="Edit profile" class="submit btb hoverDiscover submitbutton"/>
+        </form>
+
+        <div>
+            <a href="/">Home</a>
+        </div>
+
     </div>
 
 </section>

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/styles/profile.css}">
+    <link rel="stylesheet" th:href="@{/styles/GlobalHeader.css}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>update settings profile</title>
 </head>
 <body>
@@ -14,26 +16,30 @@
 
         <h3>+ Update Profile Settings</h3>
 
-        <form th:action="editprofile" th:method="post" id="user" th:object="${user}">
+        <form th:action="@{/settings}" method="post" id="user" th:object="${user}">
 
             <i class="material-icons">person</i>
             <div class="inputfield">
                 <label class="firstname">Firstname </label>
+                <p th:text="'Current: '+ *{firstname}"></p>
                 <input class="firstname1" th:errorclass="filderror" th:field="*{firstname}">
                 <label class="lastname">Lastname </label>
+                <p th:text="'Current: '+ *{lastname}"></p>
                 <input class="lastname1" th:errorclass="filderror" th:field="*{lastname}">
             </div>
 
             <i class="material-icons">email</i>
             <div class="inputfield">
                 <label class="email">E-mail</label>
+                <p th:text="'Current: '+ *{email}"></p>
                 <input class="email1" th:errorclass="filderror" th:field="*{email}">
             </div>
 
             <i class="material-icons">phone</i>
             <div class="inputfield">
                 <label class="number">Number</label>
-                <input class="number" th:errorclass="filderror" th:field="*{number}">
+                <p th:text="'Current: '+ *{phone_number}"></p>
+                <input class="number" th:errorclass="filderror" th:field="*{phone_number}">
             </div>
 
 
@@ -42,16 +48,12 @@
                 <label class="password">Password </label>
                 <input class="password1" th:errorclass="filderror" type="password" th:field="*{password}">
             </div>
-
-
-            <button class="submitbutton" type="submit" class="submit btb hoverDiscover">SUBMIT</button>
-            <div>
-                <a href="/Profile">Cancel</a>
-            </div>
-
-
-
+            <input type="submit" value="Edit profile" class="submit btb hoverDiscover submitbutton"/>
+            <input type="hidden" th:field="*{id}">
         </form>
+        <div>
+            <a href="/profile">Cancel</a>
+        </div>
     </div>
 
 </section>

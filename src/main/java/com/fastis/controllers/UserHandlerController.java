@@ -9,7 +9,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 
@@ -17,15 +19,14 @@ import java.security.Principal;
 @Controller
 public class UserHandlerController {
 
-    private UserRepository repository;
+    private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
     private BoardRepository boardRepository;
     private AccessVerifier accessVerifier;
 
 
-
     public UserHandlerController(UserRepository repository, PasswordEncoder passwordEncoder, BoardRepository boardRepository, AccessVerifier accessVerifier) {
-        this.repository = repository;
+        this.userRepository = repository;
         this.passwordEncoder = passwordEncoder;
         this.boardRepository = boardRepository;
         this.accessVerifier = accessVerifier;
@@ -67,7 +68,7 @@ public class UserHandlerController {
             return "signup";
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            repository.save(user);
+            userRepository.save(user);
             return "login";
         }
     }
@@ -80,15 +81,31 @@ public class UserHandlerController {
     public String profile(Principal principal, Model model) {
         User user = accessVerifier.currentUser(principal);
         model.addAttribute("user", user);
-       return "profile";
+        return "profile";
     }
 
 
+    @GetMapping("/settings")
+    public String settings(Principal principal, Model model) {
+        User user = accessVerifier.currentUser(principal);
+        model.addAttribute("user", user);
+        return "settingsprofile";
+    }
+
+    @PostMapping("/settings")
+    public String swapcredientals(Principal principal, @ModelAttribute User user, Model model) {
 
 
+        User currentUser = accessVerifier.currentUser(principal);
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        userRepository.save(user);
 
 
-
+        model.addAttribute("user", currentUser);
+        return "redirect:/profile";
+    }
 
 
 }

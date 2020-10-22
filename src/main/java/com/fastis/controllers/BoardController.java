@@ -201,24 +201,6 @@ public class BoardController {
         }
     }
 
-/*    @GetMapping("/profile")
-    public String showUserProfile(Model model){
-        *//*User user = userRepository.findById(1); //trenger hjelp her
-        String username = user.getFirstname() + user.getLastname();
-        model.addAttribute("user", user);*//*
-        return "userprofile";
-    }
-
-    @GetMapping("/updateprofile")  //her vil vi sende inn user-infoen fra profile så bruker slipper fylle inn alle felter på nytt
-    public String showUpdateProfile(){
-        return "settingsprofile";
-    }
-
-    @PostMapping("/updateprofile")
-    public String updateProfile(@ModelAttribute User user, BindingResult br){
-        return "settingsprofile";
-    }*/
-
 
     @GetMapping("/search")
     public String openSearch(){
