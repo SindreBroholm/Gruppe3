@@ -10,6 +10,8 @@ public class LocalDateTimeHandler {
 
 
     private int plussyear = 0;
+    private int year = 2020;
+
 
     public int getPlussyear() {
         return plussyear;
@@ -26,8 +28,6 @@ public class LocalDateTimeHandler {
     public void setYear(int year) {
         this.year = year;
     }
-
-    private int year = 2020;
 
 
     public LocalDateTime getMonth(int month, int plussyear) {
