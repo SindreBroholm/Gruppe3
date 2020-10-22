@@ -26,13 +26,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .permitAll();
+                .permitAll()
+                .and()
+                .logout()
+        .logoutUrl("/logout/reallydoit");
     }
+
     @Autowired
     private SecurityUserDetailsService userDetailsService;
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth)throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
     }
 

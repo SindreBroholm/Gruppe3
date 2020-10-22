@@ -19,6 +19,9 @@
                 <a href="/boards">+ My boards</a>
                 <a href="/">+ Home</a>
                 <a href="/createboard">+ Create board</a>
+                <form method="post" th:action="@{/logout/reallydoit}">
+                    <button id="logoutButton" type="submit">+ Logout</button>
+                </form>
             </div>
         </div>
         <a class="material-icons" href="/profile">person</a>
