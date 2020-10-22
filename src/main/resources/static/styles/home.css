@@ -6,7 +6,8 @@
     font-size: 16px;
 }
 body {
-    background: white;
+    /*background: white;*/
+    background: linear-gradient(319deg, #2F4858 0%, #ffffff 100%);
 }
 main {
     width: 100vw;
@@ -62,9 +63,16 @@ a {
     color: black;
 
 }
+#eventName{
+    font-size: 1.5em;
+}
+
+#eventMessage > a {
+    font-size: 1em;
+}
 .events > li {
     display: inline-flex;
-    color: white;
+    color: black;
 }
 .events > div > div {
 

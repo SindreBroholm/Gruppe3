@@ -10,6 +10,8 @@ public class LocalDateTimeHandler {
 
 
     private int plussyear = 0;
+    private int year = 2020;
+
 
     public int getPlussyear() {
         return plussyear;
@@ -26,8 +28,6 @@ public class LocalDateTimeHandler {
     public void setYear(int year) {
         this.year = year;
     }
-
-    private int year = 2020;
 
 
     public LocalDateTime getMonth(int month, int plussyear) {
@@ -131,7 +131,7 @@ public class LocalDateTimeHandler {
     public String getDayOfMonth(LocalDateTime localDateTime){
         int month = localDateTime.getMonth().getValue();
         int dayOfMonth = localDateTime.getDayOfMonth();
-        return dayOfMonth +"/"+getMonth(month, 0);
+        return dayOfMonth +"/"+getCurrentMonth(month);
     }
 
     public String getHourAndMin(LocalDateTime localDateTime){
