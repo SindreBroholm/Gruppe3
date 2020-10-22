@@ -232,7 +232,7 @@ public class BoardController {
         boardRepository.save(board);
         UserRole ur = new UserRole(user.getId(), board.getId(), MembershipType.ADMIN, 1);
         userRoleRepository.save(ur);
-        return "redirect:/boardHome/1";
+        return "redirect:/boardHome/" + board.getId();
     }
 
 
