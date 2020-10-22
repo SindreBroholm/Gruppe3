@@ -16,7 +16,7 @@
 			<form class="flex-container" th:action="@{'/inviteByEmail/' + ${boardId}}" method="post">
 				<label class="email">Email:</label>
 				<input class="input" type="text" name="email">
-				<a class="backB" href="FIXTHIS">Back</a>
+				<a class="backB" th:href="@{'/boardHome/' + ${boardId}}">Back</a>
 				<button class="submitB" type="submit">Invite</button>
 			</form>
 		</div>
