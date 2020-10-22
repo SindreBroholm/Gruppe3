@@ -14,10 +14,15 @@
 <main>
     <div>
         <div class="grid-container">
+
+            <i class="material-icons datoIkon">calendar_today</i>
+            <i class="material-icons klokkeIkon">schedule</i>
+            <i class="material-icons locIkon">location_on</i>
+            <i class="material-icons descriptIkon">description</i>
+
             <h1 class="eventname" th:text="${name}"></h1>
             <div class="date">
                 <div class="datestart">
-                    <i class="material-icons">calendar_today</i>
                     <h3 th:text="${dayOfWeekStart}"></h3>
                     <p th:text="${dayAndMonthStart}"></p>
                 </div>
@@ -28,15 +33,11 @@
                 </div>
             </div>
             <div class="time">
-                <i class="material-icons">schedule</i>
                 <h3 class="timestart" th:text="${hourAndMinStart}"></h3>
                 <h3><-></h3>
                 <h3 class="timeend" th:text="${hourAndMinEnd}"></h3>
             </div>
-
-            <i class="material-icons">location_on</i>
             <h3 class="loacation" th:text="${location}"></h3>
-            <i class="material-icons">description</i>
             <p class="description" th:text="${description}"></p>
             <div class="foot">
                 <div class="backbutton">
