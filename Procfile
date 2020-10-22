@@ -1,1 +1,1 @@
-web: java -jar target/Fastis-1.0.0-SNAPSHOT.jar
+web: java -jar target/Fastis-0.0.1-SNAPSHOT.jar
