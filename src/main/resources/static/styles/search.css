@@ -38,10 +38,10 @@ i.material-icons {
 input{
 
     padding: 3px;
-
     border: 1px solid #E0E7FF;
     font-size: 12px;
     border-radius: 3px;
+    margin-bottom: 10px;
 
 
 }
@@ -50,6 +50,7 @@ input{
 
     width: 120px;
     margin: 15px;
+
     color: white;
     text-decoration: none;
     background-color: #606060;
