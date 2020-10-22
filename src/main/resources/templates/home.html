@@ -15,7 +15,7 @@
 <header th:insert="header_template :: header"></header>
 <main>
     <div class="monthNav">
-        <a th:href="@{'/'+ ${CM-1}}" id="prevButton"><</a>
+        <a th:if="${}" th:href="@{'/'+ ${CM-1}}" id="prevButton"><</a>
         <div class="showMonth">
             <h3 th:text="${month}"></h3>
             <p th:text="${currentYear}"></p>

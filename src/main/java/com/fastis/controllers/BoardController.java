@@ -137,7 +137,7 @@ public class BoardController {
         User user = accessVerifier.currentUser(principal);
         Board board = boardRepository.findById(boardId).get();
         if (!accessVerifier.doesUserHaveAccess(principal, board, MembershipType.LEADER)){
-            return "home";
+            return "redirect:/";
         }
         model.addAttribute("boardId", boardId);
         return "inviteByEmail";
@@ -148,7 +148,7 @@ public class BoardController {
         User user = accessVerifier.currentUser(principal);
         Board board = boardRepository.findById(boardId).get();
         emailInviter.sendInvite(board, email, user);
-        return "home";
+        return "redirect:/";
     }
 
 

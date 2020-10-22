@@ -62,7 +62,7 @@ h4{
     margin-bottom: 15px;
 }
 
-i.material-icons {
+form > i.material-icons {
     font-size: 46px;
     color:#404040;
     margin-top: 10px;
