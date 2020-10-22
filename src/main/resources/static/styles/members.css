@@ -17,6 +17,9 @@ main {
 span {
     font-size: 1.3em;
 }
+ul{
+    margin: 3% 3%;
+}
 
 li {
     display: grid;
@@ -25,9 +28,12 @@ li {
     grid-template-areas:
         "name type"
         "form form";
-    margin: 3% 0%;
-    gap: 5%;
     align-items: center;
+    background-color: white;
+    height: 100px;
+    width: 90vw;
+    border-radius: 10px;
+    margin: 2vh 0;
 }
 .name {
     grid-area: name;
@@ -145,7 +151,8 @@ input {
     margin: 0em;
     font: 400 18px roboto;
     padding: 1px 2px;
-    border-width: 2px;
+    border-width: 0px;
+    border-radius: 10px;
     border-style: inset;
     border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
     border-image: initial;
