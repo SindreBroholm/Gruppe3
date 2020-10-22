@@ -4,27 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/styles/eventform.css}" rel="stylesheet" />
+    <link th:href="@{/styles/GlobalHeader.css}" rel="stylesheet"/>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
     <title>Add Event</title>
 </head>
 <body>
-<header>
-
-    <ul>
-        <li><a href="#dropmenu"><i class="material-icons">menu</i></a></li>
-        <li><a href="#user"><i class="material-icons">person</i></a></li>
-        <li><a href="#notification"><i class="material-icons">add_alert</i></a></li>
-
-        <li><img id="logo" src="C:\Users\Marit Pedersen\Desktop\GratduationProjectJavaFall2020\ezraNew.png" height="40px"></li>
-
-        <li style="float:right">
-            <a href="#dropmenu"><i class="material-icons">search</i></a></li>
-
-        </form></li>
-    </ul>
-</header>
+<header th:insert="header_template :: header"></header>
 <div class="flex-container">
 
     <div class="boks1">
