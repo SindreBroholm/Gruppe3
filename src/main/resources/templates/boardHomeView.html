@@ -1,84 +1,80 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link th:href="@{/styles/boardHome.css}" rel="stylesheet"/>
-    <link rel="stylesheet" th:href="@{/styles/GlobalHeader.css}">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet">
-    <title th:text="${board.name}">homeBoard</title>
-</head>
-<body>
-<header th:insert="header_template :: header"></header>
-<main class="flex-container">
+    <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link th:href="@{/styles/boardHome.css}" rel="stylesheet" />
+	<link rel="stylesheet" th:href="@{/styles/GlobalHeader.css}">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	      rel="stylesheet">
+	<title th:text="${board.name}">homeBoard</title>
+    </head>
+    <body>
+	<header th:insert="header_template :: header"></header>
+	<main class="flex-container">
 
-    <div th:if="${admin}" id="optionsholder">
-        <div id="imageholder">
-            <img height="" src="">
-            <h1 th:text="${board.name}">Board Name</h1>
-        </div>
-        <ul>
-            <li class="lievent">
-                <i class="material-icons">bookmark</i>
-                <h3><a th:href="@{'/addevent/' + ${boardId}}">+Create Event</a></h3>
-            </li>
+	    <div th:if="${admin}" id="optionsholder">
+		<div id="imageholder">
+		    <img height="" src="">
+		    <h1 th:text="${board.name}">Board Name</h1>
+		</div>
+		<ul >
+		    <li class="lievent">
+			<i class="material-icons">bookmark</i>
+			<h3><a th:href="@{'/addevent/' + ${boardId}}">+Create Event</a></h3>
+		    </li>
 
-            <li class="lievent">
-                <i class="material-icons">person</i>
-                <h3><a th:href="@{'/members/' + ${boardId} + '/false'}">Members</a></h3>
-            </li>
-            <li class="lievent">
-                <div class="board-form" id="honbrenne">
-                    <a th:href="@{'/inviteByEmail/' + ${boardId}}">
-                        <button class="board-button"><i class="material-icons">person</i></button>
-                    </a>
-                    <a href=""><label for="follow">Invite To Follow</label></a>
-                </div>
-            </li>
-        </ul>
-    </div>
+		    <li class="lievent">
+			<i class="material-icons">person</i>
+			<h3><a th:href="@{'/members/' + ${boardId} + '/false'}">Members</a></h3>
+		    </li>
+		    <li class="lievent">
+			<div class="board-form" id="honbrenne">
+			    <a th:href="@{'/inviteByEmail/' + ${boardId}}" ><button class="board-button"><i class="material-icons">person</i></button></a>
+			    <a href="@{'/inviteByEmail/' + ${boardId}}"><label for="follow">Invite To Follow</label></a>
+			</div>
+		    </li>
+		</ul>
+	    </div>
 
-    <div th:unless="${admin}" id="not_member">
-        <div id="imageholder">
-            <img height="" src="">
-            <h1 th:text="${board.name}">Board Name</h1>
-        </div>
-        <ul>
-            <li th:unless="${follower}" class="lievent">
-                <form class="board-form" th:action="@{'/follow/' + ${boardId} + '/' + ${userId}}" method="post">
-                    <button class="board-button"><i class="material-icons">person</i></button>
-                    <label for="follow">Follow</label>
-                </form>
-            </li>
+	    <div th:unless="${admin}" id="not_member">
+		<div id="imageholder">
+		    <img height="" src="">
+		    <h1 th:text="${board.name}">Board Name</h1>
+		</div>
+		<ul>
+		    <li th:unless="${follower}"class="lievent">
+			<form class="board-form" th:action="@{'/follow/' + ${boardId} + '/' + ${userId}}" method="post">
+			    <button class="board-button"><i class="material-icons">person</i></button>
+			    <label for="follow">Follow</label>
+			</form>
+		    </li>
 
-            <li th:if="${follower}" class="lievent">
-                <form method="post" class="board-form"
-                      th:action="@{'/requestMembership/' + ${boardId} + '/' + ${userId}}">
-                    <button class="board-button"><i class="material-icons">person</i></button>
-                    <label for="follow">Ask To Join As Member</label>
-                </form>
-            </li>
-        </ul>
-    </div>
-    <div id="eventstream">
-        <h3 id="upcomingevents">UPCOMING EVENTS...</h3>
-        <ul th:if="${events != null}">
-            <li th:each="event : ${events}" class="eventli">
-                <div class="eventdescription">
-                    <a th:href="@{'/event/' + ${boardId} + '/' + ${event.id}}"><h3 th:text="${event.name}">
-                        Eventname</h3></a>
+		    <li th:if="${follower}"class="lievent">
+			<form method="post" class="board-form" th:action="@{'/requestMembership/' + ${boardId} + '/' + ${userId}}">
+			    <button class="board-button"><i class="material-icons">person</i></button>
+			    <label for="follow">Ask To Join As Member</label>
+			</form>
+		    </li>
+		</ul>
+	    </div>
+	    <div id="eventstream">
+		<h3 id="upcomingevents">UPCOMING EVENTS...</h3>
+		<ul th:if="${events != null}">
+		    <li th:each="event : ${events}" class="eventli">
+			<div class="eventdescription">
+			    <a th:href="@{'/event/' + ${boardId} + '/' + ${event.id}}"><h3 th:text="${event.name}">Eventname</h3></a>
 
-                    <p th:text="${event.message}">eventdescription</p>
-                    <p th:text="${event.datetime_from}">Start: date and time. End: date and time.</p>
-                </div>
-                <div class="eventdate">
-                    <i id="datotagg" class="material-icons">bookmark</i>
-                </div>
-            </li>
-        </ul>
-    </div>
-</main>
-</body>
+			    <p th:text="${event.message}">eventdescription</p>
+			    <p th:text="${event.datetime_from}">Start: date and time. End: date and time.</p>
+			</div>
+			<div class="eventdate">
+			    <i id ="datotagg" class="material-icons">bookmark</i>
+			</div>
+		    </li>
+		</ul>
+	    </div>
+	</main>
+    </body>
 </html>

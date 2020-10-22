@@ -113,7 +113,7 @@ input {
     margin: 15px;
 }
 
-a{
+a.homebutton{
     text-align: center;
     text-decoration: none;
     color: rgb(17, 156, 133);
