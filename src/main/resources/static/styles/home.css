@@ -6,8 +6,9 @@
     font-size: 16px;
 }
 body {
-    /*background: white;*/
-    background: linear-gradient(319deg, #2F4858 0%, #ffffff 100%);
+    background: white;
+
+
 }
 main {
     width: 100vw;
@@ -73,7 +74,7 @@ a {
 }
 .events > li {
     display: inline-flex;
-    color: black;
+    color: white;
 }
 .events > div > div {
 
