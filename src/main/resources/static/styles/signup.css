@@ -77,26 +77,32 @@ main > section > .newUser > h3 {
 
 .firstname {
     grid-area: firstname;
+    text-align: left;
 }
 
 .lastname {
     grid-area: lastname;
+    text-align: left;
 }
 
 .email {
     grid-area: email;
+    text-align: left;
 }
 
 .username {
     grid-area: username;
+    text-align: left;
 }
 
 .password {
     grid-area: password;
+    text-align: left;
 }
 
 .phoneNumber {
     grid-area: phoneNumber;
+    text-align: left;
 }
 
 .firstname1 {
