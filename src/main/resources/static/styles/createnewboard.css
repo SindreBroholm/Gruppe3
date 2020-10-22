@@ -1,206 +1,46 @@
 *{
     padding: 0;
-
     box-sizing: border-box;
-    margin: auto;
+    margin: 0;
 }
 
 
 body {
-
-    height: 100vh;
+    min-height: 100vh;
     width: 100vw;
-    /* background: linear-gradient(319deg, rgb(146, 255, 237) 0%, #ffffff 100%); */
     font-family: roboto;
+}
 
+main, form {
+    display: flex;
+    flex-flow: nowrap column;
+    align-items: center;
+}
+
+main {
+    width: 90vw;
+    min-height: calc(100vh - 56px);
+}
+
+main > h1 {
+    margin-top: 5vh;
+}
+
+form {
+    margin-top: 3vh;
+    min-height: 50vh;
 }
 
 p{
     font-size: 14px;
 }
 
-h3 {
+label {
+    margin-top: 2vh;
     font-size: 20px;
     font-weight: lighter;
 }
 
-
-.flex-container {
-    /* display: flex; */
-    flex-direction: column;
-    align-items: center;
-
-
-}
-
-.flex-container > div {
-    margin-top: 3vh;
-    background-color:white;
-    border-radius: 10px;
-    width: 90vw;
-
-    align-items: center;
-    text-align: center;
-
-    box-shadow: 0px 0px 15px -7px rgba(0, 0, 0, 0.70);
-}
-
-
-/***** Header *****/
-
-header{
-    padding-left: 10px;
-    padding-right: 10px;
-    background-color: rgb(17, 156, 133);
-    width: 100vw;
-    height: 90px;
-    align-items: center;
-}
-
-header > ul {
-    height: 100%;
-    display: flex;
-    flex-flow: nowrap row;
-    align-items: center;
-}
-
-header > ul > li {
-    margin: 0 5px;
-
-}
-
-header > ul > li:last-child {
-    margin-left: auto;
-}
-
-
-input  {
-    margin-top: 5px;
-    margin-right: 25px;
-    border-radius:5px;
-    border: 1px solid #E0E7FF;
-    font-size: 12px;
-    border-radius: 3px;
-}
-
-li {
-    list-style-type: none;
-}
-
-
-i.material-icons {
-    font-size: 32px;
-    color:white;
-
-}
-
-#logo{
-    transform: translate(50%);
-
-}
-
-.text .search {
-    border-radius: 10px;
-    width: 20%;
-    padding: 10px;
-    color:#606060 ;
-    font-size: 14px;
-    border: 1px solid grey;
-    cursor: pointer;
-    margin-right: 5px;
-}
-
-
-/***** create event body *****/
-
-h3 {
-    font-size: 20px;
-    margin: 15px;
-    font-weight: lighter;
-    text-align: center;
-}
-
-h2{
-    font-size: 28px;
-    font-weight: bolder;
-    text-align: center;
-    padding-top: 3vh;
-    margin-bottom: 1vh;
-}
-
-#boks1{
-    display: flex;
-    flex-direction: column;
-    width: 90vw;
-    padding-bottom: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 15px -3px rgba(0, 0, 0, 0.70);
-}
-
-#boks2{
-    display: flex;
-    flex-direction: column;
-    width: 90vw;
-    padding-bottom: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 15px -3px rgba(0, 0, 0, 0.70);
-}
-
-.forminput {
-    display: flex;
-    justify-content: center;
-    margin: auto;
-    align-items: center;
-    min-width: 300px;
-    max-width: 60vw;
-    margin-bottom: 10px;
-}
-
-#contactinformation {
-    font-size: larger;
-    font-weight: normal;
-
-}
-
-#imagebutton {
-    width: 95px;
-    margin-top: 15px;
-    align-items: center;
-    color: white;
-    text-decoration: none;
-    background-color: rgb(17, 156, 133);
-    border: 1px solid rgb(17, 156, 133);
-    border-radius: 30px;
-    padding: 5px 15px;
-    transition: all 1s;
-    font: 400 13.3333px Roboto;
-}
-
-/*Må fikse farge her*/
-input#file-upload-button{
-    background: rgb(17, 156, 133);
-    color:rgb(17, 156, 133);
-}
-#createbutton {
-
-    width: 205px;
-    margin-top: 20px;
-    align-items: center;
-    color: white;
-    text-decoration: none;
-    background-color: rgb(17, 156, 133);
-    border: 1px solid rgb(17, 156, 133);
-    border-radius: 30px;
-    padding: 10px 30px;
-    transition: all 1s;
-    font: 400 13.3333px Roboto;
-
-}
-
-a{
-    text-align: center;
-    text-decoration: none;
-    color: rgb(17, 156, 133);
-    font-size: 14px;
-    font-weight: bolder;
+#submit-button {
+    margin-top: 2vh;
 }
