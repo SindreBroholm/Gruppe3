@@ -6,15 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="fastis profile page">
     <meta name="author" content="fastis">
-    <link th:href="@{/styles/home.css}" rel="stylesheet"/>
     <link th:href="@{/styles/GlobalHeader.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/myBoards.css}" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>My boards</title>
 </head>
 <body>
+<header th:insert="header_template :: header"></header>
 <div sec:authorize="isAuthenticated()">
+    <h1>My boards</h1>
     <ul class="boards" th:each="boards : ${boardsList}">
-        <li id="eventName" th:text="${boards.name}"></li>
+        <a id="eventName" th:href="'/boardHome/' + ${boards.id}" th:text="${boards.name}"></a>
     </ul>
 </div>
 <button type="button" onclick="window.history.go(-1);">Back</button>
