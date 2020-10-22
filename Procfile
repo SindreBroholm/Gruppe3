@@ -1,1 +1,1 @@
-web: java -jar target/demo-1.0.0.jar
+web: java -jar target/Fastis-1.0.0-SNAPSHOT.jar
