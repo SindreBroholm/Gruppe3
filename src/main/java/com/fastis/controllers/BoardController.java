@@ -29,17 +29,19 @@ public class BoardController {
     private AccessVerifier accessVerifier;
     private UserRoleRepository userRoleRepository;
     private InviteByEmail emailInviter;
-
+    private LocalDateTimeHandler LDTH;
 
     public BoardController(EventRepository eventRepository, BoardRepository boardRepository,
                            UserRepository userRepository, AccessVerifier accessVerifier,
-                           InviteByEmail emailInviter, UserRoleRepository userRoleRepository) {
+                           InviteByEmail emailInviter, UserRoleRepository userRoleRepository,
+                           LocalDateTimeHandler LDTH) {
         this.eventRepository = eventRepository;
         this.boardRepository = boardRepository;
         this.userRepository = userRepository;
         this.accessVerifier = accessVerifier;
         this.userRoleRepository = userRoleRepository;
         this.emailInviter = emailInviter;
+        this.LDTH = LDTH;
     }
 
 
@@ -87,19 +89,19 @@ public class BoardController {
         }else {
             return "home";
         }
-         LocalDateTimeHandler localDateTimeHandler = new LocalDateTimeHandler();
-         model.addAttribute("name", event.getName());
-         model.addAttribute("dayOfWeekStart", localDateTimeHandler.getDayOfWeek(event.getDatetime_from()));
-         model.addAttribute("dayAndMonthStart", localDateTimeHandler.getDayOfMonth(event.getDatetime_from()));
-         model.addAttribute("dayOfWeekEnd", localDateTimeHandler.getDayOfWeek(event.getDatetime_to()));
-         model.addAttribute("dayAndMonthEnd", localDateTimeHandler.getDayOfMonth(event.getDatetime_to()));
-         model.addAttribute("hourAndMinStart", localDateTimeHandler.getHourAndMin(event.getDatetime_from()));
-         model.addAttribute("hourAndMinEnd", localDateTimeHandler.getHourAndMin(event.getDatetime_to()));
-         model.addAttribute("location", event.getLocation());
-         model.addAttribute("description", event.getMessage());
-         model.addAttribute("role", ur.getMembershipType().name);
 
-         model.addAttribute("boardId", boardId);
+        model.addAttribute("name", event.getName());
+        model.addAttribute("dayOfWeekStart", LDTH.getDayOfWeek(event.getDatetime_from()));
+        model.addAttribute("dayAndMonthStart", LDTH.getDayOfMonth(event.getDatetime_from()));
+        model.addAttribute("dayOfWeekEnd", LDTH.getDayOfWeek(event.getDatetime_to()));
+        model.addAttribute("dayAndMonthEnd", LDTH.getDayOfMonth(event.getDatetime_to()));
+        model.addAttribute("hourAndMinStart", LDTH.getHourAndMin(event.getDatetime_from()));
+        model.addAttribute("hourAndMinEnd", LDTH.getHourAndMin(event.getDatetime_to()));
+        model.addAttribute("location", event.getLocation());
+        model.addAttribute("description", event.getMessage());
+        model.addAttribute("role", ur.getMembershipType().name);
+
+        model.addAttribute("boardId", boardId);
         model.addAttribute("eventId", eventId);
         return "event";
     }

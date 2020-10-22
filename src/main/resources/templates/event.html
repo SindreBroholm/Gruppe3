@@ -36,7 +36,7 @@
             <p class="description" th:text="${description}"></p>
             <div class="foot">
                 <div class="backbutton">
-                    <a class="backbutton" type="button" >Back</a>
+                    <a class="backbutton" th:href="@{'/boardHome/'+${boardId}}" >Board</a>
                 </div>
                 <div class="editbutton" th:if="${role == 'leader' || role == 'admin'}">
 		            <a type="submit" th:href="@{'/addevent/' + ${boardId} + '/' + ${eventId}}">Edit</a>

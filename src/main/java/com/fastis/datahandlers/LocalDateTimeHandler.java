@@ -131,7 +131,7 @@ public class LocalDateTimeHandler {
     public String getDayOfMonth(LocalDateTime localDateTime){
         int month = localDateTime.getMonth().getValue();
         int dayOfMonth = localDateTime.getDayOfMonth();
-        return dayOfMonth +"/"+getMonth(month, 0);
+        return dayOfMonth +"/"+getCurrentMonth(month);
     }
 
     public String getHourAndMin(LocalDateTime localDateTime){
