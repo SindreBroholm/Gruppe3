@@ -36,11 +36,11 @@ h1 {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas:
             "eventname eventname eventname eventname eventname"
-            ". date date date . "
-            ". time time time ."
-            ". loc loc loc ."
-            ". descript descript descript ."
-            ". foot foot foot .";
+            "datoIkon date date date . "
+            "klokkeIkon time time time ."
+            "locIkon loc loc loc ."
+            "descriptIkon descript descript descript ."
+            "foot foot foot foot foot";
     justify-items: center;
     align-items: center;
 }
@@ -64,11 +64,8 @@ h1 {
     align-items: center;
     text-align: center;
 }
-
-.datestart {
-}
-.dateend {
-
+.datoIkon{
+    grid-area: datoIkon;
 }
 .time {
     grid-area: time;
@@ -79,21 +76,23 @@ h1 {
     align-items: center;
 }
 
-.timestart {
-
-}
-.timeend {
-
+.klokkeIkon{
+    grid-area: klokkeIkon;
 }
 .loacation {
     grid-area: loc;
 }
+.locIkon{
+    grid-area: locIkon;
+}
 .description {
     grid-area: descript;
     justify-self: start;
-    align-self: start;
+    align-self: center;
 }
-
+.descriptIkon{
+    grid-area: descriptIkon;
+}
 
 .foot {
     grid-area: foot;
