@@ -1,4 +1,4 @@
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -14,7 +14,7 @@ body {
 
 }
 
-p{
+p {
     font-size: 12px;
 }
 
@@ -37,7 +37,7 @@ a {
 }
 
 .flex-container > div {
-    background-color:white;
+    background-color: white;
     /* border-radius: 10px; */
     min-height: calc(50vh - 56px);
     width: 90vw;
@@ -45,16 +45,15 @@ a {
 }
 
 
-
 /***** Body *****/
 
-#imageholder{
+#imageholder {
     display: flex;
     flex-flow: nowrap column;
     align-items: center;
     justify-content: flex-end;
     background-color: white;
-    height:20vh;
+    height: 20vh;
     width: 90vw;
     border-radius: 10px;
     box-shadow: 0px 0px 15px -3px rgba(0, 0, 0, 0.70);
@@ -101,19 +100,19 @@ a {
 
 .board-button > i.material-icons, .board-button > a > i.material-icons {
     font-size: 46px;
-    color:#404040;
+    color: #404040;
 }
 
 .admin-button > i.material-icons, .board-button > a > i.material-icons {
     font-size: 46px;
-    color:#404040;
+    color: #404040;
 }
 
 .board-form > label, .board-form > a > label {
     color: #606060;
     font-size: 16px;
     font-weight: lighter;
-} 
+}
 
 #honbrenne {
     display: flex;
@@ -121,25 +120,24 @@ a {
     align-items: center;
 }
 
-.lievent{
+.lievent {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 
-
-.lievent > h3{
+.lievent > h3 {
     font-size: 28px;
-    color:#606060;
+    color: #606060;
 }
 
 
 /* Eventstream */
 
-#upcomingevents{
+#upcomingevents {
     align-items: center;
-    background-color:rgb(17, 156, 133);
+    background-color: rgb(17, 156, 133);
     border-radius: 10px;
     width: 90vw;
     text-align: center;
@@ -149,7 +147,7 @@ a {
 }
 
 
-#eventstream  {
+#eventstream {
     background-color: white;
 }
 
@@ -164,9 +162,9 @@ a {
 #eventstream > ul {
 }
 
-#eventstream > ul >li {
+#eventstream > ul > li {
     background-color: white;
-    height:100px;
+    height: 100px;
     width: 90vw;
     border-radius: 10px;
     margin: 2vh 0;
@@ -183,15 +181,23 @@ a {
 /* Eventdate */
 
 .eventdate {
-    display: flex;
     margin-left: auto;
+    position: absolute;
+    right: -10px;
 }
 
-#datotagg{
+#datotagg {
     position: relative;
-    top: -16px;
+    top: -18px;
     color: rgb(17, 156, 133);
     font-size: 90px;
+    left: -28px;
+}
+
+.dateDisplay {
+    position: relative;
+    left: -2px;
+    top: -88px;
 }
 
 #date {

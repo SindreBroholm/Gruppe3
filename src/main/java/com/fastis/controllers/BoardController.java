@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -78,6 +79,7 @@ public class BoardController {
                 }
                 listOfEvents = accessVerifier.eventsForBoard(board);
                 listOfEvents = accessVerifier.filterEvents(listOfEvents, accesstype);
+                listOfEvents.sort(Comparator.comparing(Event::getDatetime_from));
             }
         } else {
             accesstype = MembershipType.FOLLOWER;
