@@ -27,6 +27,7 @@
     <ul class="events" th:each="events : ${eventList}">
 
         <div class="information">
+            <div class="border">
             <li><a id="eventName" th:text="${events.name}"
                    th:href="@{'/event/' + ${events.board.id} + '/' + ${events.id}}"></a></li>
 
@@ -38,6 +39,7 @@
                       th:text="${events.datetime_to.getHour()+':'+events.datetime_to.getMinute()}"></span>
                 <span th:if="${events.datetime_to.dayOfMonth+'/'+ events.datetime_to.getMonthValue() != events.datetime_from.dayOfMonth+'/'+ events.datetime_from.getMonthValue()}"
                       th:text="${events.datetime_to.dayOfMonth+'/'+ events.datetime_to.getMonthValue()+' '+events.datetime_to.getHour()+':'+events.datetime_to.getMinute()}"></span>
+            </div>
             </div>
         </div>
 
