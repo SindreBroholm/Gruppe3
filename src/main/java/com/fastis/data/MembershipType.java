@@ -1,5 +1,8 @@
 package com.fastis.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum  MembershipType {
 
     FOLLOWER("follower"),
@@ -17,4 +20,5 @@ public enum  MembershipType {
     public String toString() {
         return name;
     }
+
 }

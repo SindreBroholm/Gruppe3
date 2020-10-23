@@ -1,4 +1,4 @@
-/* create schema fastis; */
+ create schema fastis;
 
 create table fastis.user(
     Id int auto_increment unique,

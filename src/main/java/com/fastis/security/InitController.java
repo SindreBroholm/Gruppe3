@@ -8,8 +8,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
+import com.github.javafaker.Faker;
 
 
 @RestController
@@ -56,7 +61,7 @@ public class InitController {
         settingUpEvents(users, boards);
 
         //setting up notifications
-        settingUpNotifications(boards);
+        //settingUpNotifications(boards);
 
         return "ok";
     }
@@ -81,6 +86,7 @@ public class InitController {
         User user0 = userRepository.findByEmail("test0@test.no");
         User user1 = userRepository.findByEmail("test1@test.no");
         User user2 = userRepository.findByEmail("test2@test.no");
+        User user3 = userRepository.findByEmail("sindre@test.no");
         if (user0 == null) {
             user0 = new User("test0@test.no", "Ola0", "Nordmann0", passwordEncoder.encode("123"), "0000");
             userRepository.save(user0);
@@ -93,12 +99,19 @@ public class InitController {
             user2 = new User("test2@test.no", "Ola2", "Nordmann2", passwordEncoder.encode("123"), "0000");
             userRepository.save(user2);
         }
-        return Arrays.asList(user0, user1, user2);
+        if (user2 == null) {
+            user2 = new User("sindre@test.no", "Sindre Broholm", "Sæther", passwordEncoder.encode("123"), "93071137");
+            userRepository.save(user3);
+        }
+        return Arrays.asList(user0, user1, user2, user3);
     }
 
     public List<Board> settingUpBoards() {
         Board board1 = boardRepository.findByName("TillerIL");
         Board board2 = boardRepository.findByName("MidtbyenIL");
+        Board board3 = boardRepository.findByName("Rockheim");
+        Board board4 = boardRepository.findByName("TrøndelagTeater");
+        Board board5 = boardRepository.findByName("StrindheimIL");
         if (board1 == null) {
             board1 = new Board();
             board1.setName("TillerIL");
@@ -112,10 +125,35 @@ public class InitController {
             board2.setName("MidtbyenIL");
             board2.setContactName("Sindre Sæther");
             board2.setContactNumber("93071137");
-            board2.setContactEmail("test@test.no");
+            board2.setContactEmail("MidtbyenIL@test.no");
             boardRepository.save(board2);
         }
-        return Arrays.asList(board1, board2);
+        if (board3 == null) {
+            board3 = new Board();
+            board3.setName("Rockheim");
+            board3.setContactName("Aage Aleksandersen");
+            board3.setContactNumber("93071137");
+            board3.setContactEmail("Rockheim@test.no");
+            boardRepository.save(board3);
+        }
+        if (board4 == null) {
+            board4 = new Board();
+            board4.setName("TrøndelagTeater");
+            board4.setContactName("Liv Ulmann");
+            board4.setContactNumber("93071137");
+            board4.setContactEmail("TrøndelagTeater@test.no");
+            boardRepository.save(board4);
+        }
+        if (board5 == null) {
+            board5 = new Board();
+            board5.setName("StrindheimIL");
+            board5.setContactName("Sindre Sæther");
+            board5.setContactNumber("93071137");
+            board5.setContactEmail("StrindheimIL@test.no");
+            boardRepository.save(board5);
+        }
+
+        return Arrays.asList(board1, board2, board3, board4, board5);
     }
 
     public List<UserRole> connectingUsersToBoards(List<User> users, List<Board> boards) {
@@ -167,19 +205,30 @@ public class InitController {
         }
         return userRoles;
     }
+    public String random() {
+        Faker faker = new Faker();
+        List<String> random = new ArrayList<>();
+        random.add("FOLLOWER");
+        random.add("MEMBER");
+        random.add("LEADER");
+        random.add("ADMIN");
+
+        return random.get(faker.random().nextInt(0,3));
+    }
 
     public List<Event> settingUpEvents(List<User> users, List<Board> boards) {
 
         List<Event> events = (List<Event>) eventRepository.findAll();
 
-        if (events == null || events.size() == 0) {
+        if (true) {
             LocalDateTime today = LocalDateTime.now();
 
             //populating first board in list with events
-            Board board = boards.get(0);
+            Board board = boards.get((int)Math.ceil(Math.random() * 4));
             String message = "this is a message1 about an event";
             LocalDateTime start = today;
-            Event event1 = new Event(board, message,
+            LocalDateTime end = today;
+           /* Event event1 = new Event(board, message,
                     start, start.plusDays(2),
                     start, MembershipType.MEMBER,
                     "Trondheim", "Oppvarming til Trønderferst!");
@@ -210,9 +259,52 @@ public class InitController {
             Event event5 = new Event(board, message,
                     start, start,
                     start, MembershipType.FOLLOWER,
-                    "Trondheim", "Follower fest!");
+                    "Trondheim", "Follower fest!");*/
 
-            events.addAll(Arrays.asList(event1, event2, event3, event4, event5));
+            Faker faker = new Faker();
+
+            //TillerIL events
+            for (int i = 0; i < 15; i++){
+                int add = (int)Math.ceil(Math.random() * 29 +1);
+                int addFive = (int)Math.ceil(Math.random() * 4);
+                start = today.plusDays(add);
+                end = today.plusDays(30+add);
+                events.add(new Event(boards.get(0),faker.chuckNorris().fact(), start, end, start, MembershipType.valueOf(random()) , faker.lordOfTheRings().location(), "Tiller vs " +faker.esports().team()));
+            }
+            //Midtbyen
+            for (int i = 0; i < 15; i++){
+                int add = (int)Math.ceil(Math.random() * 29 +1);
+                int addFive = (int)Math.ceil(Math.random() * 4);
+                start = today.plusDays(add);
+                end = today.plusDays(30+add);
+                events.add(new Event(boards.get(1),faker.chuckNorris().fact(), start, end, start, MembershipType.valueOf(random()) , faker.country().capital(), "Midtbyen vs " +faker.esports().team()));
+            }
+            //Rockheim
+            for (int i = 0; i < 15; i++){
+                int add = (int)Math.ceil(Math.random() * 29 +1);
+                int addFive = (int)Math.ceil(Math.random() * 4);
+                start = today.plusDays(add);
+                end = today.plusDays(30+add);
+                events.add(new Event(boards.get(2),faker.internet().domainName(), start, end, start, MembershipType.valueOf(random()) , "Internett", "Learn to play "+faker.music().instrument()+" online"));
+            }
+            //trøndelagTeater
+            for (int i = 0; i < 15; i++){
+                int add = (int)Math.ceil(Math.random() * 29 +1);
+                int addFive = (int)Math.ceil(Math.random() * 4);
+                start = today.plusDays(add);
+                end = today.plusDays(30+add);
+                events.add(new Event(boards.get(3),faker.harryPotter().quote(), start, end, start, MembershipType.valueOf(random()) , faker.harryPotter().location(), faker.harryPotter().house()));
+            }
+            //strindheim IL
+            for (int i = 0; i < 15; i++){
+                int add = (int)Math.ceil(Math.random() * 29 +1);
+                int addFive = (int)Math.ceil(Math.random() * 4);
+                start = today.plusDays(add);
+                end = today.plusDays(30+add);
+                events.add(new Event(boards.get(4), faker.chuckNorris().fact(), start, end, start, MembershipType.valueOf(random()) , faker.lordOfTheRings().location(), "Tiller vs " +faker.esports().team()));
+            }
+
+           /* events.addAll(Arrays.asList(event1, event2, event3, event4, event5));*/
 
             for (Event event : events) {
                 eventRepository.save(event);

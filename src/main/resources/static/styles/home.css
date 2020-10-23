@@ -76,6 +76,9 @@ a {
     display: inline-flex;
     color: white;
 }
+.information{
+    padding-right: 46px;
+}
 .events > div > div {
 
     color: black    ;
