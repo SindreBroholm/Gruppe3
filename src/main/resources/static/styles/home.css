@@ -5,20 +5,22 @@
     font-family: roboto;
     font-size: 16px;
 }
+
 body {
     background: white;
-
-
 }
+
 .border {
     border-bottom: 0.2px #6060602e solid;
     margin-bottom: 16px;
     padding-bottom: 6px;
 }
+
 main {
     width: 100vw;
     height: calc(100vh - 56px);
 }
+
 .month {
     font: 600 1.5em Roboto;
     text-align: center;
@@ -35,6 +37,7 @@ main {
     position: relative;
     list-style: none;
 }
+
 .monthNav {
     margin-top: 5vh;
     margin-bottom: 5vh;
@@ -45,48 +48,58 @@ main {
     align-items: center;
     text-align: center;
 }
+
 #prevButton {
     grid-area: prev;
-    color:rgb(17, 156, 133);
+    color: rgb(17, 156, 133);
 }
+
 .showMonth {
     grid-area: month;
 
 }
+
 #nextButton {
     grid-area: next;
-    color:rgb(17, 156, 133);
+    color: rgb(17, 156, 133);
 }
+
 h3 {
     font-size: 2em;
     font-weight: lighter;
 }
+
 p {
     font-size: 1em;
 }
+
 a {
     text-decoration: none;
     font-size: 3em;
     color: black;
 
 }
-#eventName{
+
+#eventName {
     font-size: 1.5em;
 }
 
 #eventMessage > a {
     font-size: 1em;
 }
+
 .events > li {
     display: inline-flex;
     color: white;
 }
-.information{
+
+.information {
     padding-right: 46px;
 }
+
 .events > div > div {
 
-    color: black    ;
+    color: black;
 }
 
 .events > #dateBox {
@@ -111,7 +124,7 @@ a {
     position: relative;
 }
 
-#datotagg{
+#datotagg {
     color: #FBB03B;
     font-size: 80px;
 }
