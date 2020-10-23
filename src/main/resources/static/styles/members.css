@@ -11,8 +11,14 @@ body {
 }
 
 main {
-    width: 100vw;
-    height: calc(100vh - 56px);
+    margin: 0 auto;
+    box-shadow: 0px 0px 41px -7px rgba(0, 0, 0, 0.70);
+    border-radius: 10px;
+    width: 90vw;
+    height: 80vh;
+    margin-top: 3vh;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 span {
     font-size: 1.3em;
@@ -29,7 +35,6 @@ li {
         "name type"
         "form form";
     align-items: center;
-    background-color: white;
     height: 100px;
     width: 90vw;
     border-radius: 10px;
@@ -53,48 +58,57 @@ form {
 }
 .option {
     grid-area: option;
+    width: 130px;
 }
 .update {
+    width: 130px;
     grid-area: update;
     text-align: center;
 }
 
 .backbutton {
-    width: 33%;
-    height: 100%;
-    border-radius: 22px;
-    background: linear-gradient(#606060,#000000);
-    box-shadow: 0px 0px 41px -7px rgba(0, 0, 0, 0.70);
-    display: flex;
-    justify-content: center;
-    margin: auto;
-}
-.backbutton > a {
+   width: 100px;
+    margin: 0 auto;
     color: white;
     text-decoration: none;
-    padding: 10% 33%;
+    background-color: rgb(17, 156, 133);
+    border: 1px solid rgb(17, 156, 133);
+    border-radius: 30px;
+    padding: 10px 30px;
+    transition: all 1s;
+    font: 400 16px Roboto;
+    margin-top: 15px;
+}
+.backbutton > a {
+   color: white;
+   text-decoration: none;
+
 }
 .navB {
+    padding-top: 2vh;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
 }
 .navB > div {
-    width: 30%;
-    border-radius: 22px;
-    background: linear-gradient(#606060,#000000);
-    box-shadow: 0px 0px 41px -7px rgba(0, 0, 0, 0.70);
-    display: flex;
-    justify-content: center;
-    margin: 3% 0%;
+    width: 100px;
+    text-align: center;
+    margin: 10px;
+    color: white;
+    text-decoration: none;
+    background-color: rgb(17, 156, 133);
+    border: 1px solid rgb(17, 156, 133);
+    border-radius: 30px;
+    padding: 10px 10px;
+    transition: all 1s;
+    font: 400 16px Roboto;
 
 }
 .navB > div > a{
     color: white;
     text-decoration: none;
-    padding: 10% 0%;
-
 }
+
 
 
 select {
@@ -113,15 +127,15 @@ select {
     align-items: center;
     white-space: pre;
     -webkit-rtl-ordering: logical;
-    background: linear-gradient(#606060,#000000);
-    background-color: black;
+    background: #606060;
+    background-color: #606060;
     cursor: default;
     margin: 0em;
     font: 400 18px roboto;
     border-radius: 0px;
     border-width: 1px;
     border-style: solid;
-    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    border-color: #606060;
     border-image: initial;
 }
 option {
@@ -130,7 +144,7 @@ option {
     white-space: pre;
     min-height: 1.2em;
     padding: 0px 2px 1px;
-    background: linear-gradient(#606060,#000000);
+    background: #606060;
     color: whitesmoke;
 }
 input {
@@ -145,7 +159,7 @@ input {
     display: inline-block;
     text-align: right;
     appearance: textfield;
-    background-color: black;
+    background-color: #606060;
     -webkit-rtl-ordering: logical;
     cursor: text;
     margin: 0em;
@@ -154,7 +168,7 @@ input {
     border-width: 0px;
     border-radius: 10px;
     border-style: inset;
-    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    border-color: #606060;
     border-image: initial;
 }
 

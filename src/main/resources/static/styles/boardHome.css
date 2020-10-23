@@ -172,6 +172,9 @@ a {
     margin: 2vh 0;
 }
 
+#eventstream > ul >li >a{
+    text-decoration: none;
+}
 
 /* Event Tiltle and descrition */
 
