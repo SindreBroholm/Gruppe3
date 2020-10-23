@@ -130,6 +130,9 @@ main > section > .newUser > h3 {
 }
 
 .backbuttom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     grid-area: backB;
 }
 .errorlist {
@@ -137,6 +140,9 @@ main > section > .newUser > h3 {
 }
 
 .loginbuttom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     grid-area: submit;
 }
 form > input {
@@ -156,7 +162,7 @@ form > label {
     border: 1px solid red;
 }
 
-button {
+button, #my-button {
     width: 80%;
     margin: 2.5%;
     color: white;
@@ -167,5 +173,9 @@ button {
     padding: 10px 30px;
     transition: all 1s;
     font: 400 1em Roboto;
+}
+
+#my-button {
+    text-align: center;
 }
 
