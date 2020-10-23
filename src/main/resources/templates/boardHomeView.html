@@ -64,9 +64,11 @@
 		<ul th:if="${events != null}">
 		    <li th:each="event : ${events}" class="eventli">
 			<div class="eventdescription">
+				<div class="border">
 			    <a th:href="@{'/event/' + ${boardId} + '/' + ${event.id}}"><h3 th:text="${event.name}">Eventname</h3></a>
 
 			    <p th:text="${event.message}">eventdescription</p>
+
 				<p id="eventMessage">
 					<span th:text="${event.location}"></span>
 					<span th:text="${event.datetime_from.getHour()+':'+event.datetime_from.getMinute()}"></span>
@@ -75,7 +77,7 @@
 						  th:text="${event.datetime_to.getHour()+':'+event.datetime_to.getMinute()}"></span>
 					<span th:if="${event.datetime_to.dayOfMonth+'/'+ event.datetime_to.getMonthValue() != event.datetime_from.dayOfMonth+'/'+ event.datetime_from.getMonthValue()}"
 						  th:text="${event.datetime_to.dayOfMonth+'/'+ event.datetime_to.getMonthValue()+' '+event.datetime_to.getHour()+':'+event.datetime_to.getMinute()}"></span>
-				</p></div>
+				</p></div></div>
 			<div class="eventdate">
 			    <i id ="datotagg" class="material-icons">bookmark</i>
 				<div class="dateDisplay">
@@ -89,5 +91,19 @@
 	    </div>
 	</main>
     </body>
+	<script>
+		let datonode = document.getElementsByClassName("dateDisplay")
+		let eventNode = document.getElementsByClassName("eventdescription")
+		let boxNode = document.getElementsByClassName("eventli")
+		let number = boxNode.length;
 
+		for (let i = 0; i < boxNode.length; i++) {
+			for (let y = 1; y < number; y++) {
+				if (datonode[i].innerText == datonode[i + 1].innerText) {
+					eventNode[i].innerHTML = eventNode[i].innerHTML + eventNode[i + 1].innerHTML
+					boxNode[i + 1].remove()
+				}
+			}
+		}
+	</script>
 </html>
