@@ -14,11 +14,11 @@
 <body>
 <header th:insert="header_template :: header"></header>
 <div sec:authorize="isAuthenticated()">
-    <h1>My boards</h1>
+    <h1>+ My boards</h1>
     <ul class="boards" th:each="boards : ${boardsList}">
         <a id="eventName" th:href="'/boardHome/' + ${boards.id}" th:text="${boards.name}"></a>
     </ul>
 </div>
-<button type="button" onclick="window.history.go(-1);">Back</button>
+<button id="event-stream-botton" type="button" onclick="window.history.go(-1);">Back</button>
 </body>
 </html>

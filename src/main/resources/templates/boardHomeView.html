@@ -20,19 +20,19 @@
 		    <h1 th:text="${board.name}">Board Name</h1>
 		</div>
 		<ul >
-		    <li class="lievent">
+		    <li class="lievent board-form admin-button">
 			<i class="material-icons">bookmark</i>
-			<h3><a th:href="@{'/addevent/' + ${boardId}}">+Create Event</a></h3>
+			<a th:href="@{'/addevent/' + ${boardId}}"><label>+Create Event</label></a>
 		    </li>
 
-		    <li class="lievent">
+		    <li class="lievent board-form admin-button">
 			<i class="material-icons">person</i>
-			<h3><a th:href="@{'/members/' + ${boardId} + '/false'}">Members</a></h3>
+			<h3><a th:href="@{'/members/' + ${boardId} + '/false'}">+Members</a></h3>
 		    </li>
-		    <li class="lievent">
+		    <li class="lievent board-form admin-button">
 			<div class="board-form" id="honbrenne">
 			    <a th:href="@{'/inviteByEmail/' + ${boardId}}" ><button class="board-button"><i class="material-icons">person</i></button></a>
-			    <a href="@{'/inviteByEmail/' + ${boardId}}"><label for="follow">Invite To Follow</label></a>
+			    <a href="@{'/inviteByEmail/' + ${boardId}}"><label for="follow">+Invite To Follow</label></a>
 			</div>
 		    </li>
 		</ul>
@@ -47,14 +47,14 @@
 		    <li th:unless="${follower}"class="lievent">
 			<form class="board-form" th:action="@{'/follow/' + ${boardId} + '/' + ${userId}}" method="post">
 			    <button class="board-button"><i class="material-icons">person</i></button>
-			    <label for="follow">Follow</label>
+			    <label for="follow">+Follow</label>
 			</form>
 		    </li>
 
 		    <li th:if="${follower}"class="lievent">
 			<form method="post" class="board-form" th:action="@{'/requestMembership/' + ${boardId} + '/' + ${userId}}">
 			    <button class="board-button"><i class="material-icons">person</i></button>
-			    <label for="follow">Ask To Join As Member</label>
+			    <label for="follow">+Ask To Join As Member</label>
 			</form>
 		    </li>
 		</ul>

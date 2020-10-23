@@ -1,5 +1,5 @@
 * {
-    margin: 0px;
+    margin: 0 auto;
     padding: 0px;
     box-sizing: border-box;
     font-family: roboto;
@@ -9,8 +9,6 @@
 
 body {
     background: white;
-
-
 }
 
 main {
@@ -30,4 +28,34 @@ a {
     padding: 16px;
     height: fit-content;
     margin: 4%;
+}
+
+button {
+    margin-top: 2vh;
+    margin-top: 20px;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    background-color: rgb(17, 156, 133);
+    border: 1px solid rgb(17, 156, 133);
+    border-radius: 30px;
+    padding: 10px 30px;
+    transition: all 1s;
+    font: 400 13.3333px Roboto;
+
+}
+
+h1 {
+    font-size: 22px;
+    font-weight: lighter;
+    margin-top: 5vh;
+    text-align: center;
+}
+
+#eventName {
+    font-size: 16px;
+}
+
+#event-stream-botton {
+    transform: translate(calc(50vw - 92px/2), 0);
 }
