@@ -156,7 +156,7 @@ form > label {
     border: 1px solid red;
 }
 
-button {
+button, my-button {
     width: 80%;
     margin: 2.5%;
     color: white;
