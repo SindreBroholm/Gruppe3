@@ -13,6 +13,9 @@ main {
     width: 100vw;
     height: calc(100vh - 56px);
 }
+p{
+    font-size: 0.8em;
+}
 h3 {
     font-size: 1.3em;
     font-weight: lighter;
@@ -48,7 +51,7 @@ h1 {
 }
 
 .grid-container > i{
-font-size: 36px;
+    font-size: 36px;
 }
 
 .eventname {

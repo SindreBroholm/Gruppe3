@@ -223,7 +223,6 @@ public class InitController {
         if (true) {
             LocalDateTime today = LocalDateTime.now();
 
-            //populating first board in list with events
             Board board = boards.get((int)Math.ceil(Math.random() * 4));
             String message = "this is a message1 about an event";
             LocalDateTime start = today;
@@ -265,8 +264,7 @@ public class InitController {
 
             //TillerIL events
             for (int i = 0; i < 15; i++){
-                int add = (int)Math.ceil(Math.random() * 29 +1);
-                int addFive = (int)Math.ceil(Math.random() * 4);
+                int add = faker.random().nextInt(0,30);
                 start = today.plusDays(add);
                 end = today.plusDays(30+add);
                 events.add(new Event(boards.get(0),faker.chuckNorris().fact(), start, end, start, MembershipType.valueOf(random()) , faker.lordOfTheRings().location(), "Tiller vs " +faker.esports().team()));
