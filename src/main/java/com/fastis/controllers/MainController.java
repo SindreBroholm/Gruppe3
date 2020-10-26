@@ -1,9 +1,6 @@
 package com.fastis.controllers;
 
-import com.fastis.data.Board;
-import com.fastis.data.Event;
-import com.fastis.data.User;
-import com.fastis.data.UserRole;
+import com.fastis.data.*;
 import com.fastis.datahandlers.LocalDateTimeHandler;
 import com.fastis.repositories.BoardRepository;
 import com.fastis.repositories.EventRepository;
@@ -17,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -50,16 +49,20 @@ public class MainController {
             int currentDate = LocalDateTime.now().getMonth().getValue();
             int plussyear = LDTH.getPlussyear();
             int year = LDTH.getYear();
+
             if (nextMonth != null){
                 month = nextMonth;
-                if (month == 13) {
+
+                if (month > 12) {
                     plussyear++;
                     LDTH.setPlussyear(plussyear);
                     year++;
                     LDTH.setYear(year);
                     month = 1;
                 }
-                if (month == 0) {
+
+
+                if (month < 1) {
                     plussyear--;
                     LDTH.setPlussyear(plussyear);
                     year--;
@@ -67,17 +70,29 @@ public class MainController {
                     month = 12;
                 }
             }
+            LocalDateTime firstDayOfCurrentMonth = LDTH.getMonth(month, plussyear);
+            LocalDateTime firstDayOfCNextMonth = LDTH.getLastDayOfMonth(month, plussyear);
             model.addAttribute("CM", month);
 
             User user = accessVerifier.currentUser(principal);
-            LocalDateTime firstDayOfCurrentMonth = LDTH.getMonth(month, plussyear);
-            LocalDateTime firstDayOfCNextMonth = LDTH.getMonth(month +1, plussyear);
             LocalDateTime today = LocalDateTime.now();
-            List<Event> usersEvents = eventRepository.EventStreamOrderByMonth(user.getId(),firstDayOfCurrentMonth, firstDayOfCNextMonth, today);
-            String currentMonth = LDTH.getCurrentMonth(month);
 
+            List<Board> boardsList = accessVerifier.accessedBoard(principal);
+            List<Event> boardEvents = new ArrayList<>();
+            List<Event> filtedEvents = new ArrayList<>();
+
+
+            for (Board b: boardsList) {
+                boardEvents = eventRepository.EventStreamOrderByMonth(b.getId(), today, firstDayOfCNextMonth);
+                filtedEvents.addAll(accessVerifier.filterEvents(boardEvents, accessVerifier.getUserRole(user, b).getMembershipType()));
+            }
+
+
+            filtedEvents.sort(Comparator.comparing(Event::getDatetime_from));
+
+            String currentMonth = LDTH.getCurrentMonth(month);
             model.addAttribute("month", currentMonth);
-            model.addAttribute("eventList", usersEvents);
+            model.addAttribute("eventList", filtedEvents);
             model.addAttribute("currentYear", year);
             model.addAttribute("MonthNav", firstDayOfCurrentMonth);
             model.addAttribute("BlockMonthNav", LDTH.getMonth(currentDate, 0));

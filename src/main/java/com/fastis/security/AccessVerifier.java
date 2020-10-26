@@ -109,13 +109,22 @@ public class AccessVerifier {
                     fileteredList.add(event);
                 }
             }
-        } else if (accessType == MembershipType.FOLLOWER){
-            for (Event event: listOfEvents){
-               if (event.getEvent_type() == MembershipType.FOLLOWER){
-                   fileteredList.add(event);
-               }
+        }
+
+        for (Event event: listOfEvents){
+        if (event.getEvent_type() == MembershipType.FOLLOWER){
+                fileteredList.add(event);
             }
         }
+
+        return fileteredList;
+    }
+
+    public List<Event> filterMainList(List<Event> listOfEvents, MembershipType accessType, List<Board> boards) {
+        List<Event> fileteredList = new ArrayList<>();
+
+
+
         return fileteredList;
     }
 

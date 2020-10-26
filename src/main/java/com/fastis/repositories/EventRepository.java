@@ -19,8 +19,8 @@ public interface EventRepository extends CrudRepository<Event, Integer> {
 
     List<Event> findAllByBoardId(Integer boardId);
 
-    @Query("select e from Event e join UserRole ur on ur.boardId = e.board.id where ur.userId = ?1 " +
-            "and e.datetime_to > ?2 and e.datetime_from < ?3 and e.datetime_from > ?4 order by e.datetime_from")
-    List<Event> EventStreamOrderByMonth(int userId, LocalDateTime firstDayOfCurrentMonth, LocalDateTime firstDayOfNextMonth, LocalDateTime today);
+    @Query("select e from Event e join UserRole ur on ur.boardId = e.board.id where ur.boardId = ?1 " +
+            "and e.datetime_from > ?2 and e.datetime_from < ?3 and e.datetime_to > ?3 group by e.id order by e.datetime_from asc ")
+    List<Event> EventStreamOrderByMonth(int userId, LocalDateTime today, LocalDateTime firstDayOfNextMonth);
 }
 

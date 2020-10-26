@@ -73,10 +73,10 @@ public class BoardController {
                 if (accesstype == MembershipType.ADMIN) {
                     model.addAttribute("admin", true);
                 }
-                model.addAttribute("follower", true);
                 if (accesstype == MembershipType.MEMBER) {
                     model.addAttribute("member", true);
                 }
+                model.addAttribute("follower", true);
                 listOfEvents = accessVerifier.eventsForBoard(board);
                 listOfEvents = accessVerifier.filterEvents(listOfEvents, accesstype);
                 listOfEvents.sort(Comparator.comparing(Event::getDatetime_from));

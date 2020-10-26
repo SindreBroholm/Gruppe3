@@ -263,42 +263,38 @@ public class InitController {
             Faker faker = new Faker();
 
             //TillerIL events
-            for (int i = 0; i < 15; i++){
-                int add = faker.random().nextInt(0,30);
+            for (int i = 0; i < 20; i++){
+                int add = faker.random().nextInt(0,60);
                 start = today.plusDays(add);
-                end = today.plusDays(30+add);
+                end = today.plusDays(60+add);
                 events.add(new Event(boards.get(0),faker.chuckNorris().fact(), start, end, start, MembershipType.valueOf(random()) , faker.lordOfTheRings().location(), "Tiller vs " +faker.esports().team()));
             }
             //Midtbyen
-            for (int i = 0; i < 15; i++){
-                int add = (int)Math.ceil(Math.random() * 29 +1);
-                int addFive = (int)Math.ceil(Math.random() * 4);
+            for (int i = 0; i < 20; i++){
+                int add = faker.random().nextInt(0,60);
                 start = today.plusDays(add);
-                end = today.plusDays(30+add);
+                end = today.plusDays(60+add);
                 events.add(new Event(boards.get(1),faker.chuckNorris().fact(), start, end, start, MembershipType.valueOf(random()) , faker.country().capital(), "Midtbyen vs " +faker.esports().team()));
             }
             //Rockheim
-            for (int i = 0; i < 15; i++){
-                int add = (int)Math.ceil(Math.random() * 29 +1);
-                int addFive = (int)Math.ceil(Math.random() * 4);
+            for (int i = 0; i < 20; i++){
+                int add = faker.random().nextInt(0,60);
                 start = today.plusDays(add);
-                end = today.plusDays(30+add);
+                end = today.plusDays(60+add);
                 events.add(new Event(boards.get(2),faker.internet().domainName(), start, end, start, MembershipType.valueOf(random()) , "Internett", "Learn to play "+faker.music().instrument()+" online"));
             }
             //trøndelagTeater
-            for (int i = 0; i < 15; i++){
-                int add = (int)Math.ceil(Math.random() * 29 +1);
-                int addFive = (int)Math.ceil(Math.random() * 4);
+            for (int i = 0; i < 20; i++){
+                int add = faker.random().nextInt(0,60);
                 start = today.plusDays(add);
-                end = today.plusDays(30+add);
+                end = today.plusDays(60+add);
                 events.add(new Event(boards.get(3),faker.harryPotter().quote(), start, end, start, MembershipType.valueOf(random()) , faker.harryPotter().location(), faker.harryPotter().house()));
             }
             //strindheim IL
-            for (int i = 0; i < 15; i++){
-                int add = (int)Math.ceil(Math.random() * 29 +1);
-                int addFive = (int)Math.ceil(Math.random() * 4);
+            for (int i = 0; i < 20; i++){
+                int add = faker.random().nextInt(0,60);
                 start = today.plusDays(add);
-                end = today.plusDays(30+add);
+                end = today.plusDays(60+add);
                 events.add(new Event(boards.get(4), faker.chuckNorris().fact(), start, end, start, MembershipType.valueOf(random()) , faker.lordOfTheRings().location(), "Tiller vs " +faker.esports().team()));
             }
 

@@ -29,7 +29,8 @@
         <div class="information">
             <div class="border">
             <li><a id="eventName" th:text="${events.name}"
-                   th:href="@{'/event/' + ${events.board.id} + '/' + ${events.id}}"></a></li>
+                   th:href="@{'/event/' + ${events.board.id} + '/' + ${events.id}}"></a>
+            </li>
 
             <div id="eventMessage">
                 <span th:text="${events.location}"></span>

@@ -31,7 +31,6 @@ public class LocalDateTimeHandler {
 
 
     public LocalDateTime getMonth(int month, int plussyear) {
-        int year = LocalDateTime.now().getYear();
         year += plussyear;
         switch (month) {
             case 1:
@@ -75,6 +74,58 @@ public class LocalDateTimeHandler {
                 return LocalDateTime.parse(janu);
         }
     }
+
+    public LocalDateTime getLastDayOfMonth(int month, int plussyear) {
+        year += plussyear;
+        int daysInFeb = 28;
+        if (year % 4 == 0){
+            daysInFeb = 29;
+        }
+        switch (month) {
+            case 1:
+                String jan = year +"-01-31T23:59:59";
+                return LocalDateTime.parse(jan);
+            case 2:
+                String feb = year +"-02-"+daysInFeb+"T23:59:59";
+                return LocalDateTime.parse(feb);
+            case 3:
+                String mar = year +"-03-31T23:59:59";
+                return LocalDateTime.parse(mar);
+            case 4:
+                String apr = year +"-04-30T23:59:59";
+                return LocalDateTime.parse(apr);
+            case 5:
+                String may =  year+"-05-31T23:59:59";
+                return LocalDateTime.parse(may);
+            case 6:
+                String jun = year +"-06-30T23:59:59";
+                return LocalDateTime.parse(jun);
+            case 7:
+                String jul = year +"-07-31T23:59:59";
+                return LocalDateTime.parse(jul);
+            case 8:
+                String aug = year +"-08-31T23:59:59";
+                return LocalDateTime.parse(aug);
+            case 9:
+                String sep = year +"-09-30T23:59:59";
+                return LocalDateTime.parse(sep);
+            case 10:
+                String oct =  year +"-10-31T23:59:59";
+                return LocalDateTime.parse(oct);
+            case 11:
+                String nov =  year +"-11-30T23:59:59";
+                return LocalDateTime.parse(nov);
+            case 12:
+                String des = year +"-12-31T23:59:59";
+                return LocalDateTime.parse(des);
+            default:
+                String janu = year +"-01-01T23:59:59";
+                return LocalDateTime.parse(janu);
+        }
+    }
+
+
+
     public String getCurrentMonth(int month) {
         switch (month) {
             case 1:
