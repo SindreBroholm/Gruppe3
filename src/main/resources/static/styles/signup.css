@@ -53,7 +53,7 @@ form {
     height: 100%;
     display: grid;
     gap: 1%;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-columns: 1fr 1fr;
     justify-content: space-evenly;
     align-content: center;
@@ -61,6 +61,7 @@ form {
     "firstname firstname1"
     "lastname lastname1"
     "password password1"
+    "passwordd password2"
     "phoneNumber phoneNumber1"
     "backB submit"
     "errorlist errorlist";
@@ -73,7 +74,13 @@ main > section > .newUser > h3 {
     color: black;
 }
 
-
+.passwordd {
+    grid-area: passwordd;
+    text-align: left;
+}
+.password2 {
+    grid-area: password2;
+}
 
 .firstname {
     grid-area: firstname;

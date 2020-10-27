@@ -77,7 +77,7 @@ public class InitController {
                 "",  new User("test0@test.no",
                         "Ola0", "Nordmann0",
                         passwordEncoder.encode("123"),
-                        "0000")
+                        "0000", passwordEncoder.encode("123"))
         );
         return "OK";
     }
@@ -88,19 +88,19 @@ public class InitController {
         User user2 = userRepository.findByEmail("test2@test.no");
         User user3 = userRepository.findByEmail("sindre@test.no");
         if (user0 == null) {
-            user0 = new User("test0@test.no", "Ola0", "Nordmann0", passwordEncoder.encode("123"), "0000");
+            user0 = new User("test0@test.no", "Ola0", "Nordmann0", passwordEncoder.encode("123"),"123", passwordEncoder.encode("123"));
             userRepository.save(user0);
         }
         if (user1 == null) {
-            user1 = new User("test1@test.no", "Ola1", "Nordmann1", passwordEncoder.encode("123"), "0000");
+            user1 = new User("test1@test.no", "Ola1", "Nordmann1", passwordEncoder.encode("123"), "0000", passwordEncoder.encode("123"));
             userRepository.save(user1);
         }
         if (user2 == null) {
-            user2 = new User("test2@test.no", "Ola2", "Nordmann2", passwordEncoder.encode("123"), "0000");
+            user2 = new User("test2@test.no", "Ola2", "Nordmann2", passwordEncoder.encode("123"), "0000", passwordEncoder.encode("123"));
             userRepository.save(user2);
         }
         if (user2 == null) {
-            user2 = new User("sindre@test.no", "Sindre Broholm", "Sæther", passwordEncoder.encode("123"), "93071137");
+            user2 = new User("sindre@test.no", "Sindre Broholm", "Sæther", passwordEncoder.encode("123"), "93071137", passwordEncoder.encode("123"));
             userRepository.save(user3);
         }
         return Arrays.asList(user0, user1, user2, user3);

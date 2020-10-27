@@ -18,6 +18,7 @@ public class UserValidator implements Validator {
         ValidationUtils.rejectIfEmpty(errors, "lastname", "lastname.empty", "Lastname missing");
         ValidationUtils.rejectIfEmpty(errors, "email", "email.empty", "Email is not valid");
         ValidationUtils.rejectIfEmpty(errors, "password", "password.empty", "Password must be over 6 characters long");
+        ValidationUtils.rejectIfEmpty(errors, "passwordRepeat", "password.", "Passwords must match");
 
     }
 }

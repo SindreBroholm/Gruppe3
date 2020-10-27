@@ -33,6 +33,9 @@
                 <label class="password">Password* </label>
                 <input class="password1" th:errorclass="filderror" type="password" th:field="*{password}">
 
+                <label class="passwordd">Re-type password </label>
+                <input class="password2"  th:errorclass="filderror" type="password" th:field="*{passwordRepeat}">
+
                 <label class="phoneNumber">Phone number</label>
                 <input class="phoneNumber1" th:errorclass="filderror" th:field="*{phone_number}">
 
@@ -42,7 +45,7 @@
                 </div>
 
                 <div class="backbuttom form-actions">
-		    <a th:href="@{/}" class="login btb hoverDiscover" id="my-button" >Back</a>
+                    <a th:href="@{/}" class="login btb hoverDiscover" id="my-button">Back</a>
                 </div>
 
                 <ul class="errorlist">
@@ -51,7 +54,6 @@
             </form>
         </div>
     </section>
-
 </main>
 </body>
 </html>

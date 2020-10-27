@@ -64,10 +64,11 @@ public class UserHandlerController {
         if (validation.supports(user.getClass())) {
             validation.validate(user, br);
         }
-        if (br.hasErrors()) {
+        if (br.hasErrors() || !user.isPasswordEqual()) {
             return "signup";
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setPassword(passwordEncoder.encode(user.getPasswordRepeat()));
             userRepository.save(user);
             return "login";
         }

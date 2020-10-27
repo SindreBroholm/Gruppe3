@@ -16,17 +16,27 @@ public class User {
     private String firstname;
     private String lastname;
     private String password;
+    private String passwordRepeat;
     private String phone_number;
 
     public User() {
     }
 
-    public User(String email, String firstname, String lastname, String password, String phone_number) {
+    public User(String email, String firstname, String lastname, String password, String phone_number, String passwordRepeat) {
         this.email = email;
         this.firstname = firstname;
         this.lastname = lastname;
         this.password = password;
         this.phone_number = phone_number;
+        this.passwordRepeat = passwordRepeat;
+    }
+
+    public String getPasswordRepeat() {
+        return passwordRepeat;
+    }
+
+    public void setPasswordRepeat(String passwordRepeat) {
+        this.passwordRepeat = passwordRepeat;
     }
 
     public Integer getId() {
@@ -76,4 +86,12 @@ public class User {
     public void setPhone_number(String number) {
         this.phone_number = number;
     }
+    public boolean isPasswordEqual() {
+        if (password.equals(passwordRepeat)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
+
