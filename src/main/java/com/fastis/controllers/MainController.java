@@ -58,12 +58,7 @@ public class MainController {
                     LDTH.addYear();
                     currentMonth = 1;
                 }
-                /*if (currentMonth > 12) {
-                    alterYear++;
-                    LDTH.setAlterYear(alterYear);
-                    LDTH.addYear();
-                    currentMonth = 1;
-                }*/
+
 
                 if (currentMonth == 0) {
                     alterYear++;
@@ -71,32 +66,22 @@ public class MainController {
                     LDTH.subtracktYear();
                     currentMonth = 12;
                 }
-                /*if (currentMonth < 1) {
-                    alterYear--;
-                    LDTH.setAlterYear(alterYear);
-                    LDTH.subtracktYear();
-                    currentMonth = 12;
-                }*/
             }
 
-            model.addAttribute("CM", currentMonth);
-
             User user = accessVerifier.currentUser(principal);
-
             List<Board> boardsList = accessVerifier.accessedBoard(principal);
             List<Event> boardEvents = new ArrayList<>();
             List<Event> filtedEvents = new ArrayList<>();
-
 
             for (Board b: boardsList) {
                 boardEvents = eventRepository.EventStreamOrderByMonth(b.getId(), LocalDateTime.now(), LDTH.getLastDayOfMonth(currentMonth));
                 filtedEvents.addAll(accessVerifier.filterEvents(boardEvents, accessVerifier.getUserRole(user, b).getMembershipType()));
             }
 
-
             filtedEvents.sort(Comparator.comparing(Event::getDatetime_from));
 
             String currentMonthHeader = LDTH.getCurrentMonth(currentMonth);
+            model.addAttribute("CM", currentMonth);
             model.addAttribute("currentMonthHeader", currentMonthHeader);
             model.addAttribute("eventList", filtedEvents);
             model.addAttribute("currentYear", LDTH.getYear());
