@@ -45,37 +45,43 @@ public class MainController {
     @GetMapping(value = {"/", "/{nextMonth}"})
     public String showAccessedBoards(Principal principal, Model model, @PathVariable(required = false) Integer nextMonth) {
         if (principal != null) {
-            int month = LocalDateTime.now().getMonth().getValue();
-            final int  currentDate = LocalDateTime.now().getMonth().getValue();
-            int plussyear = LDTH.getPlussyear();
-            int year = LDTH.getYear();
+            int currentMonth = LocalDateTime.now().getMonth().getValue();
+            final int  monthBlocker = LocalDateTime.now().getMonth().getValue();
+            int alterYear = 0;
 
             if (nextMonth != null){
-                month = nextMonth;
+                currentMonth = nextMonth;
 
-                if (month > 12) {
-                    plussyear++;
-                    year++;
-                    LDTH.setPlussyear(plussyear);
-                    LDTH.setYear(year);
-                    month = 1;
+                if (currentMonth == 13) {
+                    alterYear++;
+                    LDTH.setAlterYear(alterYear);
+                    LDTH.addYear();
+                    currentMonth = 1;
                 }
+                /*if (currentMonth > 12) {
+                    alterYear++;
+                    LDTH.setAlterYear(alterYear);
+                    LDTH.addYear();
+                    currentMonth = 1;
+                }*/
 
-
-                if (month < 1) {
-                    plussyear--;
-                    year--;
-                    LDTH.setPlussyear(plussyear);
-                    LDTH.setYear(year);
-                    month = 12;
+                if (currentMonth == 0) {
+                    alterYear++;
+                    LDTH.setAlterYear(alterYear);
+                    LDTH.subtracktYear();
+                    currentMonth = 12;
                 }
+                /*if (currentMonth < 1) {
+                    alterYear--;
+                    LDTH.setAlterYear(alterYear);
+                    LDTH.subtracktYear();
+                    currentMonth = 12;
+                }*/
             }
-            LocalDateTime firstDayOfCurrentMonth = LDTH.getMonth(month, plussyear);
-            LocalDateTime lastDayOfMonth = LDTH.getLastDayOfMonth(month, plussyear);
-            model.addAttribute("CM", month);
+
+            model.addAttribute("CM", currentMonth);
 
             User user = accessVerifier.currentUser(principal);
-            LocalDateTime today = LocalDateTime.now();
 
             List<Board> boardsList = accessVerifier.accessedBoard(principal);
             List<Event> boardEvents = new ArrayList<>();
@@ -83,19 +89,19 @@ public class MainController {
 
 
             for (Board b: boardsList) {
-                boardEvents = eventRepository.EventStreamOrderByMonth(b.getId(), today, lastDayOfMonth);
+                boardEvents = eventRepository.EventStreamOrderByMonth(b.getId(), LocalDateTime.now(), LDTH.getLastDayOfMonth(currentMonth));
                 filtedEvents.addAll(accessVerifier.filterEvents(boardEvents, accessVerifier.getUserRole(user, b).getMembershipType()));
             }
 
 
             filtedEvents.sort(Comparator.comparing(Event::getDatetime_from));
 
-            String currentMonth = LDTH.getCurrentMonth(month);
-            model.addAttribute("month", currentMonth);
+            String currentMonthHeader = LDTH.getCurrentMonth(currentMonth);
+            model.addAttribute("currentMonthHeader", currentMonthHeader);
             model.addAttribute("eventList", filtedEvents);
-            model.addAttribute("currentYear", year);
-            model.addAttribute("MonthNav", firstDayOfCurrentMonth);
-            model.addAttribute("BlockMonthNav", LDTH.getMonth(currentDate, 0));
+            model.addAttribute("currentYear", LDTH.getYear());
+            model.addAttribute("MonthNav", LDTH.getFirstDayOfMonth(currentMonth));
+            model.addAttribute("BlockMonthNav", LDTH.getFirstDayOfMonth(monthBlocker));
 
             return "home";
         }

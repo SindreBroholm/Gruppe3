@@ -19,7 +19,7 @@
             <a th:if="${MonthNav != BlockMonthNav}" th:href="@{'/'+ ${CM-1}}" id="prevButton"><</a>
         </div>
         <div class="showMonth">
-            <h3 th:text="${month}"></h3>
+            <h3 th:text="${currentMonthHeader}"></h3>
             <p th:text="${currentYear}"></p>
         </div>
         <a th:href="@{'/'+ ${CM+1}}" id="nextButton">></a>

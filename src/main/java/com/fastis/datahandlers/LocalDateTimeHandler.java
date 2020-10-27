@@ -8,17 +8,22 @@ import java.util.List;
 @Service
 public class LocalDateTimeHandler {
 
-
-    private int plussyear = 0;
-    private int year = 2020;
-
-
-    public int getPlussyear() {
-        return plussyear;
+    public int getAlterYear() {
+        return alterYear;
     }
 
-    public void setPlussyear(int plussyear) {
-        this.plussyear = plussyear;
+    public void setAlterYear(int alterYear) {
+        this.alterYear = alterYear;
+    }
+
+    private int alterYear = 0;
+    private int year = LocalDateTime.now().getYear();
+
+    public void addYear(){
+        year = year + alterYear;
+    }
+    public void subtracktYear(){
+        year = year - alterYear;
     }
 
     public int getYear() {
@@ -30,8 +35,7 @@ public class LocalDateTimeHandler {
     }
 
 
-    public LocalDateTime getMonth(int month, int plussyear) {
-        year += plussyear;
+    public LocalDateTime getFirstDayOfMonth(int month) {
         switch (month) {
             case 1:
                 String jan = year +"-01-01T00:00:00";
@@ -75,8 +79,7 @@ public class LocalDateTimeHandler {
         }
     }
 
-    public LocalDateTime getLastDayOfMonth(int month, int plussyear) {
-        year += plussyear;
+    public LocalDateTime getLastDayOfMonth(int month ) {
         int daysInFeb = 28;
         if (year % 4 == 0){
             daysInFeb = 29;
