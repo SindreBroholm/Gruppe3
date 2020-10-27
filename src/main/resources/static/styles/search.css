@@ -63,7 +63,7 @@ input{
     text-decoration: none;
     background-color: #606060;
     background-color: rgb(17, 156, 133);
-    border: 1px solid #606060;
+    border: 1px solid rgb(17, 156, 133);
     border-radius: 30px;
     padding: 10px 30px;
     transition: all 1s;
