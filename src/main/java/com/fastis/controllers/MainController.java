@@ -46,7 +46,7 @@ public class MainController {
     public String showAccessedBoards(Principal principal, Model model, @PathVariable(required = false) Integer nextMonth) {
         if (principal != null) {
             int currentMonth = LocalDateTime.now().getMonth().getValue();
-            final int  monthBlocker = LocalDateTime.now().getMonth().getValue();
+            final LocalDateTime monthBlocker = LocalDateTime.now();
             int alterYear = 0;
 
             if (nextMonth != null){
@@ -86,7 +86,7 @@ public class MainController {
             model.addAttribute("eventList", filtedEvents);
             model.addAttribute("currentYear", LDTH.getYear());
             model.addAttribute("MonthNav", LDTH.getFirstDayOfMonth(currentMonth));
-            model.addAttribute("BlockMonthNav", LDTH.getFirstDayOfMonth(monthBlocker));
+            model.addAttribute("BlockMonthNav", monthBlocker);
 
             return "home";
         }
