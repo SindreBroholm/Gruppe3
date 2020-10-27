@@ -48,6 +48,10 @@ main {
     align-items: center;
     text-align: center;
 }
+.enddate {
+    color: darkorange;
+    font-style: italic;
+}
 
 #prevButton {
     grid-area: prev;

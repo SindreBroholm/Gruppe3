@@ -38,7 +38,7 @@
                 <span> to </span>
                 <span th:if="${events.datetime_to.dayOfMonth+'/'+ events.datetime_to.getMonthValue() == events.datetime_from.dayOfMonth+'/'+ events.datetime_from.getMonthValue()}"
                       th:text="${events.datetime_to.getHour()+':'+events.datetime_to.getMinute()}"></span>
-                <span th:if="${events.datetime_to.dayOfMonth+'/'+ events.datetime_to.getMonthValue() != events.datetime_from.dayOfMonth+'/'+ events.datetime_from.getMonthValue()}"
+                <span class="enddate" th:if="${events.datetime_to.dayOfMonth+'/'+ events.datetime_to.getMonthValue() != events.datetime_from.dayOfMonth+'/'+ events.datetime_from.getMonthValue()}"
                       th:text="${events.datetime_to.dayOfMonth+'/'+ events.datetime_to.getMonthValue()+' '+events.datetime_to.getHour()+':'+events.datetime_to.getMinute()}"></span>
             </div>
             </div>
