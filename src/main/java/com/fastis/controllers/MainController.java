@@ -46,7 +46,7 @@ public class MainController {
     public String showAccessedBoards(Principal principal, Model model, @PathVariable(required = false) Integer nextMonth) {
         if (principal != null) {
             int month = LocalDateTime.now().getMonth().getValue();
-            int currentDate = LocalDateTime.now().getMonth().getValue();
+            final int  currentDate = LocalDateTime.now().getMonth().getValue();
             int plussyear = LDTH.getPlussyear();
             int year = LDTH.getYear();
 
@@ -55,8 +55,8 @@ public class MainController {
 
                 if (month > 12) {
                     plussyear++;
-                    LDTH.setPlussyear(plussyear);
                     year++;
+                    LDTH.setPlussyear(plussyear);
                     LDTH.setYear(year);
                     month = 1;
                 }
@@ -64,14 +64,14 @@ public class MainController {
 
                 if (month < 1) {
                     plussyear--;
-                    LDTH.setPlussyear(plussyear);
                     year--;
+                    LDTH.setPlussyear(plussyear);
                     LDTH.setYear(year);
                     month = 12;
                 }
             }
             LocalDateTime firstDayOfCurrentMonth = LDTH.getMonth(month, plussyear);
-            LocalDateTime firstDayOfCNextMonth = LDTH.getLastDayOfMonth(month, plussyear);
+            LocalDateTime lastDayOfMonth = LDTH.getLastDayOfMonth(month, plussyear);
             model.addAttribute("CM", month);
 
             User user = accessVerifier.currentUser(principal);
@@ -83,7 +83,7 @@ public class MainController {
 
 
             for (Board b: boardsList) {
-                boardEvents = eventRepository.EventStreamOrderByMonth(b.getId(), today, firstDayOfCNextMonth);
+                boardEvents = eventRepository.EventStreamOrderByMonth(b.getId(), today, lastDayOfMonth);
                 filtedEvents.addAll(accessVerifier.filterEvents(boardEvents, accessVerifier.getUserRole(user, b).getMembershipType()));
             }
 

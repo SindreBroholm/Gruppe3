@@ -30,6 +30,8 @@ insert into events(Board_Id, Message, Datetime_From, Datetime_To, Datetime_Creat
 
 select * from events e
 join user_role ur on e.Board_Id = ur.Board_Id
-where ur.User_Id = 1 and e.Datetime_To > '2020-11-01 00:00:00' and e.Datetime_From < '2020-12-01 00:00:00'
-and e.Datetime_From > '2020-10-21 00:00:00'
+where ur.User_Id = 1
+  and e.Datetime_To > '2020-12-01 00:00:00'
+  and e.Datetime_From < '2020-12-01 00:00:00'
+  and e.Datetime_From > '2020-10-27 00:00:00'
 order by e.Datetime_From;
