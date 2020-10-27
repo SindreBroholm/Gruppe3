@@ -50,6 +50,7 @@ main {
 }
 .enddate {
     font-style: italic;
+    color: #FBB03B;
 }
 
 #prevButton {
