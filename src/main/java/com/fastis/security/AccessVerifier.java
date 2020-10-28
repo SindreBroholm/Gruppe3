@@ -103,12 +103,14 @@ public class AccessVerifier {
                     fileteredList.add(event);
                 }
             }
+            return fileteredList;
         } else if (accessType == MembershipType.MEMBER){
             for (Event event : listOfEvents){
-                if (event.getEvent_type() != MembershipType.ADMIN || event.getEvent_type() != MembershipType.LEADER){
+                if (event.getEvent_type() == MembershipType.MEMBER || event.getEvent_type() == MembershipType.FOLLOWER){
                     fileteredList.add(event);
                 }
             }
+            return fileteredList;
         }
 
         for (Event event: listOfEvents){
