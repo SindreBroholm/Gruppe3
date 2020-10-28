@@ -6,6 +6,7 @@ create table fastis.user(
     Firstname varchar(100) not null,
     Lastname varchar(100) not null,
     Password varchar(300) not null,
+    password_repeat varchar(300) not null,
     Phone_Number varchar(15),
     primary key (Id)
 );

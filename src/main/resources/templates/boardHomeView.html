@@ -70,13 +70,15 @@
 
 
 				<p id="eventMessage">
-					<span th:text="${event.location}"></span>
+					<span th:text="${event.location}"></span><br>
 					<span th:text="${event.datetime_from.getHour()+':'+event.datetime_from.getMinute()}"></span>
 					<span> to </span>
 					<span th:if="${event.datetime_to.dayOfMonth+'/'+ event.datetime_to.getMonthValue() == event.datetime_from.dayOfMonth+'/'+ event.datetime_from.getMonthValue()}"
 						  th:text="${event.datetime_to.getHour()+':'+event.datetime_to.getMinute()}"></span>
+					<span class="colordate" th:if="${event.datetime_to.dayOfMonth+'/'+ event.datetime_to.getMonthValue() != event.datetime_from.dayOfMonth+'/'+ event.datetime_from.getMonthValue()}"
+						  th:text="${event.datetime_to.dayOfMonth+'/'+ event.datetime_to.getMonthValue()+' '}"></span>
 					<span th:if="${event.datetime_to.dayOfMonth+'/'+ event.datetime_to.getMonthValue() != event.datetime_from.dayOfMonth+'/'+ event.datetime_from.getMonthValue()}"
-						  th:text="${event.datetime_to.dayOfMonth+'/'+ event.datetime_to.getMonthValue()+' '+event.datetime_to.getHour()+':'+event.datetime_to.getMinute()}"></span>
+						  th:text="${event.datetime_to.getHour()+':'+event.datetime_to.getMinute()}"></span>
 				</p></div></div>
 			<div class="eventdate">
 			    <i id ="datotagg" class="material-icons">bookmark</i>

@@ -33,13 +33,15 @@
             </li>
 
             <div id="eventMessage">
-                <span th:text="${events.location}"></span>
+                <span th:text="${events.location}"></span><br>
                 <span th:text="${events.datetime_from.getHour()+':'+events.datetime_from.getMinute()}"></span>
                 <span> to </span>
                 <span th:if="${events.datetime_to.dayOfMonth+'/'+ events.datetime_to.getMonthValue() == events.datetime_from.dayOfMonth+'/'+ events.datetime_from.getMonthValue()}"
                       th:text="${events.datetime_to.getHour()+':'+events.datetime_to.getMinute()}"></span>
                 <span class="enddate" th:if="${events.datetime_to.dayOfMonth+'/'+ events.datetime_to.getMonthValue() != events.datetime_from.dayOfMonth+'/'+ events.datetime_from.getMonthValue()}"
-                      th:text="${events.datetime_to.dayOfMonth+'/'+ events.datetime_to.getMonthValue()+' '+events.datetime_to.getHour()+':'+events.datetime_to.getMinute()}"></span>
+                      th:text="${events.datetime_to.dayOfMonth+'/'+ events.datetime_to.getMonthValue()+' '}"></span>
+                <span th:if="${events.datetime_to.dayOfMonth+'/'+ events.datetime_to.getMonthValue() != events.datetime_from.dayOfMonth+'/'+ events.datetime_from.getMonthValue()}"
+                      th:text="${events.datetime_to.getHour()+':'+events.datetime_to.getMinute()}"></span>
             </div>
             </div>
         </div>

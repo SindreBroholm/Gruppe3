@@ -180,6 +180,10 @@ a {
     margin: 10px;
     padding-right: 60px;
 }
+.colordate {
+    font-style: italic;
+    color: #FBB03B;
+}
 
 .border {
     border-bottom: 0.2px #6060602e solid;

@@ -227,38 +227,6 @@ public class InitController {
             String message = "this is a message1 about an event";
             LocalDateTime start = today;
             LocalDateTime end = today;
-           /* Event event1 = new Event(board, message,
-                    start, start.plusDays(2),
-                    start, MembershipType.MEMBER,
-                    "Trondheim", "Oppvarming til Trønderferst!");
-
-            message = "this is a message2 about an event";
-            start = today.plusDays(1);
-            Event event2 = new Event(board, message,
-                    start, start.plusDays(2),
-                    start, MembershipType.MEMBER,
-                    "Trondheim", "Trønderferst!");
-
-            message = "this is a message3 about an event";
-            start = today.plusDays(7);
-            Event event3 = new Event(board, message,
-                    start, start,
-                    start, MembershipType.MEMBER,
-                    "Trondheim", "Trøndernach!");
-
-            message = "this is a message4 about an event";
-            start = today.plusDays(14);
-            Event event4 = new Event(board, message,
-                    start, start.plusDays(2),
-                    start, MembershipType.FOLLOWER,
-                    "Trondheim", "Opprydding!");
-
-            message = "this is a message5 about an event";
-            start = today.plusDays(21);
-            Event event5 = new Event(board, message,
-                    start, start,
-                    start, MembershipType.FOLLOWER,
-                    "Trondheim", "Follower fest!");*/
 
             Faker faker = new Faker();
 
