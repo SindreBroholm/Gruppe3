@@ -72,18 +72,36 @@ public class MainController {
             List<Board> boardsList = accessVerifier.accessedBoard(principal);
             List<Event> boardEvents = new ArrayList<>();
             List<Event> filtedEvents = new ArrayList<>();
+            List<Event> pagineringEvents = new ArrayList<>();
 
             for (Board b: boardsList) {
-                boardEvents = eventRepository.EventStreamOrderByMonth(b.getId(), LocalDateTime.now(), LDTH.getLastDayOfMonth(currentMonth));
+                boardEvents = eventRepository.EventStreamOrderByMonth(b.getId(), LocalDateTime.now());
                 filtedEvents.addAll(accessVerifier.filterEvents(boardEvents, accessVerifier.getUserRole(user, b).getMembershipType()));
             }
 
-            filtedEvents.sort(Comparator.comparing(Event::getDatetime_from));
+
+            for (Event e : filtedEvents) {
+                if (e.getDatetime_from().isAfter(LocalDateTime.now())){
+                    if (e.getDatetime_from().isBefore(LDTH.getLastDayOfMonth(currentMonth))){
+                        if (e.getDatetime_from().isAfter(LDTH.getFirstDayOfMonth(currentMonth))){
+                            pagineringEvents.add(e);
+                        } else if (e.getDatetime_to().isAfter(LDTH.getFirstDayOfMonth(currentMonth))){
+                            pagineringEvents.add(e);
+                        }
+                    }
+                } else if (e.getDatetime_to().isAfter(LocalDateTime.now())){
+                    if (e.getDatetime_from().isBefore(LDTH.getFirstDayOfMonth(currentMonth))){
+                        pagineringEvents.add(e);
+                    }
+                }
+            }
+
+            pagineringEvents.sort(Comparator.comparing(Event::getDatetime_from));
 
             String currentMonthHeader = LDTH.getCurrentMonth(currentMonth);
             model.addAttribute("CM", currentMonth);
             model.addAttribute("currentMonthHeader", currentMonthHeader);
-            model.addAttribute("eventList", filtedEvents);
+            model.addAttribute("eventList", pagineringEvents);
             model.addAttribute("currentYear", LDTH.getYear());
             model.addAttribute("MonthNav", LDTH.getFirstDayOfMonth(currentMonth));
             model.addAttribute("BlockMonthNav", monthBlocker);
