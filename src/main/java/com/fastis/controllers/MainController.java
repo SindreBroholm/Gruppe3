@@ -81,16 +81,12 @@ public class MainController {
 
 
             for (Event e : filtedEvents) {
-                if (e.getDatetime_from().isAfter(LocalDateTime.now())){
+                if (e.getDatetime_from().isAfter(LDTH.getFirstDayOfMonth(currentMonth))){
                     if (e.getDatetime_from().isBefore(LDTH.getLastDayOfMonth(currentMonth))){
-                        if (e.getDatetime_from().isAfter(LDTH.getFirstDayOfMonth(currentMonth))){
-                            pagineringEvents.add(e);
-                        } else if (e.getDatetime_to().isAfter(LDTH.getFirstDayOfMonth(currentMonth))){
-                            pagineringEvents.add(e);
-                        }
+                        pagineringEvents.add(e);
                     }
-                } else if (e.getDatetime_to().isAfter(LocalDateTime.now())){
-                    if (e.getDatetime_from().isBefore(LDTH.getFirstDayOfMonth(currentMonth))){
+                } else if (e.getDatetime_to().isAfter(LDTH.getFirstDayOfMonth(currentMonth))){
+                    if (e.getDatetime_from().isBefore(LDTH.getLastDayOfMonth(currentMonth))){
                         pagineringEvents.add(e);
                     }
                 }
