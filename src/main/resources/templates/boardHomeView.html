@@ -11,7 +11,9 @@
 	<title th:text="${board.name}">homeBoard</title>
     </head>
     <body>
+	
 	<header th:insert="header_template :: header"></header>
+
 	<main class="flex-container">
 
 	    <div th:if="${admin}" id="optionsholder">
@@ -30,7 +32,7 @@
 			<h3><a th:href="@{'/members/' + ${boardId} + '/false'}">+Members</a></h3>
 		    </li>
 		    <li class="lievent board-form admin-button">
-			<div class="board-form" id="honbrenne">
+			<div class="board-form honbrenne">
 			    <a th:href="@{'/inviteByEmail/' + ${boardId}}" ><button class="board-button"><i class="material-icons">person</i></button></a>
 			    <a th:href="@{'/inviteByEmail/' + ${boardId}}"><label for="follow">+Invite To Follow</label></a>
 			</div>
@@ -51,11 +53,23 @@
 			</form>
 		    </li>
 
-		    <li th:if="${follower}"class="lievent">
+		    <li th:if="${follower && !member && !pendingMember}" class="lievent">
 			<form method="post" class="board-form" th:action="@{'/requestMembership/' + ${boardId} + '/' + ${userId}}">
 			    <button class="board-button"><i class="material-icons">person</i></button>
 			    <label for="follow">+Ask To Join As Member</label>
 			</form>
+					    </li>
+		    <li th:if="${follower && pendingMember}" class="lievent">
+			<div class="board-form honbrenne">
+			    <div class="board-button"><i class="material-icons">person</i></div>
+			    <a th:href="@{'/inviteByEmail/' + ${boardId}}"><label for="follow">Pending Membership</label></a>
+			</div>
+		    </li>
+		    <li th:if="${member && !pendingMember}" class="lievent">
+			<div class="board-form honbrenne">
+			    <div class="board-button"><i class="material-icons">person</i></div>
+			    <a th:href="@{'/inviteByEmail/' + ${boardId}}"><label for="follow">Member</label></a>
+			</div>
 		    </li>
 		</ul>
 	    </div>

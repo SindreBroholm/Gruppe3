@@ -61,6 +61,7 @@ public class BoardController {
         model.addAttribute("admin", false);
         model.addAttribute("follower", false);
         model.addAttribute("member", false);
+        model.addAttribute("pendingMember", false);
 
         MembershipType accesstype;
         List<Event> listOfEvents = new ArrayList<>();
@@ -75,6 +76,9 @@ public class BoardController {
                 }
                 if (accesstype == MembershipType.MEMBER) {
                     model.addAttribute("member", true);
+                }
+                if (accessVerifier.getUserRole(user, board).isPendingMember()){
+                    model.addAttribute("pendingMember", true);
                 }
                 model.addAttribute("follower", true);
                 listOfEvents = accessVerifier.eventsForBoard(board);
