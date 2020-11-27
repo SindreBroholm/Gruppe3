@@ -1,10 +1,14 @@
 package com.fastis.data;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -17,6 +21,7 @@ public class Board {
     private String name;
     @NotEmpty
     private String contactName;
+    @PositiveOrZero
     private String contactNumber;
     @NotEmpty
     private String contactEmail;

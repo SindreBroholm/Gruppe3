@@ -47,11 +47,10 @@
                 <div class="backbuttom form-actions">
                     <a th:href="@{/}" class="login btb hoverDiscover" id="my-button">Back</a>
                 </div>
-
-                <ul class="errorlist">
-                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
-                </ul>
             </form>
+            <ul class="errorlist">
+                <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+            </ul>
         </div>
     </section>
 </main>

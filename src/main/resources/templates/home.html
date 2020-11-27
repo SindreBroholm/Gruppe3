@@ -16,13 +16,13 @@
 <main>
     <div class="monthNav">
         <div>
-            <a th:if="${MonthNav >= BlockMonthNav}" th:href="@{'/'+ ${CM-1}}" id="prevButton"><</a>
+            <a th:if="${MonthNav >= BlockMonthNav}" th:href="@{'/'+ ${currentMonth-1}}" id="prevButton"><</a>
         </div>
         <div class="showMonth">
             <h3 th:text="${currentMonthHeader}"></h3>
             <p th:text="${currentYear}"></p>
         </div>
-        <a th:href="@{'/'+ ${CM+1}}" id="nextButton">></a>
+        <a th:href="@{'/'+ ${+1}}" id="nextButton">></a>
     </div>
     <ul class="events" th:each="events : ${eventList}">
 

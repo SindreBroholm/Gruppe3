@@ -144,6 +144,9 @@ main > section > .newUser > h3 {
 }
 .errorlist {
     grid-area: errorlist;
+    width: 100%;
+    border-radius: 3px;
+    padding: 3%;
 }
 
 .loginbuttom {
@@ -179,7 +182,7 @@ button, #my-button {
     border-radius: 30px;
     padding: 10px 30px;
     transition: all 1s;
-    font: 400 1em Roboto;
+    text-align: center;
 }
 
 #my-button {

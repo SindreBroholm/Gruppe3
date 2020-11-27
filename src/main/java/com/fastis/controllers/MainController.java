@@ -40,71 +40,82 @@ public class MainController {
 
     }
 
-
+/*
+*
+* HOME VIEW
+*
+* */
 
     @GetMapping(value = {"/", "/{nextMonth}"})
     public String showAccessedBoards(Principal principal, Model model, @PathVariable(required = false) Integer nextMonth) {
         if (principal != null) {
-            int currentMonth = LocalDateTime.now().getMonth().getValue();
-            final LocalDateTime monthBlocker = LocalDateTime.now();
-            int alterYear = 0;
+            int pagination = LocalDateTime.now().getMonth().getValue();
 
-            if (nextMonth != null){
-                currentMonth = nextMonth;
-
-                if (currentMonth == 13) {
-                    alterYear++;
-                    LDTH.setAlterYear(alterYear);
-                    LDTH.addYear();
-                    currentMonth = 1;
-                }
-
-
-                if (currentMonth == 0) {
-                    alterYear++;
-                    LDTH.setAlterYear(alterYear);
-                    LDTH.subtracktYear();
-                    currentMonth = 12;
-                }
-            }
-
+            pagination = alterPagination(nextMonth, pagination);
             User user = accessVerifier.currentUser(principal);
-            List<Board> boardsList = accessVerifier.accessedBoard(principal);
-            List<Event> boardEvents = new ArrayList<>();
-            List<Event> filtedEvents = new ArrayList<>();
-            List<Event> pagineringEvents = new ArrayList<>();
+            List<Board> allBoardsToUser = accessVerifier.accessedBoard(principal);
+            List<Event> filteredEvents = getAllEventsFilterdByAccessTypeFromAllBoards(user, allBoardsToUser);
+            List<Event> allEventsForCurrentMonth = getAllEventsForCurrentMonth(pagination, filteredEvents);
 
-            for (Board b: boardsList) {
-                boardEvents = eventRepository.EventStreamOrderByMonth(b.getId(), LocalDateTime.now());
-                filtedEvents.addAll(accessVerifier.filterEvents(boardEvents, accessVerifier.getUserRole(user, b).getMembershipType()));
-            }
-
-
-            for (Event e : filtedEvents) {
-                if (e.getDatetime_from().isAfter(LDTH.getFirstDayOfMonth(currentMonth))){
-                    if (e.getDatetime_from().isBefore(LDTH.getLastDayOfMonth(currentMonth))){
-                        pagineringEvents.add(e);
-                    }
-                } else if (e.getDatetime_to().isAfter(LDTH.getFirstDayOfMonth(currentMonth))){
-                    if (e.getDatetime_from().isBefore(LDTH.getLastDayOfMonth(currentMonth))){
-                        pagineringEvents.add(e);
-                    }
-                }
-            }
-
-            pagineringEvents.sort(Comparator.comparing(Event::getDatetime_from));
-
-            String currentMonthHeader = LDTH.getCurrentMonth(currentMonth);
-            model.addAttribute("CM", currentMonth);
-            model.addAttribute("currentMonthHeader", currentMonthHeader);
-            model.addAttribute("eventList", pagineringEvents);
+            model.addAttribute("currentMonth", pagination);
+            model.addAttribute("currentMonthHeader", LDTH.getCurrentMonth(pagination));
+            model.addAttribute("eventList", allEventsForCurrentMonth);
             model.addAttribute("currentYear", LDTH.getYear());
-            model.addAttribute("MonthNav", LDTH.getFirstDayOfMonth(currentMonth));
-            model.addAttribute("BlockMonthNav", monthBlocker);
+            model.addAttribute("MonthNav", LDTH.getFirstDayOfMonth(pagination));
+            model.addAttribute("BlockMonthNav", LocalDateTime.now());
 
             return "home";
         }
         return "redirect:/login";
+    }
+
+    private int alterPagination(Integer nextMonth, int currentMonth) {
+        int alterYear = 0;
+        if (nextMonth != null){
+            currentMonth = nextMonth;
+
+            if (currentMonth == 13) {
+                alterYear++;
+                LDTH.setAlterYear(alterYear);
+                LDTH.addYear();
+                currentMonth = 1;
+            }
+
+
+            if (currentMonth == 0) {
+                alterYear++;
+                LDTH.setAlterYear(alterYear);
+                LDTH.subtracktYear();
+                currentMonth = 12;
+            }
+        }
+        return currentMonth;
+    }
+
+    private List<Event> getAllEventsForCurrentMonth(int currentMonth, List<Event> filteredEvents) {
+        List<Event> allEventsForCurrentMonth = new ArrayList<>();
+        for (Event e : filteredEvents) {
+            if (e.getDatetime_from().isAfter(LDTH.getFirstDayOfMonth(currentMonth))){
+                if (e.getDatetime_from().isBefore(LDTH.getLastDayOfMonth(currentMonth))){
+                    allEventsForCurrentMonth.add(e);
+                }
+            } else if (e.getDatetime_to().isAfter(LDTH.getFirstDayOfMonth(currentMonth))){
+                if (e.getDatetime_from().isBefore(LDTH.getLastDayOfMonth(currentMonth))){
+                    allEventsForCurrentMonth.add(e);
+                }
+            }
+        }
+        allEventsForCurrentMonth.sort(Comparator.comparing(Event::getDatetime_from));
+        return allEventsForCurrentMonth;
+    }
+
+    private List<Event> getAllEventsFilterdByAccessTypeFromAllBoards(User user, List<Board> allBoardsToUser) {
+        List<Event> allFilteredUsersEvents = new ArrayList<>();
+        for (Board b: allBoardsToUser) {
+            List<Event> allUsersEvents = eventRepository.EventStreamOrderByMonth(b.getId(), LocalDateTime.now());
+            allFilteredUsersEvents.addAll(accessVerifier.filterEvents(allUsersEvents, accessVerifier.getUserRole(user, b).getMembershipType()));
+        }
+        return allFilteredUsersEvents;
     }
 
     @GetMapping("/userHomeView")

@@ -1,4 +1,4 @@
-package com.fastis.security;
+package com.fastis.validator;
 
 import com.fastis.data.User;
 import org.springframework.validation.Errors;

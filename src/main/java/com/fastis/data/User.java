@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.*;
 
 @Entity
 public class User {
@@ -12,11 +13,20 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Email
+    @NotBlank(message = "")
     private String email;
+    @Size(min = 2, max = 150)
     private String firstname;
+    @Size(min = 2, max = 150)
     private String lastname;
+    @Size(min = 6, max = 300)
+    @NotEmpty
     private String password;
+    @Size(min = 6, max = 300)
+    @NotEmpty
     private String passwordRepeat;
+
     private String phone_number;
 
     public User() {
@@ -86,6 +96,7 @@ public class User {
     public void setPhone_number(String number) {
         this.phone_number = number;
     }
+
     public boolean isPasswordEqual() {
         if (password.equals(passwordRepeat)) {
             return true;

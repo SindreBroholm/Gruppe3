@@ -4,7 +4,7 @@ import com.fastis.data.User;
 import com.fastis.repositories.BoardRepository;
 import com.fastis.repositories.UserRepository;
 import com.fastis.security.AccessVerifier;
-import com.fastis.security.UserValidator;
+import com.fastis.validator.UserValidator;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,7 +59,7 @@ public class UserHandlerController {
     }
 
     @PostMapping("/signup")
-    public String creatUser(@ModelAttribute User user, BindingResult br) {
+    public String creatUser(@ModelAttribute  User user, BindingResult br) {
         UserValidator validation = new UserValidator();
         if (validation.supports(user.getClass())) {
             validation.validate(user, br);
@@ -68,7 +68,7 @@ public class UserHandlerController {
             return "signup";
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.setPassword(passwordEncoder.encode(user.getPasswordRepeat()));
+            user.setPasswordRepeat(passwordEncoder.encode(user.getPasswordRepeat()));
             userRepository.save(user);
             return "login";
         }
@@ -79,22 +79,22 @@ public class UserHandlerController {
     //
 
     @GetMapping("/profile")
-    public String profile(Principal principal, Model model) {
+    public String showProfile(Principal principal, Model model) {
         User user = accessVerifier.currentUser(principal);
         model.addAttribute("user", user);
         return "profile";
     }
 
 
-    @GetMapping("/settings")
-    public String settings(Principal principal, Model model) {
+    @GetMapping("/editprofile")
+    public String editprofileGet(Principal principal, Model model) {
         User user = accessVerifier.currentUser(principal);
         model.addAttribute("user", user);
-        return "settingsprofile";
+        return "editprofile";
     }
 
-    @PostMapping("/settings")
-    public String swapcredientals(Principal principal, @ModelAttribute User user, Model model) {
+    @PostMapping("/editprofile")
+    public String editprofilePost(Principal principal, @ModelAttribute User user, Model model) {
 
 
         User currentUser = accessVerifier.currentUser(principal);

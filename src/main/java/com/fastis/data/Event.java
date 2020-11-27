@@ -3,6 +3,7 @@ package com.fastis.data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,10 +27,12 @@ public class Event {
     private String message;
 
     @NotNull
+    @FutureOrPresent(message = "The event must end in the present or future")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime datetime_from;
 
     @NotNull
+    @FutureOrPresent(message = "The event must end in the present or future")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime datetime_to;
 
