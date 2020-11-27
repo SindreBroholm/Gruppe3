@@ -94,6 +94,8 @@ a {
 }
 
 .board-button {
+    display: flex;
+    justify-content: center;
     background-color: white;
     border: none;
 }
@@ -114,7 +116,7 @@ a {
     font-weight: lighter;
 }
 
-#honbrenne {
+.honbrenne {
     display: flex;
     flex-flow: nowrap column;
     align-items: center;

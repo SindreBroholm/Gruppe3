@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -61,9 +62,11 @@ public class BoardController {
         model.addAttribute("admin", false);
         model.addAttribute("follower", false);
         model.addAttribute("member", false);
+        model.addAttribute("pendingMember", false);
 
         MembershipType accesstype;
         List<Event> listOfEvents = new ArrayList<>();
+        List<Event> filterTimesList = new ArrayList<>();
         if (principal != null) {
             User user = accessVerifier.currentUser(principal);
             model.addAttribute("userId", user.getId());
@@ -76,16 +79,26 @@ public class BoardController {
                 if (accesstype == MembershipType.MEMBER) {
                     model.addAttribute("member", true);
                 }
+                if (accessVerifier.getUserRole(user, board).isPendingMember()){
+                    model.addAttribute("pendingMember", true);
+                }
                 model.addAttribute("follower", true);
                 listOfEvents = accessVerifier.eventsForBoard(board);
                 listOfEvents = accessVerifier.filterEvents(listOfEvents, accesstype);
-                listOfEvents.sort(Comparator.comparing(Event::getDatetime_from));
+                for (Event e : listOfEvents){
+                    if(e.getDatetime_from().isAfter(LocalDateTime.now())){
+                        filterTimesList.add(e);
+                    } else if (e.getDatetime_to().isAfter(LocalDateTime.now())){
+                        filterTimesList.add(e);
+                    }
+                }
+                filterTimesList.sort(Comparator.comparing(Event::getDatetime_from));
             }
         } else {
             accesstype = MembershipType.FOLLOWER;
         }
 
-        model.addAttribute("events", listOfEvents);
+        model.addAttribute("events", filterTimesList);
 
         return "boardHomeView";
     }
